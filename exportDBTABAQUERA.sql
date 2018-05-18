@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - Thursday-May-10-2018   
+--  File created - Friday-May-18-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table ALMACEN
@@ -78,18 +78,6 @@
  NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Table MARCA
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MARCA" 
-   (	"IDMARCA" NUMBER(*,0), 
-	"NOMBREM" VARCHAR2(20 BYTE), 
-	"IDFABRICANTE" NUMBER(*,0)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Table PEDIDO
 --------------------------------------------------------
 
@@ -125,8 +113,6 @@ SET DEFINE OFF;
 REM INSERTING into LANA.FABRICANTE
 SET DEFINE OFF;
 REM INSERTING into LANA.LOCAL_TB
-SET DEFINE OFF;
-REM INSERTING into LANA.MARCA
 SET DEFINE OFF;
 REM INSERTING into LANA.PEDIDO
 SET DEFINE OFF;
@@ -175,13 +161,6 @@ SET DEFINE OFF;
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index TABLE1_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."TABLE1_PK" ON "LANA"."MARCA" ("IDMARCA") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index ALMACEN_PK
 --------------------------------------------------------
 
@@ -196,11 +175,124 @@ SET DEFINE OFF;
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
+--  DDL for Procedure DELETEALMACEN
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETEALMACEN" 
+/*borra un almacen de acuerdo al IDALMACEN recibido*/
+ (idalmacen_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM ALMACEN
+    WHERE ALMACEN.IDALMACEN = idalmacen_p;
+ END deleteAlmacen;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETECIGARRILLO
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETECIGARRILLO" 
+/*borra un cigarrillo de acuerdo al IDCIGARRILLO recibido*/
+ (idcigarrillo_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM CIGARRILLO
+    WHERE CIGARRILLO.IDCIGARRILLO = idcigarrillo_p;
+ END deleteCigarrillo;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETECOMPRA
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETECOMPRA" 
+/*borra una compra de acuerdo al NUMCOMPRA recibido*/
+ (numcompra_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM COMPRA
+    WHERE COMPRA.NUMCOMPRA = numcompra_p;
+ END deleteCompra;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETEESTANCO
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETEESTANCO" 
+/*borra un estanco de acuerdo al NUMEXP recibido*/
+ (numexp_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM ESTANCO
+    WHERE ESTANCO.NUMEXP = numexp_p;
+ END deleteEstanco;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETEFABRICANTE
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETEFABRICANTE" 
+/*borra un fabricante de acuerdo al IDFABRICANTE recibido*/
+ (idfabricante_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM FABRICANTE
+    WHERE FABRICANTE.IDFABRICANTE = idfabricante_p;
+ END deleteFabricante;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETELOCALTB
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETELOCALTB" 
+/*borra un local de acuerdo al NUMLOCALIDAD recibido*/
+ (numlocal_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM LOCAL_TB
+    WHERE LOCAL_TB.NUMLOCALIDAD = numlocal_p;
+ END deleteLocalTB;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETEPEDIDO
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETEPEDIDO" 
+/*borra un pedido de acuerdo al IDPEDIDO recibido*/
+ (idpedido_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM PEDIDO
+    WHERE PEDIDO.IDPEDIDO = idpedido_p;
+ END deletePedido;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure DELETEVENTA
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETEVENTA" 
+/*borra una venta de acuerdo al NUMVENTA recibido*/
+ (numventa_p IN NUMBER) AS
+ BEGIN
+    DELETE FROM VENTA
+    WHERE VENTA.NUMVENTA = numventa_p;
+ END deleteVenta;
+
+/
+--------------------------------------------------------
 --  DDL for Procedure INSERTCIGARRILLO
 --------------------------------------------------------
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTCIGARRILLO" 
+/*insert cigarrillo*/
  (contaminante_p IN NUMBER, filtro_p IN NUMBER, hoja_p IN NUMBER, idmarca_p IN NUMBER) AS
     lastCigarrilloId NUMBER;
  BEGIN
@@ -219,6 +311,7 @@ set define off;
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTCOMPRA" 
+/*insert compra*/
  (fechac_p IN DATE, preciocompra_p IN FLOAT, cantidad_p IN NUMBER, idalmacen_p IN NUMBER) AS
     lastCompraId NUMBER;
  BEGIN
@@ -237,6 +330,7 @@ set define off;
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTESTANCO" 
+/*insert estanco*/
  (numfiscal_p IN NUMBER, nombre_p IN VARCHAR2) AS
     lastEstancoId NUMBER;
  BEGIN
@@ -264,6 +358,7 @@ set define off;
     WHERE IDFABRICANTE = (select max(IDFABRICANTE) from FABRICANTE);
     INSERT INTO FABRICANTE(IDFABRICANTE, NOMBRE, PAIS) VALUES(lastFabricanteId + 1, nombre_p, pais_p);
  END insertFabricante;
+ /*insert fabricante*/
 
 /
 --------------------------------------------------------
@@ -272,6 +367,7 @@ set define off;
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTLOCALTB" 
+/*insertar un nuevo local, se llama Local_TB y LocalTB por ser 'local' una palabra reservada*/
  (numexp_p IN NUMBER, local_p IN VARCHAR2) AS
     lastNumLocalidad NUMBER;
  BEGIN
@@ -284,28 +380,12 @@ set define off;
 
 /
 --------------------------------------------------------
---  DDL for Procedure INSERTMARCA
---------------------------------------------------------
-set define off;
-
-  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTMARCA" 
- (idFabricante_p IN NUMBER, nombreM_p IN VARCHAR2) AS
-    lastMarcaId NUMBER;
- BEGIN
-    SELECT IDMARCA
-    INTO lastMarcaID
-    FROM MARCA
-    WHERE IDMARCA = (select max(IDMARCA) from MARCA);
-    INSERT INTO MARCA(IDMARCA, NOMBREM, IDFABRICANTE) VALUES(lastMarcaID + 1, nombreM_p, idFabricante_p);
- END insertMarca;
-
-/
---------------------------------------------------------
 --  DDL for Procedure INSERTPEDIDO
 --------------------------------------------------------
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTPEDIDO" 
+/*inserta un nuevo pedido*/
  (idalmacenp IN NUMBER, numexpp IN NUMBER, cantidadp IN NUMBER) AS
     lastPedidoId NUMBER;
  BEGIN
@@ -323,6 +403,7 @@ set define off;
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTVENTA" 
+/*inserta una nueva venta*/
  (numexpp IN NUMBER, idalmacenp IN NUMBER) AS
     lastVentaId NUMBER;
  BEGIN
@@ -346,17 +427,17 @@ cantidad (primer parametro de procedimiento), eliminando todas estas marcas en e
 cuyo NIF constituye el segundo parámetro del procedimiento.*/
 
  (amountp IN NUMBER, numestp IN NUMBER) AS
-    marcaIdp MARCA.IDMARCA%TYPE;
+    marcaIdp CIGARRILLO.IDMARCA%TYPE;
     CURSOR ventas_menores IS
-        SELECT m.IDMARCA
-        FROM MARCA m
-        INNER JOIN CIGARRILLO cig
-        ON m.IDMARCA = cig.IDMARCA
+        SELECT cig.IDMARCA
+        FROM CIGARRILLO cig
         INNER JOIN ALMACEN alm
         ON cig.IDCIGARRILLO = alm.IDCIGARRILLO
-        INNER JOIN COMPRA purchase
-        ON alm.IDALMACEN = purchase.IDALMACEN
-        WHERE purchase.CANTIDAD < amountp;
+        INNER JOIN PEDIDO orderp
+        ON alm.IDALMACEN = orderp.IDALMACEN
+        INNER JOIN ESTANCO est
+        ON orderp.NUMEXP = est.NUMEXP
+        WHERE (orderp.CANTIDAD < amountp) AND (est.NUMFISCAL = numestp);
 
         a_comment VARCHAR2(200) :='deleted: ';
  BEGIN
@@ -364,6 +445,8 @@ cuyo NIF constituye el segundo parámetro del procedimiento.*/
     LOOP
         FETCH ventas_menores INTO marcaIdp;
         EXIT WHEN ventas_menores%NOTFOUND;
+        DELETE FROM ALMACEN
+        WHERE marcaIdp = IDALMACEN;
         DBMS_OUTPUT.PUT_LINE(a_comment || amountp);
     END LOOP;
  END procVentas_Menores;
@@ -410,14 +493,6 @@ cuyo NIF constituye el segundo parámetro del procedimiento.*/
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS"  ENABLE;
 --------------------------------------------------------
---  Constraints for Table MARCA
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MARCA" MODIFY ("IDMARCA" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MARCA" ADD CONSTRAINT "TABLE1_PK" PRIMARY KEY ("IDMARCA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
 --  Constraints for Table FABRICANTE
 --------------------------------------------------------
 
@@ -447,12 +522,6 @@ cuyo NIF constituye el segundo parámetro del procedimiento.*/
 
   ALTER TABLE "LANA"."ALMACEN" ADD CONSTRAINT "FK_IDCIGARRILLO" FOREIGN KEY ("IDCIGARRILLO")
 	  REFERENCES "LANA"."CIGARRILLO" ("IDCIGARRILLO") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table CIGARRILLO
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."CIGARRILLO" ADD CONSTRAINT "FK_IDMARCA" FOREIGN KEY ("IDMARCA")
-	  REFERENCES "LANA"."MARCA" ("IDMARCA") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table LOCAL_TB
 --------------------------------------------------------
