@@ -1,5 +1,6 @@
 package Conexion;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -53,7 +54,23 @@ public class  Conexion {
             for (int i = 0; i < meta.length - 2; i++) {
                 st.setString(i + 1, meta[i + 2]);
             }
-            //st.execute();
+            st.execute();
+        } catch (Exception ex) {
+        }
+        this.close();
+    }
+    
+    public void insertPro(String entidad){
+        this.connect();
+        String[] meta = entidad.split("/");
+        String key = "";
+        for (int i = 2; i < meta.length; i++) {
+            key += meta[i] + ",";
+        }
+        key = key.substring(0, key.length() - 1);
+        try {
+            CallableStatement cstmt = connect.prepareCall("{call INSERT" + meta[0].toUpperCase() + "(" + key + ")}");
+            cstmt.execute();
         } catch (Exception ex) {
         }
         this.close();
@@ -80,19 +97,42 @@ public class  Conexion {
             for (int i = 0; i < meta.length - 2; i++) {
                 st.setString(i + 1, meta[i + 2]);
             }
-            //st.execute();
+            st.execute();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         this.close();
     }
     
+    public void updatePro(String entidad){
+        this.connect();
+        String[] meta = entidad.split("/");
+        String key = "";
+        for (int i = 2; i < meta.length; i++) {
+            key += meta[i] + ",";
+        }
+        key = key.substring(0, key.length() - 1);
+        try {
+            CallableStatement cstmt = connect.prepareCall("{call UPDATE" + meta[0].toUpperCase() + "(" + key + ")}");
+            cstmt.execute();
+        } catch (Exception ex) {
+        }
+        this.close();
+    }
+    
     /**
      * Metodo para eliminar una tupla.
+     * @param entidad
      * @param id
     */
-    public void delete(String id){
-        
+    public void deletePro(String entidad, String id){
+        this.connect();
+        try {
+            CallableStatement cstmt = connect.prepareCall("{call DELETE" + entidad.toUpperCase() + "(" + id + ")}");
+            cstmt.execute();
+        } catch (Exception ex) {
+        }
+        this.close();
     }
     
     /**

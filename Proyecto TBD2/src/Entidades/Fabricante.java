@@ -41,6 +41,6 @@ public class Fabricante {
 
     @Override
     public String toString() {
-        return idFabricante + "/" + nombreF + "/" + pais;
+        return "Fabricante/idFabricante,nombreF,pais/" + idFabricante + "/" + nombreF + "/" + pais;
     }
 }

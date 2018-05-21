@@ -7,13 +7,15 @@ package Entidades;
 public class Compra {
     private int numCompra;
     private int idAlmacen;
+    private int numFiscal;
     private double precioCompra;
     private int cantidad;
     private String fecha;
 
-    public Compra(int numCompra, int idAlmacen, double precioCompra, int cantidad, String fecha) {
+    public Compra(int numCompra, int idAlmacen, int numFiscal, double precioCompra, int cantidad, String fecha) {
         this.numCompra = numCompra;
         this.idAlmacen = idAlmacen;
+        this.numFiscal = numFiscal;
         this.precioCompra = precioCompra;
         this.cantidad = cantidad;
         this.fecha = fecha;
@@ -35,6 +37,14 @@ public class Compra {
         this.idAlmacen = idAlmacen;
     }
 
+    public int getNumFiscal() {
+        return numFiscal;
+    }
+
+    public void setNumFiscal(int numFiscal) {
+        this.numFiscal = numFiscal;
+    }
+    
     public double getPrecioCompra() {
         return precioCompra;
     }
@@ -61,6 +71,6 @@ public class Compra {
 
     @Override
     public String toString() {
-        return numCompra + "/" + idAlmacen + "/" + precioCompra + "/" + cantidad + "/" + fecha;
+        return "Compra/numCompra,idAlmacen,precioCompra,cantidad,fecha/" + numCompra + "/" + idAlmacen + "/" + numFiscal + "/" + precioCompra + "/" + cantidad + "/" + fecha;
     }
 }

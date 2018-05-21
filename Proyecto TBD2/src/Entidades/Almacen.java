@@ -8,11 +8,13 @@ public class Almacen {
     private int idAlmacen;
     private int idCigarrillo;
     private int existencia;
+    private int numExp;
 
-    public Almacen(int idAlmacen, int idCigarrillo, int existencia) {
+    public Almacen(int idAlmacen, int idCigarrillo, int existencia, int numExp) {
         this.idAlmacen = idAlmacen;
         this.idCigarrillo = idCigarrillo;
         this.existencia = existencia;
+        this.numExp = numExp;
     }
 
     public int getIdAlmacen() {
@@ -39,8 +41,17 @@ public class Almacen {
         this.existencia = existencia;
     }
 
+    public int getNumExp() {
+        return numExp;
+    }
+
+    public void setNumExp(int numExp) {
+        this.numExp = numExp;
+    }
+    
     @Override
     public String toString() {
-        return "Almacen/idAlmacen,idCigarrillo,existencia/" + idAlmacen + "/" + idCigarrillo + "/" + existencia;
+        return "Almacen/idAlmacen,idCigarrillo,existencia/numExp" +
+                idAlmacen + "/" + idCigarrillo + "/" + existencia + "/" + numExp;
     }
 }
