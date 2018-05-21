@@ -8,11 +8,13 @@ public class Estanco {
     private int numExp;
     private int numFiscal;
     private String nombre;
+    private String local;
 
-    public Estanco(int numExp, int numFiscal, String nombre) {
+    public Estanco(int numExp, int numFiscal, String nombre, String local) {
         this.numExp = numExp;
         this.numFiscal = numFiscal;
         this.nombre = nombre;
+        this.local = local;
     }
 
     public int getNumExp() {
@@ -39,8 +41,16 @@ public class Estanco {
         this.nombre = nombre;
     }
 
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+    
     @Override
     public String toString() {
-        return numExp + "/" + numFiscal + "/" + nombre;
+        return "Estanco/numExp,numFiscal,nombre,local/" + numExp + "/" + numFiscal + "/" + nombre + "/" + local;
     }
 }

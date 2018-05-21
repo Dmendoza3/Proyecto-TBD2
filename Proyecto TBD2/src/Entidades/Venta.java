@@ -6,13 +6,19 @@ package Entidades;
  */
 public class Venta {
     private int numVenta;
-    private int numExp;
-    private int idAlmacen;
+    private int numFiscal;
+    private int idCigarrillo;
+    private double precioVenta;
+    private int cantidad;
+    private String fecha;
 
-    public Venta(int numVenta, int numExp, int idAlmacen) {
+    public Venta(int numVenta, int numFiscal, int idCigarrillo, double precioVenta, int cantidad, String fecha) {
         this.numVenta = numVenta;
-        this.numExp = numExp;
-        this.idAlmacen = idAlmacen;
+        this.numFiscal = numFiscal;
+        this.idCigarrillo = idCigarrillo;
+        this.precioVenta = precioVenta;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
     }
 
     public int getNumVenta() {
@@ -23,24 +29,51 @@ public class Venta {
         this.numVenta = numVenta;
     }
 
-    public int getNumExp() {
-        return numExp;
+    public int getNumFiscal() {
+        return numFiscal;
     }
 
-    public void setNumExp(int numExp) {
-        this.numExp = numExp;
+    public void setNumFiscal(int numFiscal) {
+        this.numFiscal = numFiscal;
     }
 
-    public int getIdAlmacen() {
-        return idAlmacen;
+    public int getIdCigarrillo() {
+        return idCigarrillo;
     }
 
-    public void setIdAlmacen(int idAlmacen) {
-        this.idAlmacen = idAlmacen;
+    public void setIdCigarrillo(int idCigarrillo) {
+        this.idCigarrillo = idCigarrillo;
     }
 
+    public double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(double precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
     @Override
     public String toString() {
-        return numVenta + "/" + numExp + "/" + idAlmacen;
+        
+        
+        return "Ventas/numVenta,numFiscal,idCigarrillo,precioVenta,cantidad,fecha/" + 
+                numVenta + "/" + numFiscal + "/" + idCigarrillo + "/" + precioVenta + "/" + cantidad + "/" + fecha;
     }
 }

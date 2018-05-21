@@ -128,7 +128,7 @@ public class  Conexion {
     public void deletePro(String entidad, String id){
         this.connect();
         try {
-            CallableStatement cstmt = connect.prepareCall("{call DELETE" + entidad + "(" + id + ")}");
+            CallableStatement cstmt = connect.prepareCall("{call DELETE" + entidad.toUpperCase() + "(" + id + ")}");
             cstmt.execute();
         } catch (Exception ex) {
         }

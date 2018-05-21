@@ -6,15 +6,15 @@ package Entidades;
  */
 public class Cigarrillo {
     private int idCigarrillo;
-    private int idMarca;
+    private String marca;
     private int contaminante;
     private boolean filtro;
     private boolean mentolado;
     private boolean hoja;
 
-    public Cigarrillo(int idCigarrillo, int idMarca, int contaminante, boolean filtro, boolean mentolado, boolean hoja) {
+    public Cigarrillo(int idCigarrillo, String marca, int contaminante, boolean filtro, boolean mentolado, boolean hoja) {
         this.idCigarrillo = idCigarrillo;
-        this.idMarca = idMarca;
+        this.marca = marca;
         this.contaminante = contaminante;
         this.filtro = filtro;
         this.mentolado = mentolado;
@@ -29,12 +29,12 @@ public class Cigarrillo {
         this.idCigarrillo = idCigarrillo;
     }
 
-    public int getIdMarca() {
-        return idMarca;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setIdMarca(int idMarca) {
-        this.idMarca = idMarca;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public int getContaminante() {
@@ -71,6 +71,6 @@ public class Cigarrillo {
 
     @Override
     public String toString() {
-        return idCigarrillo + "/" + idMarca + "/" + contaminante + "/" + filtro + "/" + mentolado + "/" + hoja;
+        return "Cigarrillo/idCigarrillo,marca,contaminante,filtro,mentolado,hoja/" + idCigarrillo + "/" + marca + "/" + contaminante + "/" + filtro + "/" + mentolado + "/" + hoja;
     }
 }
