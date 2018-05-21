@@ -82,6 +82,7 @@ public class  Conexion {
             }
             //st.execute();
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         this.close();
     }
@@ -105,6 +106,7 @@ public class  Conexion {
             connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir123");
             return true;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
