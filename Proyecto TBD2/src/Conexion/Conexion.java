@@ -34,7 +34,8 @@ public class  Conexion {
     
     public static void main(String args[]){
         Conexion con = new Conexion();
-        con.update("test/num,name,num2,name2/0909/jiih/787/jbjb");
+        
+        System.out.println(con.connect());
     }
     
     public void insert(String entidad){
@@ -101,7 +102,7 @@ public class  Conexion {
     protected boolean connect(){
         try {
             String user, pass;
-            connect = DriverManager.getConnection("jdbc:oracle:"+url);
+            connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:SID", "LANA", "Samir123");
             return true;
         } catch (SQLException e) {
             return false;
