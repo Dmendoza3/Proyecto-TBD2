@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - Sunday-May-20-2018   
+--  File created - Monday-May-21-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Type MIGR_FILTER
@@ -107,10 +107,10 @@
 --------------------------------------------------------
 
   CREATE TABLE "LANA"."ALMACEN" 
-   (	"IDALMACEN" NUMBER(*,0), 
-	"EXISTENCIA" NUMBER(*,0), 
+   (	"EXISTENCIA" NUMBER(*,0), 
 	"IDCIGARRILLO" NUMBER(*,0), 
-	"NUMFISCAL" VARCHAR2(20 BYTE)
+	"NUMFISCAL" VARCHAR2(20 BYTE), 
+	"IDALMACEN" NUMBER
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -128,8 +128,7 @@
 	"FILTRO" NUMBER(*,0), 
 	"HOJA" NUMBER(*,0), 
 	"MENTOLADO" NUMBER, 
-	"MARCA" VARCHAR2(30 BYTE), 
-	"IDFABRICANTE" NUMBER
+	"MARCA" VARCHAR2(30 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -146,7 +145,6 @@
 	"FECHAC" DATE, 
 	"PRECIOCOMPRA" FLOAT(126), 
 	"CANTIDAD" NUMBER(*,0), 
-	"IDALMACEN" NUMBER(*,0), 
 	"NUMFISCAL" VARCHAR2(30 BYTE), 
 	"IDCIGARRILLO" NUMBER
    ) SEGMENT CREATION IMMEDIATE 
@@ -164,7 +162,6 @@
    (	"NUMEXP" NUMBER(*,0), 
 	"NUMFISCAL" VARCHAR2(30 BYTE), 
 	"NOMBRE" VARCHAR2(50 BYTE), 
-	"DIRECCION" VARCHAR2(50 BYTE), 
 	"PROVINCIA" VARCHAR2(20 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
@@ -205,777 +202,6 @@
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Table MD_ADDITIONAL_PROPERTIES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" 
-   (	"ID" NUMBER, 
-	"CONNECTION_ID_FK" NUMBER, 
-	"REF_ID_FK" NUMBER, 
-	"REF_TYPE" VARCHAR2(4000 BYTE), 
-	"PROPERTY_ORDER" NUMBER, 
-	"PROP_KEY" VARCHAR2(4000 BYTE), 
-	"VALUE" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."CONNECTION_ID_FK" IS 'Connection to which this belongs //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."REF_ID_FK" IS 'The object to which this property blongs';
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."REF_TYPE" IS 'Type of object that this property belongs to';
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."PROPERTY_ORDER" IS 'This is to handle a situation where multiple properties have a relevant order, or multiple properties have multiple values';
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."PROP_KEY" IS 'The keyname for this property';
-   COMMENT ON COLUMN "LANA"."MD_ADDITIONAL_PROPERTIES"."VALUE" IS 'The value for this property';
-   COMMENT ON TABLE "LANA"."MD_ADDITIONAL_PROPERTIES"  IS 'This table is used to store additional properties in key-value pairs.  It is designed to store "other information" that is not supported in the main database object table.';
---------------------------------------------------------
---  DDL for Table MD_APPLICATIONFILES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_APPLICATIONFILES" 
-   (	"ID" NUMBER, 
-	"APPLICATIONS_ID_FK" NUMBER, 
-	"NAME" VARCHAR2(200 BYTE), 
-	"URI" VARCHAR2(4000 BYTE), 
-	"TYPE" VARCHAR2(100 BYTE), 
-	"STATE" VARCHAR2(100 BYTE), 
-	"LANGUAGE" VARCHAR2(100 BYTE), 
-	"LOC" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(4000 BYTE), 
-	"UPDATED_ON" DATE, 
-	"UPDATED_BY" VARCHAR2(4000 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."NAME" IS 'file name  //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."URI" IS 'The uri is the part of the file url after the base dir has been removed.  See MD_APPLICATION for base dir';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."TYPE" IS 'This will denote the type of file we have, including DIR, FILE (text), BINARY, IGNORE (where we choose to ignore files)';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."STATE" IS 'State will be how this file is operated on.  For example. it will be OPEN, NEW, FIXED, IGNORED, REVIEWED, COMPLETE';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."LANGUAGE" IS 'Language of the file that has been processed.';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."SECURITY_GROUP_ID" IS 'APEX';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."CREATED_ON" IS 'APEX';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."CREATED_BY" IS 'APEX';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."UPDATED_ON" IS 'APEX';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONFILES"."UPDATED_BY" IS 'APEX';
-   COMMENT ON TABLE "LANA"."MD_APPLICATIONFILES"  IS 'Holds a tuple for each file that is being processed whether it is changed or not.';
---------------------------------------------------------
---  DDL for Table MD_APPLICATIONS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_APPLICATIONS" 
-   (	"ID" NUMBER, 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"DESCRIPTION" VARCHAR2(4000 BYTE), 
-	"BASE_DIR" VARCHAR2(4000 BYTE), 
-	"OUTPUT_DIR" VARCHAR2(4000 BYTE), 
-	"BACKUP_DIR" VARCHAR2(4000 BYTE), 
-	"INPLACE" NUMBER, 
-	"PROJECT_ID_FK" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."NAME" IS 'Name of the application suite  //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."DESCRIPTION" IS 'Overview of what the application does.';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."BASE_DIR" IS 'This is the base src directory for the application.  It could be an svn checkout, a clearcase view or something similar';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."OUTPUT_DIR" IS 'This is the output directory where the scanner will present the converted files, if there are converted or modified.';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."BACKUP_DIR" IS 'This is the directory in which the application files are backed up if a backp is chosen';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."INPLACE" IS 'Designates whether the changes have been made inplace, in the source directory or not';
-   COMMENT ON COLUMN "LANA"."MD_APPLICATIONS"."PROJECT_ID_FK" IS 'project of the database(s) this application relates to';
-   COMMENT ON TABLE "LANA"."MD_APPLICATIONS"  IS 'This is the base table for application projects.  It holds the base information for applications associated with a database';
---------------------------------------------------------
---  DDL for Table MD_CATALOGS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_CATALOGS" 
-   (	"ID" NUMBER, 
-	"CONNECTION_ID_FK" NUMBER, 
-	"CATALOG_NAME" VARCHAR2(4000 BYTE), 
-	"DUMMY_FLAG" CHAR(1 BYTE) DEFAULT 'N', 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_CATALOGS"."CONNECTION_ID_FK" IS 'Foreign key into the connections table - Shows what connection this catalog belongs to //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_CATALOGS"."CATALOG_NAME" IS 'Name of the catalog //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_CATALOGS"."DUMMY_FLAG" IS 'Flag to show if this catalog is a "dummy" catalog which is used as a placeholder for those platforms that do not support catalogs.  ''N'' signifies that this is NOT a dummy catalog, while ''Y'' signifies that it is.';
-   COMMENT ON COLUMN "LANA"."MD_CATALOGS"."NATIVE_SQL" IS 'THe SQL used to create this catalog';
-   COMMENT ON COLUMN "LANA"."MD_CATALOGS"."NATIVE_KEY" IS 'A unique identifier used to identify the catalog at source.';
-   COMMENT ON TABLE "LANA"."MD_CATALOGS"  IS 'Store catalogs in this table.';
---------------------------------------------------------
---  DDL for Table MD_CODE_REGEX
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_CODE_REGEX" 
-   (	"ID" NUMBER, 
-	"REGEX" VARCHAR2(100 BYTE), 
-	"DESCRIPTION" VARCHAR2(200 BYTE)
-   ) SEGMENT CREATION IMMEDIATE 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_CODE_REGEX"."ID" IS 'ID of regex for searching source code';
-   COMMENT ON COLUMN "LANA"."MD_CODE_REGEX"."REGEX" IS 'Regex to use in reports of artifiacts in code.  This will be used for customers to analyze what is in their code.';
---------------------------------------------------------
---  DDL for Table MD_COLUMNS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_COLUMNS" 
-   (	"ID" NUMBER, 
-	"TABLE_ID_FK" NUMBER, 
-	"COLUMN_NAME" VARCHAR2(4000 BYTE), 
-	"COLUMN_ORDER" NUMBER, 
-	"COLUMN_TYPE" VARCHAR2(4000 BYTE), 
-	"PRECISION" NUMBER, 
-	"SCALE" NUMBER, 
-	"NULLABLE" CHAR(1 BYTE), 
-	"DEFAULT_VALUE" VARCHAR2(4000 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"DATATYPE_TRANSFORMED_FLAG" CHAR(1 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."TABLE_ID_FK" IS 'The table that this column is part of //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."COLUMN_NAME" IS 'The name of the column //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."COLUMN_ORDER" IS 'The order this appears in the table';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."COLUMN_TYPE" IS 'The type of the column';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."PRECISION" IS 'The precision on the column';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."SCALE" IS 'The scale of the column';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."NULLABLE" IS 'Yes or No.  Null signifies NO';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."DEFAULT_VALUE" IS 'Default value on the column';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."NATIVE_SQL" IS 'The SQL used to create this column at source';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."NATIVE_KEY" IS 'Unique identifier for this object at source';
-   COMMENT ON COLUMN "LANA"."MD_COLUMNS"."DATATYPE_TRANSFORMED_FLAG" IS 'This is set to ''Y'' to show if the data type was transformed.  This is useful so we don''t apply more than 1 datatype transformation to a column';
-   COMMENT ON TABLE "LANA"."MD_COLUMNS"  IS 'Column information is stored in this table.';
---------------------------------------------------------
---  DDL for Table MD_CONNECTIONS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_CONNECTIONS" 
-   (	"ID" NUMBER, 
-	"PROJECT_ID_FK" NUMBER, 
-	"TYPE" VARCHAR2(4000 BYTE), 
-	"HOST" VARCHAR2(4000 BYTE), 
-	"PORT" NUMBER, 
-	"USERNAME" VARCHAR2(4000 BYTE), 
-	"PASSWORD" VARCHAR2(4000 BYTE), 
-	"DBURL" VARCHAR2(4000 BYTE), 
-	"NAME" VARCHAR2(255 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"STATUS" VARCHAR2(30 BYTE), 
-	"NUM_CATALOGS" NUMBER, 
-	"NUM_COLUMNS" NUMBER, 
-	"NUM_CONSTRAINTS" NUMBER, 
-	"NUM_GROUPS" NUMBER, 
-	"NUM_ROLES" NUMBER, 
-	"NUM_INDEXES" NUMBER, 
-	"NUM_OTHER_OBJECTS" NUMBER, 
-	"NUM_PACKAGES" NUMBER, 
-	"NUM_PRIVILEGES" NUMBER, 
-	"NUM_SCHEMAS" NUMBER, 
-	"NUM_SEQUENCES" NUMBER, 
-	"NUM_STORED_PROGRAMS" NUMBER, 
-	"NUM_SYNONYMS" NUMBER, 
-	"NUM_TABLES" NUMBER, 
-	"NUM_TABLESPACES" NUMBER, 
-	"NUM_TRIGGERS" NUMBER, 
-	"NUM_USER_DEFINED_DATA_TYPES" NUMBER, 
-	"NUM_USERS" NUMBER, 
-	"NUM_VIEWS" NUMBER, 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."ID" IS 'Primary key';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."PROJECT_ID_FK" IS 'The project to which this connection belongs //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."TYPE" IS 'The type of the connection - For example it could be used to store "ORACLE" or "MYSQL"';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."HOST" IS 'The host to which this connection connects.';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."PORT" IS 'The port to which this connection connects';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."USERNAME" IS 'The username used to make the connection';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."PASSWORD" IS 'The password used to make this connection';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."DBURL" IS 'The database url used to make this connection';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."NAME" IS '//OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."NATIVE_SQL" IS 'The native sql used to create this connection';
-   COMMENT ON COLUMN "LANA"."MD_CONNECTIONS"."STATUS" IS 'Status of Migration, = captured,converted,generated,datamoved';
-   COMMENT ON TABLE "LANA"."MD_CONNECTIONS"  IS 'This table is used to store connection information.  For example, in migrations, we could be carrying out a consolidation which occurs across many connections.';
---------------------------------------------------------
---  DDL for Table MD_CONSTRAINTS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_CONSTRAINTS" 
-   (	"ID" NUMBER, 
-	"DELETE_CLAUSE" VARCHAR2(4000 BYTE), 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"CONSTRAINT_TYPE" VARCHAR2(4000 BYTE), 
-	"TABLE_ID_FK" NUMBER, 
-	"REFTABLE_ID_FK" NUMBER, 
-	"CONSTRAINT_TEXT" CLOB, 
-	"LANGUAGE" VARCHAR2(40 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("CONSTRAINT_TEXT") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."DELETE_CLAUSE" IS 'delete option , can be either CASCADE, RESTRICT or NULL';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."NAME" IS 'Name of the constraint //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."CONSTRAINT_TYPE" IS 'Type of the constraint (e.g. CHECK)';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."TABLE_ID_FK" IS 'Table on which this constraint exists //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."REFTABLE_ID_FK" IS 'Used in foreign keys - this gives the table that we refer to.';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."CONSTRAINT_TEXT" IS 'The text of the constraint';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINTS"."LANGUAGE" IS '//PUBLIC';
-   COMMENT ON TABLE "LANA"."MD_CONSTRAINTS"  IS 'Table for storing information about a constraint';
---------------------------------------------------------
---  DDL for Table MD_CONSTRAINT_DETAILS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_CONSTRAINT_DETAILS" 
-   (	"ID" NUMBER, 
-	"REF_FLAG" CHAR(1 BYTE) DEFAULT 'N', 
-	"CONSTRAINT_ID_FK" NUMBER, 
-	"COLUMN_ID_FK" NUMBER, 
-	"COLUMN_PORTION" NUMBER, 
-	"CONSTRAINT_TEXT" CLOB, 
-	"DETAIL_ORDER" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("CONSTRAINT_TEXT") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINT_DETAILS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINT_DETAILS"."REF_FLAG" IS '"N" or Null signify that this column is the colum that is used in the constraint.  A flag of Y signifies that the colum is a referenced column (i.e. part of a foreign key constraint)';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINT_DETAILS"."CONSTRAINT_ID_FK" IS 'Constraint that this detail belongs to //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINT_DETAILS"."COLUMN_PORTION" IS 'The portion of a column this detail belongs (e.g. for constrints on substrings)';
-   COMMENT ON COLUMN "LANA"."MD_CONSTRAINT_DETAILS"."CONSTRAINT_TEXT" IS 'The text of the constraint';
-   COMMENT ON TABLE "LANA"."MD_CONSTRAINT_DETAILS"  IS 'Constraint details show what columns are "involved" in a constraint.';
---------------------------------------------------------
---  DDL for Table MD_DERIVATIVES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_DERIVATIVES" 
-   (	"ID" NUMBER, 
-	"SRC_ID" NUMBER, 
-	"SRC_TYPE" VARCHAR2(4000 BYTE), 
-	"DERIVED_ID" NUMBER, 
-	"DERIVED_TYPE" VARCHAR2(4000 BYTE), 
-	"DERIVED_CONNECTION_ID_FK" NUMBER, 
-	"TRANSFORMED" CHAR(1 BYTE), 
-	"ORIGINAL_IDENTIFIER" VARCHAR2(4000 BYTE), 
-	"NEW_IDENTIFIER" VARCHAR2(4000 BYTE), 
-	"DERIVED_OBJECT_NAMESPACE" VARCHAR2(40 BYTE), 
-	"DERIVATIVE_REASON" VARCHAR2(10 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE), 
-	"ENABLED" CHAR(1 BYTE) DEFAULT 'Y'
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_DERIVATIVES"."TRANSFORMED" IS 'Set this field to ''Y'' if we carry out any sort of transformation on teh derived object.';
-   COMMENT ON TABLE "LANA"."MD_DERIVATIVES"  IS 'This table is used to store objects that are derived from each other.  For example in a migration an auto-increment column in a source model could be mapped to a primary key, and a sequence, and a trigger.  The MD_DERIVATIVES table would store the fact that these 3 objects are derived from the auto-increment column.';
---------------------------------------------------------
---  DDL for Table MD_FILE_ARTIFACTS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_FILE_ARTIFACTS" 
-   (	"ID" NUMBER, 
-	"APPLICATIONFILES_ID" NUMBER, 
-	"PATTERN" VARCHAR2(4000 BYTE), 
-	"STRING_FOUND" VARCHAR2(4000 BYTE), 
-	"STRING_REPLACED" VARCHAR2(4000 BYTE), 
-	"TYPE" VARCHAR2(200 BYTE), 
-	"STATUS" VARCHAR2(4000 BYTE), 
-	"LINE" NUMBER, 
-	"PATTERN_START" NUMBER, 
-	"PATTERN_END" NUMBER, 
-	"DUE_DATE" DATE, 
-	"DB_TYPE" VARCHAR2(100 BYTE), 
-	"CODE_TYPE" VARCHAR2(1000 BYTE), 
-	"DESCRIPTION" VARCHAR2(4000 BYTE), 
-	"PRIORITY" NUMBER(*,0), 
-	"SECURITY_GROUP_ID" VARCHAR2(20 BYTE) DEFAULT '0', 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(4000 BYTE), 
-	"LAST_UPDATED" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(4000 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."PATTERN" IS 'Pattern used to search source file for interesting artifiacts';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."STRING_FOUND" IS 'String found in source from the pattern supplied';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."STRING_REPLACED" IS 'This is the string which replace the string found if it was replaced.';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."TYPE" IS 'This is the type of the replacement.  It could be a straight replace from a replacement pattern, or we could have passed the string to a translator which would change the string depending on the database.';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."STATUS" IS 'Pattern used to search source file for interesting artifiacts';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."DUE_DATE" IS 'Due date is used by the TODO mechanism to manage the validation and work to complete this change';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."DB_TYPE" IS 'Source database calls type';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."CODE_TYPE" IS 'Source code db api, like dblib, jdbc';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."DESCRIPTION" IS 'This is a description of the artifact which will have a default generated by the scanner and then can be modified by the user to be more appropriate for their use';
-   COMMENT ON COLUMN "LANA"."MD_FILE_ARTIFACTS"."PRIORITY" IS 'The priority is set for the TODOs so they can be managed by the user';
-   COMMENT ON TABLE "LANA"."MD_FILE_ARTIFACTS"  IS 'Holds a tuple for each interesting thing the scanner finds in a file';
---------------------------------------------------------
---  DDL for Table MD_GROUPS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_GROUPS" 
-   (	"ID" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"GROUP_NAME" VARCHAR2(4000 BYTE), 
-	"GROUP_FLAG" CHAR(1 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_GROUPS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_GROUPS"."SCHEMA_ID_FK" IS 'Schema in which this object belongs //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_GROUPS"."GROUP_NAME" IS 'Name of the group //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_GROUPS"."GROUP_FLAG" IS 'This is a flag to signify a group or a role.  If this is ''R'' it means the group is known as a Role.  Any other value means it is known as a group.';
-   COMMENT ON COLUMN "LANA"."MD_GROUPS"."NATIVE_SQL" IS 'SQL Used to generate this object at source';
-   COMMENT ON COLUMN "LANA"."MD_GROUPS"."NATIVE_KEY" IS 'Unique id for this object at source';
-   COMMENT ON TABLE "LANA"."MD_GROUPS"  IS 'Groups of users in a schema';
---------------------------------------------------------
---  DDL for Table MD_GROUP_MEMBERS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_GROUP_MEMBERS" 
-   (	"ID" NUMBER, 
-	"GROUP_ID_FK" NUMBER, 
-	"USER_ID_FK" NUMBER, 
-	"GROUP_MEMBER_ID_FK" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_GROUP_MEMBERS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_GROUP_MEMBERS"."USER_ID_FK" IS 'Id of member';
-   COMMENT ON COLUMN "LANA"."MD_GROUP_MEMBERS"."GROUP_MEMBER_ID_FK" IS 'groups can be members of groups';
-   COMMENT ON TABLE "LANA"."MD_GROUP_MEMBERS"  IS 'This table is used to store the members of a group.';
---------------------------------------------------------
---  DDL for Table MD_GROUP_PRIVILEGES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_GROUP_PRIVILEGES" 
-   (	"ID" NUMBER, 
-	"GROUP_ID_FK" NUMBER, 
-	"PRIVILEGE_ID_FK" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON TABLE "LANA"."MD_GROUP_PRIVILEGES"  IS 'This table stores the privileges granted to a group (or role)';
---------------------------------------------------------
---  DDL for Table MD_INDEXES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_INDEXES" 
-   (	"ID" NUMBER, 
-	"INDEX_TYPE" VARCHAR2(4000 BYTE), 
-	"TABLE_ID_FK" NUMBER, 
-	"INDEX_NAME" VARCHAR2(4000 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(4000 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_INDEXES"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_INDEXES"."INDEX_TYPE" IS 'Type of the index e.g. PRIMARY';
-   COMMENT ON COLUMN "LANA"."MD_INDEXES"."TABLE_ID_FK" IS 'Table that this index is on //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_INDEXES"."INDEX_NAME" IS 'Name of the index //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_INDEXES"."NATIVE_SQL" IS 'SQL used to create the index at source';
-   COMMENT ON COLUMN "LANA"."MD_INDEXES"."NATIVE_KEY" IS 'A unique identifier for this object at the source';
-   COMMENT ON TABLE "LANA"."MD_INDEXES"  IS 'This table is used to store information about the indexes in a schema';
---------------------------------------------------------
---  DDL for Table MD_INDEX_DETAILS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_INDEX_DETAILS" 
-   (	"ID" NUMBER, 
-	"INDEX_ID_FK" NUMBER, 
-	"COLUMN_ID_FK" NUMBER, 
-	"INDEX_PORTION" NUMBER, 
-	"DETAIL_ORDER" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_INDEX_DETAILS"."INDEX_ID_FK" IS 'The index to which this detail belongs. //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_INDEX_DETAILS"."INDEX_PORTION" IS 'To support indexing on part of a field';
-   COMMENT ON TABLE "LANA"."MD_INDEX_DETAILS"  IS 'This table stores the details of an index.  It shows what columns are "part" of the index.';
---------------------------------------------------------
---  DDL for Table MD_MIGR_DEPENDENCY
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_MIGR_DEPENDENCY" 
-   (	"ID" NUMBER, 
-	"CONNECTION_ID_FK" NUMBER, 
-	"PARENT_ID" NUMBER, 
-	"CHILD_ID" NUMBER, 
-	"PARENT_OBJECT_TYPE" VARCHAR2(4000 BYTE), 
-	"CHILD_OBJECT_TYPE" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_MIGR_DEPENDENCY"."CONNECTION_ID_FK" IS 'The connection that this exists in //PARENTFIELD';
---------------------------------------------------------
---  DDL for Table MD_MIGR_PARAMETER
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_MIGR_PARAMETER" 
-   (	"ID" NUMBER, 
-	"CONNECTION_ID_FK" NUMBER, 
-	"OBJECT_ID" NUMBER, 
-	"OBJECT_TYPE" VARCHAR2(4000 BYTE), 
-	"PARAM_EXISTING" NUMBER, 
-	"PARAM_ORDER" NUMBER, 
-	"PARAM_NAME" VARCHAR2(4000 BYTE), 
-	"PARAM_TYPE" VARCHAR2(4000 BYTE), 
-	"PARAM_DATA_TYPE" VARCHAR2(4000 BYTE), 
-	"PERCISION" NUMBER, 
-	"SCALE" NUMBER, 
-	"NULLABLE" CHAR(1 BYTE), 
-	"DEFAULT_VALUE" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_MIGR_PARAMETER"."CONNECTION_ID_FK" IS 'the connection in which this belongs //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_MIGR_PARAMETER"."PARAM_EXISTING" IS '1 represents a new parameter for PL/SQL that was not present in the origional. 0 represents a n existing parameter that was present in the origional';
-   COMMENT ON COLUMN "LANA"."MD_MIGR_PARAMETER"."PARAM_ORDER" IS 'IF -1 THEN THIS PARAM IS A RETURN PARAMETER. 1 WILL BE THE FIRST PARAMETER IN THE PARAMETER LIST';
---------------------------------------------------------
---  DDL for Table MD_MIGR_WEAKDEP
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_MIGR_WEAKDEP" 
-   (	"ID" NUMBER, 
-	"CONNECTION_ID_FK" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"PARENT_ID" NUMBER, 
-	"CHILD_NAME" VARCHAR2(4000 BYTE), 
-	"PARENT_TYPE" VARCHAR2(4000 BYTE), 
-	"CHILD_TYPE" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_MIGR_WEAKDEP"."CHILD_NAME" IS 'name of the child,  as weak dependencies dont have reference to child id';
-   COMMENT ON COLUMN "LANA"."MD_MIGR_WEAKDEP"."PARENT_TYPE" IS 'MD_<tablename>';
-   COMMENT ON COLUMN "LANA"."MD_MIGR_WEAKDEP"."CHILD_TYPE" IS 'Generic Type (not MD_<tablename>)';
---------------------------------------------------------
---  DDL for Table MD_NUMROW$SOURCE
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_NUMROW$SOURCE" 
-   (	"NUMROWS" NUMBER(10,0), 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"OBJID" NUMBER(10,0)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table MD_NUMROW$TARGET
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_NUMROW$TARGET" 
-   (	"NUMROWS" NUMBER(10,0), 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"OBJID" NUMBER(10,0)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table MD_OTHER_OBJECTS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_OTHER_OBJECTS" 
-   (	"ID" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_OTHER_OBJECTS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_OTHER_OBJECTS"."SCHEMA_ID_FK" IS 'Schema to which this object blongs. //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_OTHER_OBJECTS"."NAME" IS 'Name of this object //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_OTHER_OBJECTS"."NATIVE_SQL" IS 'The native SQL used to create this object';
-   COMMENT ON COLUMN "LANA"."MD_OTHER_OBJECTS"."NATIVE_KEY" IS 'A key that identifies this object at source.';
-   COMMENT ON TABLE "LANA"."MD_OTHER_OBJECTS"  IS 'For storing objects that don''''t belong anywhere else';
---------------------------------------------------------
---  DDL for Table MD_PACKAGES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_PACKAGES" 
-   (	"ID" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"PACKAGE_HEADER" CLOB, 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"LANGUAGE" VARCHAR2(40 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("PACKAGE_HEADER") STORE AS SECUREFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192
-  NOCACHE LOGGING  NOCOMPRESS  KEEP_DUPLICATES ) 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_PACKAGES"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_PACKAGES"."SCHEMA_ID_FK" IS 'the schema in which this package resides //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_PACKAGES"."NAME" IS 'Name of this package //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_PACKAGES"."NATIVE_SQL" IS 'The SQL used to create this package at source';
-   COMMENT ON COLUMN "LANA"."MD_PACKAGES"."NATIVE_KEY" IS 'A unique identifer for this object at source.';
-   COMMENT ON COLUMN "LANA"."MD_PACKAGES"."LANGUAGE" IS '//PUBLIC';
-   COMMENT ON TABLE "LANA"."MD_PACKAGES"  IS 'For storing packages';
---------------------------------------------------------
---  DDL for Table MD_PARTITIONS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_PARTITIONS" 
-   (	"ID" NUMBER, 
-	"TABLE_ID_FK" NUMBER, 
-	"NATIVE_SQL" CLOB, 
-	"PARTITION_EXPRESSION" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_PARTITIONS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_PARTITIONS"."TABLE_ID_FK" IS 'The table that this partition refers to //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_PARTITIONS"."NATIVE_SQL" IS 'The SQL used to create this partition at source';
-   COMMENT ON COLUMN "LANA"."MD_PARTITIONS"."PARTITION_EXPRESSION" IS 'The partition expression';
-   COMMENT ON TABLE "LANA"."MD_PARTITIONS"  IS 'Partition information is stored in this table.';
---------------------------------------------------------
---  DDL for Table MD_PRIVILEGES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_PRIVILEGES" 
-   (	"ID" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"PRIVILEGE_NAME" VARCHAR2(4000 BYTE), 
-	"PRIVELEGE_OBJECT_ID" NUMBER, 
-	"PRIVELEGEOBJECTTYPE" VARCHAR2(4000 BYTE), 
-	"PRIVELEGE_TYPE" VARCHAR2(4000 BYTE), 
-	"ADMIN_OPTION" CHAR(1 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."SCHEMA_ID_FK" IS 'The schema to which this object belongs //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."PRIVILEGE_NAME" IS 'The name of the privilege //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."PRIVELEGE_OBJECT_ID" IS 'This references the table, view, etc on which the privelege exists.  This can be NULL for things like system wide privileges';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."PRIVELEGEOBJECTTYPE" IS 'The type the privelege is on (e.g. INDEX)';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."PRIVELEGE_TYPE" IS 'e.g.select';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."ADMIN_OPTION" IS 'Flag to show if this was granted with admin option.  ''Y'' means it was granted with admin option ''N'' means it was NOT granted with admin option.  NULL means not applicable (e.g. not known, not supported by source platform, etc.)';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."NATIVE_SQL" IS 'The SQL used to create this privilege at source';
-   COMMENT ON COLUMN "LANA"."MD_PRIVILEGES"."NATIVE_KEY" IS 'An identifier for this object at source.';
-   COMMENT ON TABLE "LANA"."MD_PRIVILEGES"  IS 'This table stores privilege information';
---------------------------------------------------------
---  DDL for Table MD_PROJECTS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_PROJECTS" 
-   (	"ID" NUMBER, 
-	"PROJECT_NAME" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MD_PROJECTS"."ID" IS 'Primary key';
-   COMMENT ON COLUMN "LANA"."MD_PROJECTS"."PROJECT_NAME" IS 'Name of the project //OBJECTNAME';
-   COMMENT ON TABLE "LANA"."MD_PROJECTS"  IS 'This is a top level container for a set of connections.';
---------------------------------------------------------
 --  DDL for Table MD_REGISTRY
 --------------------------------------------------------
 
@@ -992,21 +218,6 @@
   TABLESPACE "USERS" ;
 
    COMMENT ON TABLE "LANA"."MD_REGISTRY"  IS 'Table to store information on the MD_ repository.  This lists the objects to be dropped if you wish to remove the repository';
---------------------------------------------------------
---  DDL for Table MD_REPOVERSIONS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_REPOVERSIONS" 
-   (	"REVISION" NUMBER
-   ) SEGMENT CREATION IMMEDIATE 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON TABLE "LANA"."MD_REPOVERSIONS"  IS 'This table is used to version this schema for future requirements.';
 --------------------------------------------------------
 --  DDL for Table MD_SCHEMAS
 --------------------------------------------------------
@@ -1078,43 +289,6 @@
    COMMENT ON COLUMN "LANA"."MD_SEQUENCES"."NATIVE_KEY" IS 'Identifier for this object at source.';
    COMMENT ON TABLE "LANA"."MD_SEQUENCES"  IS 'For storing information on sequences.';
 --------------------------------------------------------
---  DDL for Table MD_STORED_PROGRAMS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_STORED_PROGRAMS" 
-   (	"ID" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"PROGRAMTYPE" VARCHAR2(20 BYTE), 
-	"NAME" VARCHAR2(4000 BYTE), 
-	"PACKAGE_ID_FK" NUMBER, 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"LANGUAGE" VARCHAR2(40 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"LINECOUNT" NUMBER, 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE READS LOGGING ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."SCHEMA_ID_FK" IS 'Schema to which this object belongs.  Note that the PACKAGE_ID_FK (if present also leads us to the relevant schema), however a stored program may or may not belong in a package.  If it is in a package, then the SCHEMA_ID_FK and the SCHEME_ID_FK in the parent package should match //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."PROGRAMTYPE" IS 'Java/TSQL/PLSQL, etc.';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."NAME" IS 'Name of the stored program //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."PACKAGE_ID_FK" IS 'The package to which this object belongs';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."NATIVE_SQL" IS 'The SQL used to create this object at source';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."NATIVE_KEY" IS 'A unique indetifier for this object at source';
-   COMMENT ON COLUMN "LANA"."MD_STORED_PROGRAMS"."LANGUAGE" IS '//PUBLIC';
-   COMMENT ON TABLE "LANA"."MD_STORED_PROGRAMS"  IS 'Container for stored programs.';
---------------------------------------------------------
 --  DDL for Table MD_SYNONYMS
 --------------------------------------------------------
 
@@ -1182,36 +356,6 @@
    COMMENT ON COLUMN "LANA"."MD_TABLES"."NATIVE_KEY" IS 'Unique identifier for this table at source';
    COMMENT ON TABLE "LANA"."MD_TABLES"  IS 'Table used to store information about tables.';
 --------------------------------------------------------
---  DDL for Table MD_TABLESPACES
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_TABLESPACES" 
-   (	"ID" NUMBER, 
-	"SCHEMA_ID_FK" NUMBER, 
-	"TABLESPACE_NAME" VARCHAR2(4000 BYTE), 
-	"NATIVE_SQL" CLOB, 
-	"NATIVE_KEY" VARCHAR2(4000 BYTE), 
-	"COMMENTS" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" 
- LOB ("NATIVE_SQL") STORE AS BASICFILE (
-  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 RETENTION 
-  CACHE ) ;
-
-   COMMENT ON COLUMN "LANA"."MD_TABLESPACES"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MD_TABLESPACES"."SCHEMA_ID_FK" IS 'Schema to which this tablespace belongs //PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MD_TABLESPACES"."TABLESPACE_NAME" IS 'Name of the table space //OBJECTNAME';
-   COMMENT ON COLUMN "LANA"."MD_TABLESPACES"."NATIVE_SQL" IS 'The SQL used to create this tablespace';
-   COMMENT ON COLUMN "LANA"."MD_TABLESPACES"."NATIVE_KEY" IS 'A unique identifier for this object at source';
-   COMMENT ON TABLE "LANA"."MD_TABLESPACES"  IS 'For storing information about tablespaces.';
---------------------------------------------------------
 --  DDL for Table MD_TARGET_ALL_ERRORS
 --------------------------------------------------------
 
@@ -1225,18 +369,6 @@
 	"TEXT" VARCHAR2(4000 BYTE), 
 	"ATTRIBUTE" VARCHAR2(9 BYTE), 
 	"MESSAGE_NUMBER" NUMBER
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table MD_TARGET_ALL_OBJECTS
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MD_TARGET_ALL_OBJECTS" 
-   (	"STATUS" VARCHAR2(7 BYTE), 
-	"OBJECT_NAME" VARCHAR2(128 BYTE), 
-	"OWNER" VARCHAR2(128 BYTE)
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -1433,28 +565,6 @@
  NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Table MIGR_DATATYPE_TRANSFORM_MAP
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" 
-   (	"ID" NUMBER, 
-	"PROJECT_ID_FK" NUMBER, 
-	"MAP_NAME" VARCHAR2(4000 BYTE), 
-	"SECURITY_GROUP_ID" NUMBER DEFAULT 0, 
-	"CREATED_ON" DATE DEFAULT sysdate, 
-	"CREATED_BY" VARCHAR2(255 BYTE), 
-	"LAST_UPDATED_ON" DATE, 
-	"LAST_UPDATED_BY" VARCHAR2(255 BYTE)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "LANA"."MIGR_DATATYPE_TRANSFORM_MAP"."ID" IS 'Primary Key';
-   COMMENT ON COLUMN "LANA"."MIGR_DATATYPE_TRANSFORM_MAP"."PROJECT_ID_FK" IS '//PARENTFIELD';
-   COMMENT ON COLUMN "LANA"."MIGR_DATATYPE_TRANSFORM_MAP"."MAP_NAME" IS 'A name for the map';
-   COMMENT ON TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP"  IS 'Table for storing data type maps.  A map is simply a collection of rules';
---------------------------------------------------------
 --  DDL for Table MIGR_DATATYPE_TRANSFORM_RULE
 --------------------------------------------------------
 
@@ -1501,19 +611,6 @@
   TABLESPACE "USERS" ;
 
    COMMENT ON COLUMN "LANA"."MIGR_GENERATION_ORDER"."CONNECTION_ID_FK" IS '//PARENTFIELD';
---------------------------------------------------------
---  DDL for Table PEDIDO
---------------------------------------------------------
-
-  CREATE TABLE "LANA"."PEDIDO" 
-   (	"IDPEDIDO" NUMBER(*,0), 
-	"IDALMACEN" NUMBER(*,0), 
-	"NUMFISCAL" VARCHAR2(30 BYTE), 
-	"CANTIDAD" NUMBER(*,0)
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table SS2K5_CHECK_CONSTRAINTS
 --------------------------------------------------------
@@ -1583,15 +680,6 @@
 	"OBJECT_ID" NUMBER(10,0)
    ) ON COMMIT PRESERVE ROWS ;
 --------------------------------------------------------
---  DDL for Table SS2K5_FOREIGN_KEYS
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SS2K5_FOREIGN_KEYS" 
-   (	"DB_ID" NUMBER(10,0), 
-	"NAME" VARCHAR2(256 BYTE), 
-	"OBJECT_ID" NUMBER(10,0)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
 --  DDL for Table SS2K5_FOREIGN_KEY_COLUMNS
 --------------------------------------------------------
 
@@ -1651,15 +739,6 @@
 	"TYPE" CHAR(2 BYTE), 
 	"PARENT_OBJECT_ID" NUMBER(10,0), 
 	"IS_MS_SHIPPED" NUMBER(1,0)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
---  DDL for Table SS2K5_SCHEMAS
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SS2K5_SCHEMAS" 
-   (	"DB_ID" NUMBER(10,0), 
-	"SCHEMA_ID" NUMBER(10,0), 
-	"NAME" VARCHAR2(256 BYTE)
    ) ON COMMIT PRESERVE ROWS ;
 --------------------------------------------------------
 --  DDL for Table SS2K5_SCHEMATA
@@ -1842,17 +921,6 @@
 	"DBID_GEN_FK" NUMBER(38,0), 
 	"OBJID_GEN" NUMBER(38,0), 
 	"DEFINITION" CLOB, 
-	"OBJECT_ID" NUMBER(38,0)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
---  DDL for Table STAGE_SS2K5_FN_KEYS
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."STAGE_SS2K5_FN_KEYS" 
-   (	"SVRID_FK" NUMBER(38,0), 
-	"DBID_GEN_FK" NUMBER(38,0), 
-	"OBJECT_ID_GEN" NUMBER(38,0), 
-	"NAME" VARCHAR2(256 CHAR), 
 	"OBJECT_ID" NUMBER(38,0)
    ) ON COMMIT PRESERVE ROWS ;
 --------------------------------------------------------
@@ -2689,113 +1757,16 @@
 	"DB_DEFINITION" VARCHAR2(1000 BYTE)
    ) ON COMMIT PRESERVE ROWS ;
 --------------------------------------------------------
---  DDL for Table SYB12_SYSDATABASES
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SYB12_SYSDATABASES" 
-   (	"DB_ID" NUMBER(10,0), 
-	"NAME" VARCHAR2(255 BYTE), 
-	"DBID" NUMBER(10,0), 
-	"DB_SUID" NUMBER(10,0), 
-	"STATUS" NUMBER(10,0), 
-	"VERSION" NUMBER(10,0), 
-	"LOGPTR" NUMBER(12,0), 
-	"CRDATE" VARCHAR2(255 BYTE), 
-	"DUMPTRDATE" VARCHAR2(255 BYTE), 
-	"STATUS2" NUMBER(10,0), 
-	"AUDFLAGS" NUMBER(10,0), 
-	"DEFTABAUD" NUMBER(10,0), 
-	"DEFVWAUD" NUMBER(10,0), 
-	"DEFPRAUD" NUMBER(10,0), 
-	"DEF_REMOTE_TYPE" NUMBER(10,0), 
-	"DEF_REMOTE_LOC" VARCHAR2(255 BYTE), 
-	"STATUS3" NUMBER(10,0), 
-	"STATUS4" NUMBER(10,0)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
---  DDL for Table SYB12_SYSINDEXES
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SYB12_SYSINDEXES" 
-   (	"DB_ID" NUMBER(10,0), 
-	"TABLE_ID" NUMBER(10,0), 
-	"INDEX_NAME" VARCHAR2(256 BYTE), 
-	"INDEX_DESC" VARCHAR2(1000 BYTE), 
-	"INDEX_KEYS" VARCHAR2(1000 BYTE)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
---  DDL for Table SYB12_SYSOBJECTS
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SYB12_SYSOBJECTS" 
-   (	"DB_ID" NUMBER(10,0), 
-	"NAME" VARCHAR2(256 BYTE), 
-	"ID" NUMBER(10,0), 
-	"DB_UID" NUMBER(10,0), 
-	"DB_TYPE" VARCHAR2(256 BYTE), 
-	"USERSTAT" NUMBER(10,0), 
-	"SYSSTAT" NUMBER(10,0), 
-	"INDEXDEL" NUMBER(10,0), 
-	"SCHEMATACNT" NUMBER(10,0), 
-	"SYSSTAT2" NUMBER(10,0), 
-	"CRDATE" VARCHAR2(255 BYTE), 
-	"EXPDATE" VARCHAR2(255 BYTE), 
-	"DELTRIG" NUMBER(10,0), 
-	"INSTRIG" NUMBER(10,0), 
-	"UPDTRIG" NUMBER(10,0), 
-	"SELTRIG" NUMBER(10,0), 
-	"CKFIRST" NUMBER(10,0), 
-	"DB_CACHE" NUMBER(10,0), 
-	"AUDFLAGS" NUMBER(10,0), 
-	"OBJSPARE" NUMBER(10,0), 
-	"VERSIONTS" RAW(255), 
-	"LOGINNAME" VARCHAR2(255 BYTE)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
---  DDL for Table SYB12_SYSTYPES
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SYB12_SYSTYPES" 
-   (	"DB_ID" NUMBER(10,0), 
-	"DB_UID" NUMBER(10,0), 
-	"USERTYPE" NUMBER(10,0), 
-	"VARIABLE" NUMBER(1,0), 
-	"ALLOWNULLS" NUMBER(1,0), 
-	"DB_TYPE" NUMBER(10,0), 
-	"LENGTH" NUMBER(10,0), 
-	"TDEFAULT" NUMBER(10,0), 
-	"DOMAIN" NUMBER(10,0), 
-	"NAME" VARCHAR2(255 BYTE), 
-	"PRINTFMT" VARCHAR2(255 BYTE), 
-	"PREC" NUMBER(10,0), 
-	"SCALE" NUMBER(10,0), 
-	"IDENT" NUMBER(10,0), 
-	"HEIRARCHY" NUMBER(10,0), 
-	"ACCESSRULE" NUMBER(12,0), 
-	"XTYPEID" NUMBER(12,0), 
-	"VXDBID" NUMBER(12,0)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
---  DDL for Table SYB12_SYSUSERS
---------------------------------------------------------
-
-  CREATE GLOBAL TEMPORARY TABLE "LANA"."SYB12_SYSUSERS" 
-   (	"DB_ID" NUMBER(10,0), 
-	"SUID" NUMBER(10,0), 
-	"DB_UID" NUMBER(10,0), 
-	"GID" NUMBER(10,0), 
-	"NAME" VARCHAR2(256 BYTE), 
-	"ENVIRON" VARCHAR2(256 BYTE)
-   ) ON COMMIT PRESERVE ROWS ;
---------------------------------------------------------
 --  DDL for Table VENTA
 --------------------------------------------------------
 
   CREATE TABLE "LANA"."VENTA" 
    (	"NUMVENTA" NUMBER(*,0), 
 	"NUMFISCAL" VARCHAR2(30 BYTE), 
-	"IDALMACEN" NUMBER(*,0), 
-	"IDCIGARRILLO" NUMBER
+	"IDCIGARRILLO" NUMBER, 
+	"PRECIOVENTA" NUMBER, 
+	"CANTIDAD" NUMBER, 
+	"FECHAV" DATE
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -3365,61 +2336,359 @@ and regexp_count(p.native_sql,rg.REGEX,1,'ix')>0;
    COMMENT ON MATERIALIZED VIEW "LANA"."MD_REGEX_SCHEMA_MVIEW"  IS 'snapshot table for snapshot LANA.MD_REGEX_SCHEMA_MVIEW';
 REM INSERTING into LANA.ALMACEN
 SET DEFINE OFF;
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (10,54,10,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (9,231,9,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (8,43,8,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (7,321,7,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (6,65,6,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (5,12,5,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (4,54,4,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (3,234,3,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (2,143,2,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (1,34,1,'11111');
-Insert into LANA.ALMACEN (IDALMACEN,EXISTENCIA,IDCIGARRILLO,NUMFISCAL) values (0,200,0,'11111');
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (200,0,'11111',0);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,1,'11111',1);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (143,2,'11111',2);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (234,3,'11111',3);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (12,5,'11111',5);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (65,6,'11111',6);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (321,7,'11111',7);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,8,'11111',8);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (231,9,'11111',9);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,10,'11111',10);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,12,'11111',11);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (214,13,'11111',12);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (126,14,'11111',13);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (301,15,'11111',14);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11111',15);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (100,0,'11112',16);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (134,1,'11112',17);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,2,'11112',18);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,3,'11112',19);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,4,'11112',20);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (112,5,'11112',21);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (235,6,'11112',22);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (421,7,'11112',23);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (433,8,'11112',24);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (231,9,'11112',25);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,10,'11112',26);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (423,12,'11112',27);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (14,13,'11112',28);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (136,14,'11112',29);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,15,'11112',30);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11112',31);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (200,0,'11113',32);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,1,'11113',33);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (243,2,'11113',34);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (134,3,'11113',35);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (154,4,'11113',36);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (12,5,'11113',37);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (35,6,'11113',38);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (21,7,'11113',39);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (33,8,'11113',40);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (331,9,'11113',41);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (254,10,'11113',42);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (423,12,'11113',43);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (314,13,'11113',44);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (36,14,'11113',45);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (241,15,'11113',46);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11113',47);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (40,0,'11114',48);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (234,1,'11114',49);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,2,'11114',50);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,3,'11114',51);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,4,'11114',52);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (312,5,'11114',53);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (325,6,'11114',54);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (251,7,'11114',55);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (363,8,'11114',56);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (31,9,'11114',57);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,10,'11114',58);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (23,12,'11114',59);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (14,13,'11114',60);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (376,14,'11114',61);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (41,15,'11114',62);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11114',63);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (40,0,'11115',64);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (234,1,'11115',65);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,2,'11115',66);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,3,'11115',67);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,4,'11115',68);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (312,5,'11115',69);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (325,6,'11115',70);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (251,7,'11115',71);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (363,8,'11115',72);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (31,9,'11115',73);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,10,'11115',74);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (23,12,'11115',75);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (14,13,'11115',76);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (376,14,'11115',77);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (41,15,'11115',78);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11115',79);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (340,0,'11116',80);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,1,'11116',81);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (243,2,'11116',82);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (134,3,'11116',83);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (554,4,'11116',84);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (312,5,'11116',85);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (25,6,'11116',86);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (51,7,'11116',87);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (63,8,'11116',88);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (361,9,'11116',89);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,10,'11116',90);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (243,12,'11116',91);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (154,13,'11116',92);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (76,14,'11116',93);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (461,15,'11116',94);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11116',95);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (40,0,'11117',96);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (344,1,'11117',97);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,2,'11117',98);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,3,'11117',99);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,4,'11117',100);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (12,5,'11117',101);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (255,6,'11117',102);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (531,7,'11117',103);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (453,8,'11117',104);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (61,9,'11117',105);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (544,10,'11117',106);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,12,'11117',107);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,13,'11117',108);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (436,14,'11117',109);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (61,15,'11117',110);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11117',111);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (340,0,'11118',112);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (44,1,'11118',113);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (243,2,'11118',114);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (434,3,'11118',115);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (254,4,'11118',116);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (112,5,'11118',117);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (55,6,'11118',118);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (31,7,'11118',119);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (53,8,'11118',120);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (261,9,'11118',121);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (44,10,'11118',122);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (243,12,'11118',123);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (254,13,'11118',124);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (36,14,'11118',125);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (261,15,'11118',126);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11118',127);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (40,0,'11119',128);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (344,1,'11119',129);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,2,'11119',130);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,3,'11119',131);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,4,'11119',132);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (12,5,'11119',133);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (525,6,'11119',134);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (331,7,'11119',135);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (543,8,'11119',136);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (61,9,'11119',137);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (444,10,'11119',138);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,12,'11119',139);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,13,'11119',140);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (356,14,'11119',141);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (61,15,'11119',142);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11119',143);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (40,0,'11120',144);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (344,1,'11120',145);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,2,'11120',146);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (34,3,'11120',147);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,4,'11120',148);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (12,5,'11120',149);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (525,6,'11120',150);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (331,7,'11120',151);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (543,8,'11120',152);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (61,9,'11120',153);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (444,10,'11120',154);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (43,12,'11120',155);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (54,13,'11120',156);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (356,14,'11120',157);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (61,15,'11120',158);
+Insert into LANA.ALMACEN (EXISTENCIA,IDCIGARRILLO,NUMFISCAL,IDALMACEN) values (201,16,'11120',159);
 REM INSERTING into LANA.CIGARRILLO
 SET DEFINE OFF;
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (16,0,0,1,0,'Winston',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (15,1,0,1,0,'Camel',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (14,0,0,1,0,'Camel',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (13,0,1,0,0,'Corona',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (12,0,1,1,0,'Chesterfield',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (11,1,1,1,0,'LM',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (10,0,1,1,0,'LM',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (9,0,1,0,0,'Ducados',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (8,0,0,0,0,'Celtas',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (7,0,1,0,0,'Celtas',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (6,0,1,1,0,'Malboro',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (5,0,1,1,1,'Fortuna',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (4,3,1,1,0,'Fortuna',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (3,1,1,1,0,'Fortuna',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (2,0,1,1,0,'Fortuna',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (1,3,1,1,0,'Nobel',null);
-Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA,IDFABRICANTE) values (0,1,1,1,0,'Nobel',null);
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (18,0,0,1,0,'Winston');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (19,1,1,1,0,'Nobel');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (20,3,1,1,0,'Nobel');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (21,0,1,1,0,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (22,1,1,1,0,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (23,3,1,1,0,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (24,0,1,1,1,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (25,0,1,1,0,'Malboro');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (26,0,1,0,0,'Celtas');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (27,0,1,0,0,'Ducados');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (28,0,1,1,0,'LM');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (29,0,1,1,1,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (16,0,0,1,0,'Winston');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (15,1,0,1,0,'Camel');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (14,0,0,1,0,'Camel');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (13,0,1,0,0,'Corona');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (12,0,1,1,0,'Chesterfield');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (11,1,1,1,0,'LM');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (10,0,1,1,0,'LM');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (9,0,1,0,0,'Ducados');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (8,0,0,0,0,'Celtas');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (7,0,1,0,0,'Celtas');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (6,0,1,1,0,'Malboro');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (5,0,1,1,1,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (4,3,1,1,0,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (3,1,1,1,0,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (2,0,1,1,0,'Fortuna');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (1,3,1,1,0,'Nobel');
+Insert into LANA.CIGARRILLO (IDCIGARRILLO,CONTAMINANTE,FILTRO,HOJA,MENTOLADO,MARCA) values (0,1,1,1,0,'Nobel');
 REM INSERTING into LANA.COMPRA
 SET DEFINE OFF;
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (10,to_date('01-JAN-96','DD-MON-RR'),2,null,null,'11111',10);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (9,to_date('01-JAN-96','DD-MON-RR'),2,null,null,'11111',9);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (8,to_date('01-JAN-96','DD-MON-RR'),2,null,null,'11111',8);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (7,to_date('01-MAR-96','DD-MON-RR'),2,null,null,'11111',7);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (6,to_date('03-JAN-96','DD-MON-RR'),2,null,null,'11111',6);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (5,to_date('01-JAN-95','DD-MON-RR'),2,null,null,'11111',5);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (4,to_date('04-JAN-96','DD-MON-RR'),2,null,null,'11111',4);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (3,to_date('02-JAN-97','DD-MON-RR'),2,null,null,'11111',3);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (2,to_date('01-MAR-96','DD-MON-RR'),2,null,null,'11111',2);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (1,to_date('03-JAN-96','DD-MON-RR'),2,null,null,'11111',1);
-Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,IDALMACEN,NUMFISCAL,IDCIGARRILLO) values (0,to_date('02-JAN-96','DD-MON-RR'),2,null,null,'11111',0);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (11,to_date('01-JAN-96','DD-MON-RR'),2,143,'11111',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (12,to_date('01-JAN-96','DD-MON-RR'),2,314,'11111',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (13,to_date('01-JAN-96','DD-MON-RR'),2,226,'11111',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (26,to_date('01-OCT-96','DD-MON-RR'),2,354,'11112',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (27,to_date('04-JAN-96','DD-MON-RR'),2,523,'11112',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (28,to_date('13-JAN-96','DD-MON-RR'),2,514,'11112',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (29,to_date('20-JAN-96','DD-MON-RR'),2,336,'11112',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (42,to_date('01-JUN-96','DD-MON-RR'),2,354,'11113',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (43,to_date('27-JAN-96','DD-MON-RR'),2,623,'11113',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (44,to_date('01-JUL-96','DD-MON-RR'),2,514,'11113',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (45,to_date('01-OCT-96','DD-MON-RR'),2,536,'11113',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (58,to_date('01-AUG-96','DD-MON-RR'),2,754,'11114',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (59,to_date('01-MAR-96','DD-MON-RR'),2,223,'11114',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (60,to_date('01-NOV-96','DD-MON-RR'),2,314,'11114',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (61,to_date('01-APR-96','DD-MON-RR'),2,676,'11114',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (74,to_date('01-JUL-96','DD-MON-RR'),2,454,'11115',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (75,to_date('01-JUN-96','DD-MON-RR'),2,223,'11115',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (76,to_date('01-FEB-96','DD-MON-RR'),2,314,'11115',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (77,to_date('01-MAR-96','DD-MON-RR'),2,576,'11115',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (91,to_date('01-MAR-96','DD-MON-RR'),2,454,'11116',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (92,to_date('01-JAN-95','DD-MON-RR'),2,543,'11116',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (93,to_date('01-FEB-96','DD-MON-RR'),2,554,'11116',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (94,to_date('18-JAN-96','DD-MON-RR'),2,476,'11116',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (107,to_date('01-JAN-96','DD-MON-RR'),2,644,'11117',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (108,to_date('01-JAN-96','DD-MON-RR'),2,343,'11117',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (109,to_date('01-JAN-96','DD-MON-RR'),2,254,'11117',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (110,to_date('01-JAN-96','DD-MON-RR'),2,636,'11117',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (123,to_date('01-MAY-96','DD-MON-RR'),2,444,'11118',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (124,to_date('01-JAN-95','DD-MON-RR'),2,543,'11118',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (125,to_date('01-JAN-95','DD-MON-RR'),2,554,'11118',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (126,to_date('01-JAN-96','DD-MON-RR'),2,436,'11118',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (140,to_date('01-JAN-95','DD-MON-RR'),2,544,'11119',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (141,to_date('01-JAN-95','DD-MON-RR'),2,543,'11119',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (142,to_date('01-JAN-95','DD-MON-RR'),2,454,'11119',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (143,to_date('01-JUL-96','DD-MON-RR'),2,556,'11119',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (156,to_date('01-JAN-95','DD-MON-RR'),2,744,'11120',12);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (157,to_date('01-JAN-95','DD-MON-RR'),2,343,'11120',11);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (158,to_date('01-JAN-95','DD-MON-RR'),2,454,'11120',13);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (159,to_date('01-JAN-96','DD-MON-RR'),2,656,'11120',14);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (15,to_date('22-MAY-95','DD-MON-RR'),2,401,'11111',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (16,to_date('01-JAN-95','DD-MON-RR'),2,300,'11112',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (17,to_date('01-MAR-96','DD-MON-RR'),2,234,'11112',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (18,to_date('01-JUN-96','DD-MON-RR'),2,343,'11112',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (19,to_date('01-FEB-96','DD-MON-RR'),2,234,'11112',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (20,to_date('01-JAN-95','DD-MON-RR'),2,154,'11112',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (21,to_date('03-JAN-96','DD-MON-RR'),2,312,'11112',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (22,to_date('01-FEB-96','DD-MON-RR'),2,435,'11112',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (23,to_date('01-NOV-96','DD-MON-RR'),2,521,'11112',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (24,to_date('01-MAY-96','DD-MON-RR'),2,633,'11112',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (31,to_date('22-MAY-95','DD-MON-RR'),2,401,'11112',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (32,to_date('21-JAN-96','DD-MON-RR'),2,400,'11113',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (33,to_date('02-JAN-96','DD-MON-RR'),2,504,'11113',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (34,to_date('01-JAN-96','DD-MON-RR'),2,743,'11113',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (35,to_date('01-JAN-96','DD-MON-RR'),2,334,'11113',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (36,to_date('01-MAR-96','DD-MON-RR'),2,554,'11113',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (37,to_date('01-JAN-95','DD-MON-RR'),2,782,'11113',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (38,to_date('01-JUN-96','DD-MON-RR'),2,135,'11113',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (39,to_date('01-JAN-95','DD-MON-RR'),2,721,'11113',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (40,to_date('01-JAN-95','DD-MON-RR'),2,633,'11113',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (41,to_date('01-JAN-95','DD-MON-RR'),2,831,'11113',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (47,to_date('22-MAY-95','DD-MON-RR'),2,401,'11113',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (48,to_date('01-MAY-96','DD-MON-RR'),2,440,'11114',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (49,to_date('01-AUG-96','DD-MON-RR'),2,634,'11114',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (50,to_date('01-JAN-95','DD-MON-RR'),2,343,'11114',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (51,to_date('01-JAN-95','DD-MON-RR'),2,434,'11114',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (52,to_date('01-JAN-95','DD-MON-RR'),2,454,'11114',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (53,to_date('01-JAN-95','DD-MON-RR'),2,512,'11114',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (54,to_date('01-JUL-96','DD-MON-RR'),2,425,'11114',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (55,to_date('01-JAN-95','DD-MON-RR'),2,551,'11114',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (56,to_date('01-NOV-96','DD-MON-RR'),2,563,'11114',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (57,to_date('01-JAN-95','DD-MON-RR'),2,331,'11114',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (63,to_date('22-MAY-95','DD-MON-RR'),2,401,'11114',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (64,to_date('01-JAN-95','DD-MON-RR'),2,540,'11115',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (65,to_date('01-APR-96','DD-MON-RR'),2,534,'11115',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (66,to_date('01-JUL-96','DD-MON-RR'),2,343,'11115',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (67,to_date('01-JAN-95','DD-MON-RR'),2,334,'11115',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (68,to_date('01-FEB-96','DD-MON-RR'),2,554,'11115',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (69,to_date('01-JAN-95','DD-MON-RR'),2,412,'11115',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (70,to_date('01-JAN-95','DD-MON-RR'),2,425,'11115',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (71,to_date('01-JAN-95','DD-MON-RR'),2,551,'11115',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (72,to_date('01-APR-96','DD-MON-RR'),2,463,'11115',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (73,to_date('01-MAR-96','DD-MON-RR'),2,331,'11115',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (79,to_date('22-MAY-95','DD-MON-RR'),2,401,'11115',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (80,to_date('01-JAN-95','DD-MON-RR'),2,440,'11116',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (81,to_date('01-APR-96','DD-MON-RR'),2,234,'11116',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (82,to_date('01-JAN-95','DD-MON-RR'),2,443,'11116',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (83,to_date('01-JAN-95','DD-MON-RR'),2,334,'11116',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (84,to_date('01-JUN-96','DD-MON-RR'),2,654,'11116',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (86,to_date('01-JAN-95','DD-MON-RR'),2,712,'11116',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (87,to_date('01-FEB-96','DD-MON-RR'),2,125,'11116',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (88,to_date('01-MAR-96','DD-MON-RR'),2,541,'11116',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (89,to_date('01-APR-96','DD-MON-RR'),2,363,'11116',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (90,to_date('01-JAN-95','DD-MON-RR'),2,661,'11116',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (96,to_date('22-MAY-95','DD-MON-RR'),2,401,'11116',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (97,to_date('01-NOV-96','DD-MON-RR'),2,340,'11117',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (98,to_date('01-JAN-95','DD-MON-RR'),2,644,'11117',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (99,to_date('01-APR-96','DD-MON-RR'),2,343,'11117',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (100,to_date('01-JAN-96','DD-MON-RR'),2,334,'11117',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (101,to_date('01-JAN-96','DD-MON-RR'),2,354,'11117',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (102,to_date('01-JAN-96','DD-MON-RR'),2,312,'11117',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (103,to_date('01-JAN-96','DD-MON-RR'),2,455,'11117',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (104,to_date('01-JAN-95','DD-MON-RR'),2,831,'11117',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (105,to_date('01-JAN-95','DD-MON-RR'),2,553,'11117',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (106,to_date('01-APR-96','DD-MON-RR'),2,681,'11117',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (112,to_date('22-MAY-95','DD-MON-RR'),2,401,'11117',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (113,to_date('13-JAN-96','DD-MON-RR'),2,540,'11118',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (114,to_date('12-JAN-96','DD-MON-RR'),2,344,'11118',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (115,to_date('14-JAN-96','DD-MON-RR'),2,543,'11118',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (116,to_date('01-JAN-95','DD-MON-RR'),2,534,'11118',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (117,to_date('01-JAN-96','DD-MON-RR'),2,454,'11118',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (118,to_date('01-JAN-96','DD-MON-RR'),2,512,'11118',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (119,to_date('01-JAN-96','DD-MON-RR'),2,355,'11118',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (120,to_date('01-JAN-96','DD-MON-RR'),2,231,'11118',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (121,to_date('01-JAN-95','DD-MON-RR'),2,353,'11118',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (122,to_date('01-JAN-95','DD-MON-RR'),2,661,'11118',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (128,to_date('22-MAY-95','DD-MON-RR'),2,401,'11118',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (129,to_date('01-JAN-95','DD-MON-RR'),2,340,'11119',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (130,to_date('01-MAR-96','DD-MON-RR'),2,644,'11119',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (131,to_date('01-APR-96','DD-MON-RR'),2,443,'11119',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (132,to_date('01-JAN-95','DD-MON-RR'),2,234,'11119',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (134,to_date('01-MAY-96','DD-MON-RR'),2,454,'11119',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (135,to_date('01-JAN-96','DD-MON-RR'),2,312,'11119',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (136,to_date('01-JAN-96','DD-MON-RR'),2,725,'11119',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (137,to_date('01-JAN-96','DD-MON-RR'),2,531,'11119',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (138,to_date('01-JAN-96','DD-MON-RR'),2,743,'11119',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (139,to_date('01-JAN-96','DD-MON-RR'),2,361,'11119',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (145,to_date('22-MAY-95','DD-MON-RR'),2,401,'11119',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (146,to_date('01-JAN-96','DD-MON-RR'),2,440,'11120',19);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (147,to_date('01-JAN-96','DD-MON-RR'),2,544,'11120',20);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (148,to_date('01-JAN-96','DD-MON-RR'),2,343,'11120',21);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (149,to_date('01-JAN-96','DD-MON-RR'),2,234,'11120',22);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (150,to_date('01-JAN-96','DD-MON-RR'),2,254,'11120',23);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (151,to_date('01-JAN-96','DD-MON-RR'),2,212,'11120',24);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (152,to_date('01-JAN-96','DD-MON-RR'),2,825,'11120',25);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (153,to_date('01-JAN-95','DD-MON-RR'),2,531,'11120',26);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (154,to_date('01-JAN-95','DD-MON-RR'),2,743,'11120',27);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (155,to_date('01-JAN-95','DD-MON-RR'),2,361,'11120',28);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (85,to_date('22-MAY-95','DD-MON-RR'),2,401,'11120',18);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (10,to_date('01-JAN-96','DD-MON-RR'),2,431,'11111',10);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (9,to_date('01-JAN-96','DD-MON-RR'),2,143,'11111',9);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (8,to_date('01-JAN-96','DD-MON-RR'),2,421,'11111',8);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (7,to_date('01-MAR-96','DD-MON-RR'),2,165,'11111',7);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (6,to_date('03-JAN-96','DD-MON-RR'),2,112,'11111',6);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (5,to_date('01-JAN-95','DD-MON-RR'),2,154,'11111',5);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (4,to_date('04-JAN-96','DD-MON-RR'),2,334,'11111',4);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (3,to_date('02-JAN-97','DD-MON-RR'),2,334,'11111',3);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (2,to_date('01-MAR-96','DD-MON-RR'),2,443,'11111',2);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (1,to_date('03-JAN-96','DD-MON-RR'),2,234,'11111',1);
+Insert into LANA.COMPRA (NUMCOMPRA,FECHAC,PRECIOCOMPRA,CANTIDAD,NUMFISCAL,IDCIGARRILLO) values (0,to_date('02-JAN-96','DD-MON-RR'),2,400,'11111',0);
 REM INSERTING into LANA.ESTANCO
 SET DEFINE OFF;
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9521,'11120','La Juana','Buen Pastor 13, Sevilla','Sevilla');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9542,'11119','La Hoguera','La paz 4, Sevilla','Sevilla');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9541,'11118','El Pilar','Avenida de la Palmera 23, Sevilla','Sevilla');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9573,'11117','Costa Sol','Saravia 3, Lucena','C?rdoba');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9572,'11116','El Humo','Gran Capitan 12, C?rdoba','C?rdoba');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9511,'11115','La Zona','La Trinidad 3, C?rdoba','C?rdoba');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9114,'11114','La Canela','Gran Capitan 2, Leganes','Madrid');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9113,'11113','La Paloma','El nido 34, Madrid','Madrid');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9112,'11112','El Clavel','El jardin 23, Alcal','Madrid');
-Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,DIRECCION,PROVINCIA) values (9111,'11111','La Pajarita','El nido 5, Madrid','Madrid');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9521,'11120','La Juana','Sevilla');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9542,'11119','La Hoguera','Sevilla');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9541,'11118','El Pilar','Sevilla');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9573,'11117','Costa Sol','C?rdoba');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9572,'11116','El Humo','C?rdoba');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9511,'11115','La Zona','C?rdoba');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9114,'11114','La Canela','Madrid');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9113,'11113','La Paloma','Madrid');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9112,'11112','El Clavel','Madrid');
+Insert into LANA.ESTANCO (NUMEXP,NUMFISCAL,NOMBRE,PROVINCIA) values (9111,'11111','La Pajarita','Madrid');
 REM INSERTING into LANA.FABRICANTE
 SET DEFINE OFF;
 Insert into LANA.FABRICANTE (NOMBRE_FABRICANTE,IDFABRICANTE,PAIS) values ('Tabacalera S. A.',0,'Espa?a');
@@ -3437,63 +2706,6 @@ Insert into LANA.MANUFACTURA (MARCA,CARTON,EMBALAJE,IDFABRICANTE) values ('Celta
 Insert into LANA.MANUFACTURA (MARCA,CARTON,EMBALAJE,IDFABRICANTE) values ('Malboro',10,20,2);
 Insert into LANA.MANUFACTURA (MARCA,CARTON,EMBALAJE,IDFABRICANTE) values ('Fortuna',10,20,0);
 Insert into LANA.MANUFACTURA (MARCA,CARTON,EMBALAJE,IDFABRICANTE) values ('Nobel',10,20,0);
-REM INSERTING into LANA.MD_ADDITIONAL_PROPERTIES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_APPLICATIONFILES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_APPLICATIONS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_CATALOGS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_CODE_REGEX
-SET DEFINE OFF;
-Insert into LANA.MD_CODE_REGEX (ID,REGEX,DESCRIPTION) values (1,'\#[A-Z1-9\@\#\_]','Temporary tables');
-Insert into LANA.MD_CODE_REGEX (ID,REGEX,DESCRIPTION) values (2,'INSERT','Insert statements');
-Insert into LANA.MD_CODE_REGEX (ID,REGEX,DESCRIPTION) values (3,'SELECT','Select statements');
-Insert into LANA.MD_CODE_REGEX (ID,REGEX,DESCRIPTION) values (4,'UPDATE','Update Statements');
-Insert into LANA.MD_CODE_REGEX (ID,REGEX,DESCRIPTION) values (5,'DELETE','Delete Statements');
-REM INSERTING into LANA.MD_COLUMNS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_CONNECTIONS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_CONSTRAINTS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_CONSTRAINT_DETAILS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_DERIVATIVES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_FILE_ARTIFACTS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_GROUPS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_GROUP_MEMBERS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_GROUP_PRIVILEGES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_INDEXES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_INDEX_DETAILS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_MIGR_DEPENDENCY
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_MIGR_PARAMETER
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_MIGR_WEAKDEP
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_NUMROW$SOURCE
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_NUMROW$TARGET
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_OTHER_OBJECTS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_PACKAGES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_PARTITIONS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_PRIVILEGES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_PROJECTS
-SET DEFINE OFF;
 REM INSERTING into LANA.MD_REGISTRY
 SET DEFINE OFF;
 Insert into LANA.MD_REGISTRY (OBJECT_TYPE,OBJECT_NAME,DESC_OBJECT_NAME) values ('PACKAGE','MD_META',null);
@@ -3630,24 +2842,15 @@ Insert into LANA.MD_REGISTRY (OBJECT_TYPE,OBJECT_NAME,DESC_OBJECT_NAME) values (
 Insert into LANA.MD_REGISTRY (OBJECT_TYPE,OBJECT_NAME,DESC_OBJECT_NAME) values ('TABLE','STAGE_TERADATA_PROCEDURES',null);
 Insert into LANA.MD_REGISTRY (OBJECT_TYPE,OBJECT_NAME,DESC_OBJECT_NAME) values ('TABLE','STAGE_TERADATA_SHOWTBLCHECKS',null);
 Insert into LANA.MD_REGISTRY (OBJECT_TYPE,OBJECT_NAME,DESC_OBJECT_NAME) values ('TABLE','STAGE_TERADATA_JOININDICES',null);
-REM INSERTING into LANA.MD_REPOVERSIONS
-SET DEFINE OFF;
-Insert into LANA.MD_REPOVERSIONS (REVISION) values (65);
 REM INSERTING into LANA.MD_SCHEMAS
 SET DEFINE OFF;
 REM INSERTING into LANA.MD_SEQUENCES
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_STORED_PROGRAMS
 SET DEFINE OFF;
 REM INSERTING into LANA.MD_SYNONYMS
 SET DEFINE OFF;
 REM INSERTING into LANA.MD_TABLES
 SET DEFINE OFF;
-REM INSERTING into LANA.MD_TABLESPACES
-SET DEFINE OFF;
 REM INSERTING into LANA.MD_TARGET_ALL_ERRORS
-SET DEFINE OFF;
-REM INSERTING into LANA.MD_TARGET_ALL_OBJECTS
 SET DEFINE OFF;
 REM INSERTING into LANA.MD_TRIGGERS
 SET DEFINE OFF;
@@ -3773,13 +2976,9 @@ Insert into LANA.MIGRATION_RESERVED_WORDS (KEYWORD) values ('WHENEVER');
 Insert into LANA.MIGRATION_RESERVED_WORDS (KEYWORD) values ('COMMIT');
 REM INSERTING into LANA.MIGRLOG
 SET DEFINE OFF;
-REM INSERTING into LANA.MIGR_DATATYPE_TRANSFORM_MAP
-SET DEFINE OFF;
 REM INSERTING into LANA.MIGR_DATATYPE_TRANSFORM_RULE
 SET DEFINE OFF;
 REM INSERTING into LANA.MIGR_GENERATION_ORDER
-SET DEFINE OFF;
-REM INSERTING into LANA.PEDIDO
 SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_CHECK_CONSTRAINTS
 SET DEFINE OFF;
@@ -3793,8 +2992,6 @@ REM INSERTING into LANA.SS2K5_DATABASE_ROLE_MEMBERS
 SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_DEFAULT_CONSTRAINTS
 SET DEFINE OFF;
-REM INSERTING into LANA.SS2K5_FOREIGN_KEYS
-SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_FOREIGN_KEY_COLUMNS
 SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_IDENTITY_COLUMNS
@@ -3804,8 +3001,6 @@ SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_INDEX_COLUMNS
 SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_OBJECTS
-SET DEFINE OFF;
-REM INSERTING into LANA.SS2K5_SCHEMAS
 SET DEFINE OFF;
 REM INSERTING into LANA.SS2K5_SCHEMATA
 SET DEFINE OFF;
@@ -3836,8 +3031,6 @@ SET DEFINE OFF;
 REM INSERTING into LANA.STAGE_SS2K5_DB_ROLE_MEMBERS
 SET DEFINE OFF;
 REM INSERTING into LANA.STAGE_SS2K5_DT_CONSTRAINTS
-SET DEFINE OFF;
-REM INSERTING into LANA.STAGE_SS2K5_FN_KEYS
 SET DEFINE OFF;
 REM INSERTING into LANA.STAGE_SS2K5_FN_KEY_COLUMNS
 SET DEFINE OFF;
@@ -3941,16 +3134,6 @@ REM INSERTING into LANA.SYB12_SYSCOMMENTS
 SET DEFINE OFF;
 REM INSERTING into LANA.SYB12_SYSCONSTRAINTS
 SET DEFINE OFF;
-REM INSERTING into LANA.SYB12_SYSDATABASES
-SET DEFINE OFF;
-REM INSERTING into LANA.SYB12_SYSINDEXES
-SET DEFINE OFF;
-REM INSERTING into LANA.SYB12_SYSOBJECTS
-SET DEFINE OFF;
-REM INSERTING into LANA.SYB12_SYSTYPES
-SET DEFINE OFF;
-REM INSERTING into LANA.SYB12_SYSUSERS
-SET DEFINE OFF;
 REM INSERTING into LANA.VENTA
 SET DEFINE OFF;
 --------------------------------------------------------
@@ -3959,22 +3142,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."SS2K5_COLUMNS_COLUMN_ID" ON "LANA"."SS2K5_COLUMNS" ("COLUMN_ID") ;
 --------------------------------------------------------
---  DDL for Index S_SS2K5_FN_KS_DBID_GEN_FK
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."S_SS2K5_FN_KS_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_FN_KEYS" ("DBID_GEN_FK") ;
---------------------------------------------------------
 --  DDL for Index SS2K5_DATABASES_DB_ID
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_DATABASES_DB_ID" ON "LANA"."SS2K5_DATABASES" ("DB_ID") ;
---------------------------------------------------------
---  DDL for Index MD_CONSTRAINT_DETAILS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_CONSTRAINT_DETAILS_PK" ON "LANA"."MD_CONSTRAINT_DETAILS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index FABRICANTE_PK
 --------------------------------------------------------
@@ -3984,13 +3155,6 @@ SET DEFINE OFF;
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_FILE_ARTIFACTS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_FILE_ARTIFACTS_PK" ON "LANA"."MD_FILE_ARTIFACTS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index S_SS2K5_IX_COLUMNS_DBID_GEN_FK
@@ -4033,24 +3197,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_PS_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_SYSPROPERTIES" ("DBID_GEN_FK") ;
 --------------------------------------------------------
---  DDL for Index MIGR_DEPENDENCY_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MIGR_DEPENDENCY_PK" ON "LANA"."MD_MIGR_DEPENDENCY" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index SS2K5_D_R_M_ROLE_PRINCIPAL_ID
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_D_R_M_ROLE_PRINCIPAL_ID" ON "LANA"."SS2K5_DATABASE_ROLE_MEMBERS" ("ROLE_PRINCIPAL_ID") ;
---------------------------------------------------------
---  DDL for Index MD_ADDITIONAL_PROPERTIES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_ADDITIONAL_PROPERTIES_PK" ON "LANA"."MD_ADDITIONAL_PROPERTIES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index SS2K5_C_C_OBJECT_ID
 --------------------------------------------------------
@@ -4061,13 +3211,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_OBJECTS_SCHEMA_ID" ON "LANA"."STAGE_SS2K5_OBJECTS" ("SCHEMA_ID") ;
---------------------------------------------------------
---  DDL for Index MD_STATE_TYPE__ID
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_STATE_TYPE__ID" ON "LANA"."MD_APPLICATIONFILES" ("STATE", "TYPE", "ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index MIGR_GENERATION_ORDER_PK
 --------------------------------------------------------
@@ -4105,24 +3248,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_INDEX_COLUMNS_OBJ_IND" ON "LANA"."STAGE_SS2K5_INDEX_COLUMNS" ("SVRID_FK", "DBID_GEN_FK", "OBJECT_ID", "INDEX_ID") ;
 --------------------------------------------------------
---  DDL for Index MD_GROUPS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_GROUPS_PK" ON "LANA"."MD_GROUPS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index MD_SEQUENCES_PK
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "LANA"."MD_SEQUENCES_PK" ON "LANA"."MD_SEQUENCES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_ADDITIONAL_PROPERTIES_IDX2
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_ADDITIONAL_PROPERTIES_IDX2" ON "LANA"."MD_ADDITIONAL_PROPERTIES" ("REF_ID_FK") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
@@ -4157,13 +3286,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_F_K_C_R_O_ID" ON "LANA"."SS2K5_FOREIGN_KEY_COLUMNS" ("REFERENCED_OBJECT_ID") ;
---------------------------------------------------------
---  DDL for Index MD_COLUMNS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_COLUMNS_PK" ON "LANA"."MD_COLUMNS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index S_SS2K5_DATABASES_DATABASE_ID
 --------------------------------------------------------
@@ -4237,31 +3359,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."SS2K5_OBJECTS_SCHEMA_ID" ON "LANA"."SS2K5_OBJECTS" ("SCHEMA_ID") ;
 --------------------------------------------------------
---  DDL for Index MIGRDREIVATIVES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MIGRDREIVATIVES_PK" ON "LANA"."MD_DERIVATIVES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_PARTITIONS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_PARTITIONS_PK" ON "LANA"."MD_PARTITIONS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index MIGR_GENERATION_ORDER_UK
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "LANA"."MIGR_GENERATION_ORDER_UK" ON "LANA"."MIGR_GENERATION_ORDER" ("OBJECT_ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_GROUP_MEMBERS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_GROUP_MEMBERS_PK" ON "LANA"."MD_GROUP_MEMBERS" ("ID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
@@ -4270,55 +3371,20 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_TYPES_SYSTEM_TYPE_ID" ON "LANA"."STAGE_SS2K5_TYPES" ("SYSTEM_TYPE_ID") ;
 --------------------------------------------------------
---  DDL for Index MD_INDEXES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_INDEXES_PK" ON "LANA"."MD_INDEXES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index SS2K5_INDEXES_OBJECT_ID
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_INDEXES_OBJECT_ID" ON "LANA"."SS2K5_INDEXES" ("OBJECT_ID") ;
---------------------------------------------------------
---  DDL for Index MIGR_DATATYPE_TRANSFORM_M_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MIGR_DATATYPE_TRANSFORM_M_PK" ON "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index S_SS2K5_D_P_DBID_GEN_FK
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_D_P_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_DB_PRINCIPALS" ("DBID_GEN_FK") ;
 --------------------------------------------------------
---  DDL for Index MD_DERIVATIVES_PERF_IDX3
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_DERIVATIVES_PERF_IDX3" ON "LANA"."MD_DERIVATIVES" ("ORIGINAL_IDENTIFIER") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 167 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_DERIVATIVES_PERF_IDX
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_DERIVATIVES_PERF_IDX" ON "LANA"."MD_DERIVATIVES" ("SRC_ID", "DERIVED_CONNECTION_ID_FK") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index SS2K5_TABLES_SCHEMA_ID
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_TABLES_SCHEMA_ID" ON "LANA"."SS2K5_TABLES" ("SCHEMA_ID") ;
---------------------------------------------------------
---  DDL for Index MD_DERIVATIVES_PERF_IDX4
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_DERIVATIVES_PERF_IDX4" ON "LANA"."MD_DERIVATIVES" ("DERIVED_ID", "DERIVED_TYPE", "DERIVED_CONNECTION_ID_FK") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 165 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index S_SS2K5_D_R_M_DBID_GEN_FK
 --------------------------------------------------------
@@ -4330,17 +3396,20 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."SS2K5_INDEX_COLUMNS_DB_ID" ON "LANA"."SS2K5_INDEX_COLUMNS" ("DB_ID") ;
 --------------------------------------------------------
+--  DDL for Index MANUFACTURA_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "LANA"."MANUFACTURA_PK" ON "LANA"."MANUFACTURA" ("MARCA") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
 --  DDL for Index MD_USER_PRIVILEGES_PK
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "LANA"."MD_USER_PRIVILEGES_PK" ON "LANA"."MD_USER_PRIVILEGES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_CONSTRAINTS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_CONSTRAINTS_PK" ON "LANA"."MD_CONSTRAINTS" ("ID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
@@ -4369,20 +3438,6 @@ SET DEFINE OFF;
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index MD_PROJECTS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_PROJECTS_PK" ON "LANA"."MD_PROJECTS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_STORED_PROGRAS_IDX2
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_STORED_PROGRAS_IDX2" ON "LANA"."MD_STORED_PROGRAMS" ("SCHEMA_ID_FK", UPPER("NAME")) 
-  PCTFREE 10 INITRANS 2 MAXTRANS 166 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index MD_TRIGGERS_PK
 --------------------------------------------------------
 
@@ -4404,23 +3459,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_DEFAULT_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_DT_CONSTRAINTS" ("DBID_GEN_FK") ;
---------------------------------------------------------
---  DDL for Index MD_DERIVATIVES_PERF_IDX2
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_DERIVATIVES_PERF_IDX2" ON "LANA"."MD_DERIVATIVES" ("NEW_IDENTIFIER") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 167 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index SS2K5_SCHEMAS_NAME
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."SS2K5_SCHEMAS_NAME" ON "LANA"."SS2K5_SCHEMAS" ("NAME") ;
---------------------------------------------------------
---  DDL for Index SS2K5_SCHEMAS_DB_ID
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."SS2K5_SCHEMAS_DB_ID" ON "LANA"."SS2K5_SCHEMAS" ("DB_ID") ;
 --------------------------------------------------------
 --  DDL for Index MD_USER_DEFINED_DATA_TYPES_PK
 --------------------------------------------------------
@@ -4460,13 +3498,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_SCHEMATA_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_SCHEMATA" ("DBID_GEN_FK") ;
---------------------------------------------------------
---  DDL for Index MD_DERIVATIVES_PERF_IDX1
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_DERIVATIVES_PERF_IDX1" ON "LANA"."MD_DERIVATIVES" ("SRC_TYPE", "DERIVATIVE_REASON") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 167 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index SS2K5_TABLES_DB_ID
 --------------------------------------------------------
@@ -4522,24 +3553,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_INDEXES_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_INDEXES" ("DBID_GEN_FK") ;
 --------------------------------------------------------
---  DDL for Index MIGR_WEAKDEP_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MIGR_WEAKDEP_PK" ON "LANA"."MD_MIGR_WEAKDEP" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index SS2K5_T_P_TABLE_NAME
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_T_P_TABLE_NAME" ON "LANA"."SS2K5_TABLE_PRIVILEGES" ("TABLE_NAME") ;
---------------------------------------------------------
---  DDL for Index MD_COLUMNS_PERF_IDX
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_COLUMNS_PERF_IDX" ON "LANA"."MD_COLUMNS" ("TABLE_ID_FK", UPPER(TRIM("COLUMN_NAME")), "ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 165 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index S_SS2K5_IX_COLUMNS_OBJECT_ID
 --------------------------------------------------------
@@ -4556,29 +3573,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."STAGE_TERADATA_OFFLINE_TABIND" ON "LANA"."STAGE_TERADATA_OFFLINE_TABLES" ("DBNAME") ;
 --------------------------------------------------------
---  DDL for Index S_SS2K5_FOREIGN_KEYS_OBJECT_ID
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."S_SS2K5_FOREIGN_KEYS_OBJECT_ID" ON "LANA"."STAGE_SS2K5_FN_KEYS" ("OBJECT_ID") ;
---------------------------------------------------------
 --  DDL for Index S_SS2K5_TABLES_OBJECT_ID
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_TABLES_OBJECT_ID" ON "LANA"."STAGE_SS2K5_TABLES" ("OBJECT_ID") ;
---------------------------------------------------------
---  DDL for Index MD_ADDITIONAL_PROPERTIES_IDX
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_ADDITIONAL_PROPERTIES_IDX" ON "LANA"."MD_ADDITIONAL_PROPERTIES" ("PROP_KEY") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 167 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_APPLICATIONS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_APPLICATIONS_PK" ON "LANA"."MD_APPLICATIONS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index MIGRLOG_PERF_IDX
 --------------------------------------------------------
@@ -4597,13 +3595,6 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_T_P_TABLE_SCHEMA" ON "LANA"."STAGE_SS2K5_TABLE_PRIVILEGES" ("TABLE_SCHEMA") ;
 --------------------------------------------------------
---  DDL for Index MD_APP_FILE_TYPE_IDX
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."MD_APP_FILE_TYPE_IDX" ON "LANA"."MD_APPLICATIONFILES" ("TYPE", "ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index SS2K5_DATABASES_DATABASE_ID
 --------------------------------------------------------
 
@@ -4618,13 +3609,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_D_P_SID" ON "LANA"."STAGE_SS2K5_DB_PRINCIPALS" ("SID") ;
---------------------------------------------------------
---  DDL for Index MD_OTHER_OBJECTS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_OTHER_OBJECTS_PK" ON "LANA"."MD_OTHER_OBJECTS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index SS2K5_TABLES_OBJECT_ID
 --------------------------------------------------------
@@ -4657,11 +3641,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."SS2K5_DEFAULT_OBJECT_ID" ON "LANA"."SS2K5_DEFAULT_CONSTRAINTS" ("OBJECT_ID") ;
---------------------------------------------------------
---  DDL for Index SS2K5_FOREIGN_KEYS_OBJECT_ID
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."SS2K5_FOREIGN_KEYS_OBJECT_ID" ON "LANA"."SS2K5_FOREIGN_KEYS" ("OBJECT_ID") ;
 --------------------------------------------------------
 --  DDL for Index S_SS2K5_S_P_DBID_GEN_FK
 --------------------------------------------------------
@@ -4698,24 +3677,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."SS2K5_OBJECTS_OBJECT_ID" ON "LANA"."SS2K5_OBJECTS" ("OBJECT_ID") ;
 --------------------------------------------------------
---  DDL for Index MD_INDEX_DETAILS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_INDEX_DETAILS_PK" ON "LANA"."MD_INDEX_DETAILS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index S_SS2K5_SQL_MS_DBID_GEN_FK
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_SQL_MS_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_SQL_MODULES" ("DBID_GEN_FK") ;
---------------------------------------------------------
---  DDL for Index MD_APPLICATIONFILES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_APPLICATIONFILES_PK" ON "LANA"."MD_APPLICATIONFILES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index SS2K5_D_R_M_DB_ID
 --------------------------------------------------------
@@ -4732,13 +3697,6 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."SS2K5_TYPES_DB_ID" ON "LANA"."SS2K5_TYPES" ("DB_ID") ;
 --------------------------------------------------------
---  DDL for Index MD_STORED_PROGRAMS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_STORED_PROGRAMS_PK" ON "LANA"."MD_STORED_PROGRAMS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index SS2K5_DATABASES_NAME
 --------------------------------------------------------
 
@@ -4754,20 +3712,6 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_OBJECTS_ID_GEN" ON "LANA"."STAGE_SS2K5_OBJECTS" ("OBJID_GEN") ;
 --------------------------------------------------------
---  DDL for Index MD_GROUP_PRIVILEGES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_GROUP_PRIVILEGES_PK" ON "LANA"."MD_GROUP_PRIVILEGES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MIGR_PARAMETER_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MIGR_PARAMETER_PK" ON "LANA"."MD_MIGR_PARAMETER" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index S_SS2K5_TE_PS_DBID_GEN_FK
 --------------------------------------------------------
 
@@ -4778,24 +3722,10 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_INDEXES_OBJECT_ID" ON "LANA"."STAGE_SS2K5_INDEXES" ("OBJECT_ID") ;
 --------------------------------------------------------
---  DDL for Index PEDIDO_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."PEDIDO_PK" ON "LANA"."PEDIDO" ("IDPEDIDO") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index S_SS2K5_OBJECTS_OBJECT_ID
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_OBJECTS_OBJECT_ID" ON "LANA"."STAGE_SS2K5_OBJECTS" ("OBJECT_ID") ;
---------------------------------------------------------
---  DDL for Index MD_PACKAGES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_PACKAGES_PK" ON "LANA"."MD_PACKAGES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index SS2K5_D_P_DEFAULT_SCHEMA_NAME
 --------------------------------------------------------
@@ -4806,20 +3736,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE INDEX "LANA"."S_SS2K5_TABLES_SCHEMA_ID" ON "LANA"."STAGE_SS2K5_TABLES" ("SCHEMA_ID") ;
---------------------------------------------------------
---  DDL for Index MD_TABLESPACES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_TABLESPACES_PK" ON "LANA"."MD_TABLESPACES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_CATALOGS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_CATALOGS_PK" ON "LANA"."MD_CATALOGS" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index CIGARRILLO_PK
 --------------------------------------------------------
@@ -4853,13 +3769,6 @@ SET DEFINE OFF;
 
   CREATE INDEX "LANA"."S_SS2K5_OBJECTS_DBID_GEN_FK" ON "LANA"."STAGE_SS2K5_OBJECTS" ("DBID_GEN_FK") ;
 --------------------------------------------------------
---  DDL for Index MD_PRIVILEGES_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_PRIVILEGES_PK" ON "LANA"."MD_PRIVILEGES" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index S_SS2K5_CK_CTS_DBID_GEN_FK
 --------------------------------------------------------
 
@@ -4877,11 +3786,6 @@ SET DEFINE OFF;
   PCTFREE 10 INITRANS 2 MAXTRANS 166 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index SS2K5_FOREIGN_KEYS_DB_ID
---------------------------------------------------------
-
-  CREATE INDEX "LANA"."SS2K5_FOREIGN_KEYS_DB_ID" ON "LANA"."SS2K5_FOREIGN_KEYS" ("DB_ID") ;
---------------------------------------------------------
 --  DDL for Index S_SS2K5_SCHEMATA_SCHEMA_NAME
 --------------------------------------------------------
 
@@ -4891,13 +3795,6 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "LANA"."MIGR_DATATYPE_TRANSFORM_R_PK" ON "LANA"."MIGR_DATATYPE_TRANSFORM_RULE" ("ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index MD_CONNECTIONS_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "LANA"."MD_CONNECTIONS_PK" ON "LANA"."MD_CONNECTIONS" ("ID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
@@ -5088,17 +3985,6 @@ END Genss2k5DefConstTrig;
 /
 ALTER TRIGGER "LANA"."GENSS2K5DEFCONSTTRIG" ENABLE;
 --------------------------------------------------------
---  DDL for Trigger GENSS2K5FORKEYRIG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."GENSS2K5FORKEYRIG" BEFORE
-  INSERT ON STAGE_SS2K5_FN_KEYS FOR EACH ROW BEGIN IF :new.OBJECT_ID_gen IS NULL THEN :new.OBJECT_ID_gen := MD_META.get_next_id;
-END IF;
-END Genss2k5ForKeyTrig;
-
-/
-ALTER TRIGGER "LANA"."GENSS2K5FORKEYRIG" ENABLE;
---------------------------------------------------------
 --  DDL for Trigger GENSS2K5IDENTCOLRIG
 --------------------------------------------------------
 
@@ -5176,328 +4062,6 @@ END Genss2k5SqlTabTrig;
 /
 ALTER TRIGGER "LANA"."GENSS2K5SQLTABTRIG" ENABLE;
 --------------------------------------------------------
---  DDL for Trigger INS_APPLICATIONFILE_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."INS_APPLICATIONFILE_TRG" BEFORE INSERT OR UPDATE ON MD_APPLICATIONFILES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."INS_APPLICATIONFILE_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger INS_APPLICATION_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."INS_APPLICATION_TRG" BEFORE INSERT OR UPDATE ON MD_APPLICATIONS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."INS_APPLICATION_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger INS_FILE_ARTIFACT_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."INS_FILE_ARTIFACT_TRG" BEFORE INSERT OR UPDATE ON MD_FILE_ARTIFACTS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."INS_FILE_ARTIFACT_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_ADDITIONAL_PROPERTY_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_ADDITIONAL_PROPERTY_TRG" BEFORE INSERT OR UPDATE ON MD_ADDITIONAL_PROPERTIES 
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_ADDITIONAL_PROPERTY_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_CATALOGS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_CATALOGS_TRG" BEFORE INSERT OR UPDATE ON MD_CATALOGS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_CATALOGS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_COLUMNS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_COLUMNS_TRG" BEFORE INSERT OR UPDATE ON MD_COLUMNS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_COLUMNS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_CONNECTIONS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_CONNECTIONS_TRG" BEFORE INSERT OR UPDATE ON MD_CONNECTIONS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_CONNECTIONS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_CONSTRAINTS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_CONSTRAINTS_TRG" BEFORE INSERT OR UPDATE ON MD_CONSTRAINTS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_CONSTRAINTS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_CONSTRAINT_DETAILS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_CONSTRAINT_DETAILS_TRG" BEFORE INSERT OR UPDATE ON MD_CONSTRAINT_DETAILS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_CONSTRAINT_DETAILS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_DERIVATIVES_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_DERIVATIVES_TRG" BEFORE INSERT OR UPDATE ON MD_DERIVATIVES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_DERIVATIVES_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_GROUPS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_GROUPS_TRG" BEFORE INSERT OR UPDATE ON MD_GROUPS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_GROUPS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_GROUP_MEMBERS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_GROUP_MEMBERS_TRG" BEFORE INSERT OR UPDATE ON MD_GROUP_MEMBERS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_GROUP_MEMBERS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_GROUP_PRIVILEGES_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_GROUP_PRIVILEGES_TRG" BEFORE INSERT OR UPDATE ON MD_GROUP_PRIVILEGES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_GROUP_PRIVILEGES_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_INDEXES_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_INDEXES_TRG" BEFORE INSERT OR UPDATE ON MD_INDEXES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_INDEXES_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_INDEX_DETAILS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_INDEX_DETAILS_TRG" BEFORE INSERT OR UPDATE ON MD_INDEX_DETAILS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_INDEX_DETAILS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_MIGR_DEPENDENCY_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_MIGR_DEPENDENCY_TRG" BEFORE INSERT OR UPDATE ON MD_MIGR_DEPENDENCY
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_MIGR_DEPENDENCY_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_MIGR_PARAMETER_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_MIGR_PARAMETER_TRG" BEFORE INSERT OR UPDATE ON MD_MIGR_PARAMETER
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_MIGR_PARAMETER_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_MIGR_WEAKDEP_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_MIGR_WEAKDEP_TRG" BEFORE INSERT OR UPDATE ON MD_MIGR_WEAKDEP
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_MIGR_WEAKDEP_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_OTHER_OBJECTS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_OTHER_OBJECTS_TRG" BEFORE INSERT OR UPDATE ON MD_OTHER_OBJECTS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_OTHER_OBJECTS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_PACKAGES_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_PACKAGES_TRG" BEFORE INSERT OR UPDATE ON MD_PACKAGES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_PACKAGES_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_PARTITIONS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_PARTITIONS_TRG" BEFORE INSERT OR UPDATE ON MD_PARTITIONS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_PARTITIONS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_PRIVILEGES_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_PRIVILEGES_TRG" BEFORE INSERT OR UPDATE ON MD_PRIVILEGES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_PRIVILEGES_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_PROJECTS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_PROJECTS_TRG" BEFORE INSERT OR UPDATE ON MD_PROJECTS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_PROJECTS_TRG" ENABLE;
---------------------------------------------------------
 --  DDL for Trigger MD_SCHEMAS_TRG
 --------------------------------------------------------
 
@@ -5526,20 +4090,6 @@ END;
 /
 ALTER TRIGGER "LANA"."MD_SEQUENCES_TRG" ENABLE;
 --------------------------------------------------------
---  DDL for Trigger MD_STORED_PROGRAMS_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_STORED_PROGRAMS_TRG" BEFORE INSERT OR UPDATE ON MD_STORED_PROGRAMS
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_STORED_PROGRAMS_TRG" ENABLE;
---------------------------------------------------------
 --  DDL for Trigger MD_SYNONYMS_TRG
 --------------------------------------------------------
 
@@ -5553,20 +4103,6 @@ END;
 
 /
 ALTER TRIGGER "LANA"."MD_SYNONYMS_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MD_TABLESPACES_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MD_TABLESPACES_TRG" BEFORE INSERT OR UPDATE ON MD_TABLESPACES
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MD_TABLESPACES_TRG" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger MD_TABLES_TRG
 --------------------------------------------------------
@@ -5665,20 +4201,6 @@ END;
 
 /
 ALTER TRIGGER "LANA"."MIGRLOG_TRG" ENABLE;
---------------------------------------------------------
---  DDL for Trigger MIGR_DATATYPE_MAP_TRG
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."MIGR_DATATYPE_MAP_TRG" BEFORE INSERT OR UPDATE ON MIGR_DATATYPE_TRANSFORM_MAP
-FOR EACH ROW
-BEGIN
-  if inserting and :new.id is null then
-        :new.id := MD_META.get_next_id;
-    end if;
-END;
-
-/
-ALTER TRIGGER "LANA"."MIGR_DATATYPE_MAP_TRG" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger MIGR_DATATYPE_RULE_TRG
 --------------------------------------------------------
@@ -5977,20 +4499,6 @@ set define off;
 
 /
 --------------------------------------------------------
---  DDL for Procedure DELETEPEDIDO
---------------------------------------------------------
-set define off;
-
-  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."DELETEPEDIDO" 
-/*borra un pedido de acuerdo al IDPEDIDO recibido*/
- (idpedido_p IN NUMBER) AS
- BEGIN
-    DELETE FROM PEDIDO
-    WHERE PEDIDO.IDPEDIDO = idpedido_p;
- END deletePedido;
-
-/
---------------------------------------------------------
 --  DDL for Procedure DELETEVENTA
 --------------------------------------------------------
 set define off;
@@ -6002,6 +4510,25 @@ set define off;
     DELETE FROM VENTA
     WHERE VENTA.NUMVENTA = numventa_p;
  END deleteVenta;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure INCISO1
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INCISO1" AS 
+    tempval CIGARRILLO.MARCA%TYPE;
+    tempcountry FABRICANTE.PAIS%TYPE;
+BEGIN
+    --Obtener todas las marcas de cigarrillos extranjeros.
+    SELECT cig.MARCA, fab.PAIS
+    INTO tempval,tempcountry
+    FROM CIGARRILLO cig
+    INNER JOIN FABRICANTE fab
+    ON cig.IDFABRICANTE = fab.IDFABRICANTE
+    WHERE (fab.PAIS != 'ESPANA');
+END INCISO1;
 
 /
 --------------------------------------------------------
@@ -6049,10 +4576,10 @@ set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTESTANCO" 
 /*insert estanco*/
- (lastNumFis IN VARCHAR2, numexp_p IN NUMBER, nombre_p IN VARCHAR2, direccion_p IN VARCHAR2) AS
+ (lastNumFis IN VARCHAR2, numexp_p IN NUMBER, nombre_p IN VARCHAR2, provincia_p IN VARCHAR2) AS
     a_comment VARCHAR2(200) :='new row was inserted correctly';
  BEGIN
-    INSERT INTO ESTANCO(NUMFISCAL, NUMEXP, NOMBRE, DIRECCION) VALUES(lastNumFis, numexp_p, nombre_p, direccion_p);
+    INSERT INTO ESTANCO(NUMFISCAL, NUMEXP, NOMBRE, PROVINCIA) VALUES(lastNumFis, numexp_p, nombre_p, provincia_p);
     DBMS_OUTPUT.PUT_LINE(a_comment);
  END insertEstanco;
 
@@ -6072,24 +4599,6 @@ set define off;
     WHERE IDFABRICANTE = (select max(IDFABRICANTE) from FABRICANTE);
     INSERT INTO FABRICANTE(IDFABRICANTE, NOMBRE_FABRICANTE, PAIS) VALUES(lastFabricanteId + 1, nombre_p, pais_p);
  END insertFabricante;
-
-/
---------------------------------------------------------
---  DDL for Procedure INSERTPEDIDO
---------------------------------------------------------
-set define off;
-
-  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INSERTPEDIDO" 
-/*inserta un nuevo pedido*/
- (idalmacenp IN NUMBER, numfisp IN NUMBER, cantidadp IN NUMBER) AS
-    lastPedidoId PEDIDO.IDPEDIDO%TYPE;
- BEGIN
-    SELECT IDPEDIDO
-    INTO lastPedidoId
-    FROM PEDIDO
-    WHERE IDPEDIDO = (select max(IDPEDIDO) from PEDIDO);
-    INSERT INTO PEDIDO(IDPEDIDO, IDALMACEN, NUMFISCAL, CANTIDAD) VALUES(lastPedidoId + 1, idalmacenp, numfisp, cantidadp);
- END insertPedido;
 
 /
 --------------------------------------------------------
@@ -18794,32 +17303,6 @@ END TDALLPLATFORM;
 
   ALTER TABLE "LANA"."MIGRATION_RESERVED_WORDS" MODIFY ("KEYWORD" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_PRIVILEGES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PRIVILEGES" ADD CONSTRAINT "MD_PRIVILEGES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("NATIVE_SQL" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("PRIVELEGE_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("PRIVELEGEOBJECTTYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("PRIVILEGE_NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PRIVILEGES" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_GROUP_MEMBERS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" ADD CONSTRAINT "MD_GROUP_MEMBERS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" MODIFY ("GROUP_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_OBJECTS
 --------------------------------------------------------
 
@@ -18851,17 +17334,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MD_TABLES" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_TABLES" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MIGR_DATATYPE_TRANSFORM_MAP
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" ADD CONSTRAINT "MIGR_DATATYPE_TRANSFORM_M_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" MODIFY ("PROJECT_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_COLUMNS
 --------------------------------------------------------
 
@@ -18874,48 +17346,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."STAGE_SS2K5_COLUMNS" MODIFY ("MAX_LENGTH" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_COLUMNS" MODIFY ("COLUMN_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_COLUMNS" MODIFY ("RULE_OBJECT_ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_TABLESPACES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_TABLESPACES" ADD CONSTRAINT "MD_TABLESPACES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_TABLESPACES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_TABLESPACES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_TABLESPACES" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_TABLESPACES" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_GROUP_PRIVILEGES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" ADD CONSTRAINT "MD_GROUP_PRIVILEGES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" MODIFY ("PRIVILEGE_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" MODIFY ("GROUP_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_INDEX_DETAILS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" ADD CONSTRAINT "MD_INDEX_DETAILS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" MODIFY ("DETAIL_ORDER" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" MODIFY ("COLUMN_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" MODIFY ("INDEX_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table SS2K5_SCHEMAS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."SS2K5_SCHEMAS" MODIFY ("NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."SS2K5_SCHEMAS" MODIFY ("SCHEMA_ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_DT_CONSTRAINTS
 --------------------------------------------------------
@@ -18977,12 +17407,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MD_REGISTRY" MODIFY ("OBJECT_NAME" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_REGISTRY" MODIFY ("OBJECT_TYPE" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table SS2K5_FOREIGN_KEYS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."SS2K5_FOREIGN_KEYS" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."SS2K5_FOREIGN_KEYS" MODIFY ("NAME" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table ESTANCO
 --------------------------------------------------------
 
@@ -19030,19 +17454,13 @@ END TDALLPLATFORM;
 --  Constraints for Table ALMACEN
 --------------------------------------------------------
 
-  ALTER TABLE "LANA"."ALMACEN" MODIFY ("IDALMACEN" NOT NULL ENABLE);
   ALTER TABLE "LANA"."ALMACEN" ADD CONSTRAINT "ALMACEN_PK" PRIMARY KEY ("IDALMACEN")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table STAGE_SS2K5_FN_KEYS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."STAGE_SS2K5_FN_KEYS" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."STAGE_SS2K5_FN_KEYS" MODIFY ("NAME" NOT NULL ENABLE);
+  ALTER TABLE "LANA"."ALMACEN" MODIFY ("IDALMACEN" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table VENTA
 --------------------------------------------------------
@@ -19063,17 +17481,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MD_USER_PRIVILEGES" MODIFY ("USER_ID_FK" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_USER_PRIVILEGES" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_PARTITIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PARTITIONS" ADD CONSTRAINT "MD_PARTITIONS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_PARTITIONS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PARTITIONS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PARTITIONS" MODIFY ("TABLE_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PARTITIONS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table MD_VIEWS
 --------------------------------------------------------
 
@@ -19086,37 +17493,12 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MD_VIEWS" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_VIEWS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_ADDITIONAL_PROPERTIES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" ADD CONSTRAINT "MD_ADDITIONAL_PROPERTIES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("PROP_KEY" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("REF_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("REF_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("CONNECTION_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table SS2K5_DATABASE_PRINCIPALS
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."SS2K5_DATABASE_PRINCIPALS" MODIFY ("NAME" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_DATABASE_PRINCIPALS" MODIFY ("PRINCIPAL_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_DATABASE_PRINCIPALS" MODIFY ("TYPE" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_CATALOGS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CATALOGS" ADD CONSTRAINT "MD_CATALOGS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_CATALOGS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CATALOGS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CATALOGS" MODIFY ("CONNECTION_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CATALOGS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table SS2K5_TABLE_PRIVILEGES
 --------------------------------------------------------
@@ -19139,52 +17521,16 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."STAGE_SS2K5_DB_ROLE_MEMBERS" MODIFY ("ROLE_PRINCIPAL_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_DB_ROLE_MEMBERS" MODIFY ("MEMBER_PRINCIPAL_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_MIGR_DEPENDENCY
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" ADD CONSTRAINT "MIGR_DEPENDENCY_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("CHILD_OBJECT_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("PARENT_OBJECT_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("CHILD_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("PARENT_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("CONNECTION_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_CHECK_CONSTRAINTS
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."STAGE_SS2K5_CHECK_CONSTRAINTS" MODIFY ("PARENT_COLUMN_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_CHECK_CONSTRAINTS" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table SYB12_SYSUSERS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."SYB12_SYSUSERS" MODIFY ("DB_UID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_TABLE_PRIVILEGES
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."STAGE_SS2K5_TABLE_PRIVILEGES" MODIFY ("TABLE_NAME" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_REPOVERSIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_REPOVERSIONS" MODIFY ("REVISION" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_CONNECTIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CONNECTIONS" ADD CONSTRAINT "MD_CONNECTIONS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_CONNECTIONS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONNECTIONS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONNECTIONS" MODIFY ("PROJECT_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONNECTIONS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_INDEX_COLUMNS
 --------------------------------------------------------
@@ -19199,33 +17545,6 @@ END TDALLPLATFORM;
 
   ALTER TABLE "LANA"."SS2K5_DATABASE_ROLE_MEMBERS" MODIFY ("ROLE_PRINCIPAL_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_DATABASE_ROLE_MEMBERS" MODIFY ("MEMBER_PRINCIPAL_ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_CONSTRAINTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" ADD CONSTRAINT "MD_CONSTRAINTS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" MODIFY ("LANGUAGE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" MODIFY ("TABLE_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_COLUMNS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_COLUMNS" ADD CONSTRAINT "MD_COLUMNS_NULLABLE_Y_N" CHECK ((UPPER(NULLABLE) IN ('Y','N'))) ENABLE;
-  ALTER TABLE "LANA"."MD_COLUMNS" ADD CONSTRAINT "MD_COLUMNS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("NULLABLE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("COLUMN_ORDER" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("COLUMN_NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("TABLE_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_COLUMNS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table STAGE_SYB12_SYSOBJECTS
 --------------------------------------------------------
@@ -19245,36 +17564,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MD_TRIGGERS" MODIFY ("TABLE_OR_VIEW_ID_FK" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_TRIGGERS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_MIGR_PARAMETER
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("PARAM_ORDER" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("PARAM_EXISTING" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("OBJECT_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("CONNECTION_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" ADD CONSTRAINT "MIGR_PARAMETER_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("NULLABLE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("PARAM_DATA_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("PARAM_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" MODIFY ("PARAM_NAME" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_FILE_ARTIFACTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_FILE_ARTIFACTS" ADD CONSTRAINT "MD_FILE_ARTIFACTS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_FILE_ARTIFACTS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_FILE_ARTIFACTS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_FILE_ARTIFACTS" MODIFY ("APPLICATIONFILES_ID" CONSTRAINT "MD_APPL_FILE_FK_NONULL" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_FILE_ARTIFACTS" MODIFY ("ID" CONSTRAINT "MD_APP_FILE_ART_NONULL" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table MD_USERS
 --------------------------------------------------------
 
@@ -19286,17 +17575,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MD_USERS" MODIFY ("USERNAME" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_USERS" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MD_USERS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_OTHER_OBJECTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_OTHER_OBJECTS" ADD CONSTRAINT "MD_OTHER_OBJECTS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_OTHER_OBJECTS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_OTHER_OBJECTS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_OTHER_OBJECTS" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_OTHER_OBJECTS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_SYSPROPERTIES
 --------------------------------------------------------
@@ -19326,20 +17604,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."STAGE_SS2K5_IDENTITY_COLUMNS" MODIFY ("COLUMN_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_IDENTITY_COLUMNS" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_DERIVATIVES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_DERIVATIVES" ADD CONSTRAINT "MIGRDREIVATIVES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_DERIVATIVES" ADD CONSTRAINT "MIGRDER_CHK" CHECK (ENABLED = 'Y' OR ENABLED = 'y' OR ENABLED = 'N' OR  ENABLED = 'n') ENABLE;
-  ALTER TABLE "LANA"."MD_DERIVATIVES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_DERIVATIVES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_DERIVATIVES" MODIFY ("DERIVED_CONNECTION_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_DERIVATIVES" MODIFY ("DERIVED_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_DERIVATIVES" MODIFY ("SRC_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_DERIVATIVES" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_SCHEMAS
 --------------------------------------------------------
 
@@ -19360,53 +17624,10 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."SS2K5_SYSPROPERTIES" MODIFY ("MINOR_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_SYSPROPERTIES" MODIFY ("MAJOR_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_STORED_PROGRAMS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" ADD CONSTRAINT "MD_STORED_PROGRAMS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" MODIFY ("LANGUAGE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table SYB12_SYSOBJECTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."SYB12_SYSOBJECTS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table STAGE_SS2K5_SQL_MODULES
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."STAGE_SS2K5_SQL_MODULES" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_APPLICATIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_APPLICATIONS" ADD CONSTRAINT "MD_APPLICATIONS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_APPLICATIONS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONS" MODIFY ("PROJECT_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONS" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_APPLICATIONFILES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" ADD CONSTRAINT "MD_APPLICATIONFILES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("STATE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("URI" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("APPLICATIONS_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table MIGR_DATATYPE_TRANSFORM_RULE
 --------------------------------------------------------
@@ -19425,19 +17646,6 @@ END TDALLPLATFORM;
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."STAGE_SS2K5_DATABASES" MODIFY ("NAME" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_PACKAGES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PACKAGES" ADD CONSTRAINT "MD_PACKAGES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_PACKAGES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PACKAGES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PACKAGES" MODIFY ("LANGUAGE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PACKAGES" MODIFY ("NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PACKAGES" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PACKAGES" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table MD_SYNONYMS
 --------------------------------------------------------
@@ -19498,17 +17706,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."SS2K5_OBJECTS" MODIFY ("OBJECT_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_OBJECTS" MODIFY ("SCHEMA_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_INDEXES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_INDEXES" ADD CONSTRAINT "MD_INDEXES_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_INDEXES" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEXES" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEXES" MODIFY ("TABLE_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_INDEXES" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table FABRICANTE
 --------------------------------------------------------
 
@@ -19550,30 +17747,11 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."SS2K5_FOREIGN_KEY_COLUMNS" MODIFY ("CONSTRAINT_OBJECT_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_FOREIGN_KEY_COLUMNS" MODIFY ("CONSTRAINT_COLUMN_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table SYB12_SYSINDEXES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."SYB12_SYSINDEXES" MODIFY ("INDEX_NAME" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table PEDIDO
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."PEDIDO" ADD CONSTRAINT "PEDIDO_PK" PRIMARY KEY ("IDPEDIDO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."PEDIDO" MODIFY ("IDPEDIDO" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table SS2K5_SCHEMATA
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."SS2K5_SCHEMATA" MODIFY ("SCHEMA_NAME" NOT NULL ENABLE);
   ALTER TABLE "LANA"."SS2K5_SCHEMATA" MODIFY ("SCHEMA_OWNER" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_TARGET_ALL_OBJECTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_TARGET_ALL_OBJECTS" MODIFY ("OWNER" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_TARGET_ALL_OBJECTS" MODIFY ("OBJECT_NAME" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table COMPRA
 --------------------------------------------------------
@@ -19585,17 +17763,6 @@ END TDALLPLATFORM;
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table MD_PROJECTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PROJECTS" ADD CONSTRAINT "MD_PROJECTS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_PROJECTS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PROJECTS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PROJECTS" MODIFY ("PROJECT_NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_PROJECTS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table SS2K5_TABLES
 --------------------------------------------------------
@@ -19612,17 +17779,16 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."STAGE_SS2K5_TYPES" MODIFY ("USER_TYPE_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_TYPES" MODIFY ("NAME" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_CONSTRAINT_DETAILS
+--  Constraints for Table MANUFACTURA
 --------------------------------------------------------
 
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" ADD CONSTRAINT "MD_CONSTRAINT_DETAILS_PK" PRIMARY KEY ("ID")
+  ALTER TABLE "LANA"."MANUFACTURA" ADD CONSTRAINT "MANUFACTURA_PK" PRIMARY KEY ("MARCA")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" MODIFY ("DETAIL_ORDER" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" MODIFY ("CONSTRAINT_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "LANA"."MANUFACTURA" MODIFY ("MARCA" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table MIGRLOG
 --------------------------------------------------------
@@ -19634,37 +17800,10 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."MIGRLOG" MODIFY ("LOG_DATE" NOT NULL ENABLE);
   ALTER TABLE "LANA"."MIGRLOG" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_MIGR_WEAKDEP
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" ADD CONSTRAINT "MIGR_WEAKDEP_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("CHILD_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("PARENT_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("CHILD_NAME" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("PARENT_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("CONNECTION_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Constraints for Table SYB12_SYSCONSTRAINTS
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."SYB12_SYSCONSTRAINTS" MODIFY ("CONSTRAINT_NAME" NOT NULL ENABLE);
---------------------------------------------------------
---  Constraints for Table MD_GROUPS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_GROUPS" ADD CONSTRAINT "MD_GROUPS_PK" PRIMARY KEY ("ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "LANA"."MD_GROUPS" MODIFY ("CREATED_ON" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUPS" MODIFY ("SECURITY_GROUP_ID" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUPS" MODIFY ("SCHEMA_ID_FK" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_GROUPS" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table SS2K5_IDENTITY_COLUMNS
 --------------------------------------------------------
@@ -19682,13 +17821,6 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."STAGE_SS2K5_FN_KEY_COLUMNS" MODIFY ("CONSTRAINT_OBJECT_ID" NOT NULL ENABLE);
   ALTER TABLE "LANA"."STAGE_SS2K5_FN_KEY_COLUMNS" MODIFY ("CONSTRAINT_COLUMN_ID" NOT NULL ENABLE);
 --------------------------------------------------------
---  Constraints for Table MD_CODE_REGEX
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CODE_REGEX" MODIFY ("DESCRIPTION" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CODE_REGEX" MODIFY ("REGEX" NOT NULL ENABLE);
-  ALTER TABLE "LANA"."MD_CODE_REGEX" MODIFY ("ID" NOT NULL ENABLE);
---------------------------------------------------------
 --  Ref Constraints for Table ALMACEN
 --------------------------------------------------------
 
@@ -19697,19 +17829,11 @@ END TDALLPLATFORM;
   ALTER TABLE "LANA"."ALMACEN" ADD CONSTRAINT "FK_NUMFISCALALMACEN" FOREIGN KEY ("NUMFISCAL")
 	  REFERENCES "LANA"."ESTANCO" ("NUMFISCAL") ENABLE;
 --------------------------------------------------------
---  Ref Constraints for Table CIGARRILLO
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."CIGARRILLO" ADD CONSTRAINT "FK_IDFABRICANTE" FOREIGN KEY ("IDFABRICANTE")
-	  REFERENCES "LANA"."FABRICANTE" ("IDFABRICANTE") ENABLE;
---------------------------------------------------------
 --  Ref Constraints for Table COMPRA
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."COMPRA" ADD CONSTRAINT "FK_CIGAR" FOREIGN KEY ("IDCIGARRILLO")
 	  REFERENCES "LANA"."CIGARRILLO" ("IDCIGARRILLO") ENABLE;
-  ALTER TABLE "LANA"."COMPRA" ADD CONSTRAINT "FK_IDALMACEN" FOREIGN KEY ("IDALMACEN")
-	  REFERENCES "LANA"."ALMACEN" ("IDALMACEN") ENABLE;
   ALTER TABLE "LANA"."COMPRA" ADD CONSTRAINT "FK_NUMFISCAL" FOREIGN KEY ("NUMFISCAL")
 	  REFERENCES "LANA"."ESTANCO" ("NUMFISCAL") ENABLE;
 --------------------------------------------------------
@@ -19718,169 +17842,13 @@ END TDALLPLATFORM;
 
   ALTER TABLE "LANA"."MANUFACTURA" ADD CONSTRAINT "FK_IDFABRICANTEMANUFACTURA" FOREIGN KEY ("IDFABRICANTE")
 	  REFERENCES "LANA"."FABRICANTE" ("IDFABRICANTE") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_ADDITIONAL_PROPERTIES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_ADDITIONAL_PROPERTIES" ADD CONSTRAINT "MD_ADDITIONAL_PROPERTIES__FK1" FOREIGN KEY ("CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_APPLICATIONFILES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_APPLICATIONFILES" ADD CONSTRAINT "MD_FILE_APP_FK" FOREIGN KEY ("APPLICATIONS_ID_FK")
-	  REFERENCES "LANA"."MD_APPLICATIONS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_APPLICATIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_APPLICATIONS" ADD CONSTRAINT "MD_APP_PROJ_FK" FOREIGN KEY ("PROJECT_ID_FK")
-	  REFERENCES "LANA"."MD_PROJECTS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_CATALOGS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CATALOGS" ADD CONSTRAINT "MD_CATALOGS_MD_CONNECTION_FK1" FOREIGN KEY ("CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_COLUMNS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_COLUMNS" ADD CONSTRAINT "MD_COLUMNS_MD_TABLES_FK1" FOREIGN KEY ("TABLE_ID_FK")
-	  REFERENCES "LANA"."MD_TABLES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_CONNECTIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CONNECTIONS" ADD CONSTRAINT "MD_CONNECTIONS_MD_PROJECT_FK1" FOREIGN KEY ("PROJECT_ID_FK")
-	  REFERENCES "LANA"."MD_PROJECTS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_CONSTRAINTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CONSTRAINTS" ADD CONSTRAINT "MD_CONSTRAINTS_MD_TABLES_FK1" FOREIGN KEY ("TABLE_ID_FK")
-	  REFERENCES "LANA"."MD_TABLES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_CONSTRAINT_DETAILS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" ADD CONSTRAINT "MD_CONSTRAINT_DETAILS_MD__FK1" FOREIGN KEY ("CONSTRAINT_ID_FK")
-	  REFERENCES "LANA"."MD_CONSTRAINTS" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_CONSTRAINT_DETAILS" ADD CONSTRAINT "MD_CONSTRAINT_DETAILS_MD__FK2" FOREIGN KEY ("COLUMN_ID_FK")
-	  REFERENCES "LANA"."MD_COLUMNS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_DERIVATIVES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_DERIVATIVES" ADD CONSTRAINT "MD_DERIVATIVES_MD_CONNECT_FK1" FOREIGN KEY ("DERIVED_CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_FILE_ARTIFACTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_FILE_ARTIFACTS" ADD CONSTRAINT "MD_ARTIFACT_FILE_FK" FOREIGN KEY ("APPLICATIONFILES_ID")
-	  REFERENCES "LANA"."MD_APPLICATIONFILES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_GROUPS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_GROUPS" ADD CONSTRAINT "MD_GROUPS_MD_SCHEMAS_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_GROUP_MEMBERS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" ADD CONSTRAINT "MD_GROUPMEMBERS_MD_GROUPS_FK1" FOREIGN KEY ("GROUP_ID_FK")
-	  REFERENCES "LANA"."MD_GROUPS" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" ADD CONSTRAINT "MD_GROUPMEMBERS_MD_GROUPS_FK2" FOREIGN KEY ("GROUP_MEMBER_ID_FK")
-	  REFERENCES "LANA"."MD_GROUPS" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_GROUP_MEMBERS" ADD CONSTRAINT "MD_GROUPMEMBERS_MD_USERS_FK1" FOREIGN KEY ("USER_ID_FK")
-	  REFERENCES "LANA"."MD_USERS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_GROUP_PRIVILEGES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" ADD CONSTRAINT "MD_GROUP_PRIVILEGES_MD_GR_FK1" FOREIGN KEY ("GROUP_ID_FK")
-	  REFERENCES "LANA"."MD_GROUPS" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_GROUP_PRIVILEGES" ADD CONSTRAINT "MD_GROUP_PRIVILEGES_MD_PR_FK1" FOREIGN KEY ("PRIVILEGE_ID_FK")
-	  REFERENCES "LANA"."MD_PRIVILEGES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_INDEXES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_INDEXES" ADD CONSTRAINT "MD_INDEXES_MD_TABLES_FK1" FOREIGN KEY ("TABLE_ID_FK")
-	  REFERENCES "LANA"."MD_TABLES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_INDEX_DETAILS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" ADD CONSTRAINT "MD_INDEX_DETAILS_MD_COLUM_FK1" FOREIGN KEY ("COLUMN_ID_FK")
-	  REFERENCES "LANA"."MD_COLUMNS" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_INDEX_DETAILS" ADD CONSTRAINT "MD_INDEX_DETAILS_MD_INDEX_FK1" FOREIGN KEY ("INDEX_ID_FK")
-	  REFERENCES "LANA"."MD_INDEXES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_MIGR_DEPENDENCY
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_MIGR_DEPENDENCY" ADD CONSTRAINT "MIGR_DEPENDENCY_FK" FOREIGN KEY ("CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_MIGR_PARAMETER
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_MIGR_PARAMETER" ADD CONSTRAINT "MIGR_PARAMETER_FK" FOREIGN KEY ("CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_MIGR_WEAKDEP
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" ADD CONSTRAINT "MIGR_WEAKDEP_FK1" FOREIGN KEY ("CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_MIGR_WEAKDEP" ADD CONSTRAINT "MIGR_WEAKDEP_FK2" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_OTHER_OBJECTS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_OTHER_OBJECTS" ADD CONSTRAINT "MD_OTHER_OBJECTS_MD_SCHEM_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_PACKAGES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PACKAGES" ADD CONSTRAINT "MD_PACKAGES_MD_SCHEMAS_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_PARTITIONS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PARTITIONS" ADD CONSTRAINT "MD_PARTITIONS_MD_TABLES_FK1" FOREIGN KEY ("TABLE_ID_FK")
-	  REFERENCES "LANA"."MD_TABLES" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_PRIVILEGES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_PRIVILEGES" ADD CONSTRAINT "MD_PRIVILEGES_MD_SCHEMAS_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_SCHEMAS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_SCHEMAS" ADD CONSTRAINT "MD_SCHEMAS_MD_CATALOGS_FK1" FOREIGN KEY ("CATALOG_ID_FK")
-	  REFERENCES "LANA"."MD_CATALOGS" ("ID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "LANA"."MANUFACTURA" ADD CONSTRAINT "FK_MANUCIGARRO" FOREIGN KEY ("MARCA")
+	  REFERENCES "LANA"."MANUFACTURA" ("MARCA") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table MD_SEQUENCES
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."MD_SEQUENCES" ADD CONSTRAINT "MD_SEQUENCES_MD_SCHEMAS_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_STORED_PROGRAMS
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" ADD CONSTRAINT "MD_STORED_PROGRAMS_MD_PAC_FK1" FOREIGN KEY ("PACKAGE_ID_FK")
-	  REFERENCES "LANA"."MD_PACKAGES" ("ID") ON DELETE CASCADE ENABLE;
-  ALTER TABLE "LANA"."MD_STORED_PROGRAMS" ADD CONSTRAINT "MD_STORED_PROGRAMS_MD_SCH_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
 	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table MD_SYNONYMS
@@ -19893,12 +17861,6 @@ END TDALLPLATFORM;
 --------------------------------------------------------
 
   ALTER TABLE "LANA"."MD_TABLES" ADD CONSTRAINT "MD_TABLES_MD_SCHEMAS_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
-	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MD_TABLESPACES
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MD_TABLESPACES" ADD CONSTRAINT "MD_TABLESPACES_MD_SCHEMAS_FK1" FOREIGN KEY ("SCHEMA_ID_FK")
 	  REFERENCES "LANA"."MD_SCHEMAS" ("ID") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table MD_USERS
@@ -19916,8 +17878,6 @@ END TDALLPLATFORM;
 --  Ref Constraints for Table MD_USER_PRIVILEGES
 --------------------------------------------------------
 
-  ALTER TABLE "LANA"."MD_USER_PRIVILEGES" ADD CONSTRAINT "MD_USER_PRIVILEGES_MD_PRI_FK1" FOREIGN KEY ("PRIVILEGE_ID_FK")
-	  REFERENCES "LANA"."MD_PRIVILEGES" ("ID") ON DELETE CASCADE ENABLE;
   ALTER TABLE "LANA"."MD_USER_PRIVILEGES" ADD CONSTRAINT "MD_USER_PRIVILEGES_MD_USE_FK1" FOREIGN KEY ("USER_ID_FK")
 	  REFERENCES "LANA"."MD_USERS" ("ID") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
@@ -19932,21 +17892,3 @@ END TDALLPLATFORM;
 
   ALTER TABLE "LANA"."MIGRLOG" ADD CONSTRAINT "MIGR_MIGRLOG_FK" FOREIGN KEY ("PARENT_LOG_ID")
 	  REFERENCES "LANA"."MIGRLOG" ("ID") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MIGR_DATATYPE_TRANSFORM_MAP
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" ADD CONSTRAINT "MIGR_DATATYPE_TRANSFORM_M_FK1" FOREIGN KEY ("PROJECT_ID_FK")
-	  REFERENCES "LANA"."MD_PROJECTS" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MIGR_DATATYPE_TRANSFORM_RULE
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MIGR_DATATYPE_TRANSFORM_RULE" ADD CONSTRAINT "MIGR_DATATYPE_TRANSFORM_R_FK1" FOREIGN KEY ("MAP_ID_FK")
-	  REFERENCES "LANA"."MIGR_DATATYPE_TRANSFORM_MAP" ("ID") ON DELETE CASCADE ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MIGR_GENERATION_ORDER
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MIGR_GENERATION_ORDER" ADD CONSTRAINT "MIGR_GENERATION_ORDER_MD__FK1" FOREIGN KEY ("CONNECTION_ID_FK")
-	  REFERENCES "LANA"."MD_CONNECTIONS" ("ID") ON DELETE CASCADE ENABLE;
