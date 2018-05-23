@@ -2394,7 +2394,7 @@ public class MainForm extends javax.swing.JFrame {
         } else if (cigarrillosRd.isSelected()){
             entidad = "Cigarrillo";
         } else if (comprasRd.isSelected()){
-            entidad = "Compra";
+            entidad = "Compras";
         } else if (estancosRd.isSelected()){
             entidad = "Estanco";
         }  else if (fabricanteRd.isSelected()){
@@ -2405,7 +2405,7 @@ public class MainForm extends javax.swing.JFrame {
             entidad = "Manufacturera";
         }
         
-        conn.deletePro(entidad,Integer.parseInt(delId.getText()));
+        conn.deletePro(entidad,delId.getText());
     }//GEN-LAST:event_jButton36MouseClicked
 
     private void jButton32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton32MouseClicked
