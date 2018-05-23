@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import Entidades.*;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +33,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-       
+
         /*
         //Edit frames
         //Color frameBg = new Color(255, 0, 0);
@@ -148,7 +150,7 @@ public class MainForm extends javax.swing.JFrame {
         updateFabricante.setBackground(bgFrame);
         updateManufacturera.setBackground(bgFrame);
         updateVentas.setBackground(bgFrame);
-        */
+         */
     }
 
     /**
@@ -2242,51 +2244,79 @@ public class MainForm extends javax.swing.JFrame {
         Almacen newAlmacen = new Almacen(Integer.parseInt(idAlmacenATxt.getText()),
                 Integer.parseInt(idCigarrilloATxt.getText()), (int) exitenciaASpn.getValue(),
                 Integer.parseInt(nifEstancoATxt1.getText()));
-        
-        conn.insertPro(newAlmacen.toString());
+        try {
+            conn.insertPro(newAlmacen.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarAlmacenBtnMouseClicked
 
     private void jButton31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton31MouseClicked
-        Cigarrillo newCigarrillo = new Cigarrillo( 
-            marcaCTxt.getText(), ContaminanteCCmb.getSelectedIndex(), FiltroCChk.isSelected(), 
-            MentoladoCChk.isSelected(), Hoja1CRdo.isSelected());
-        
-        conn.insertPro(newCigarrillo.toString());
+        Cigarrillo newCigarrillo = new Cigarrillo(
+                marcaCTxt.getText(), ContaminanteCCmb.getSelectedIndex(), FiltroCChk.isSelected(),
+                MentoladoCChk.isSelected(), Hoja1CRdo.isSelected());
+        try {
+            conn.insertPro(newCigarrillo.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_jButton31MouseClicked
 
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
         Compra newCompra = new Compra(
                 Integer.parseInt(idAlmacenCoTxt.getText()), Integer.parseInt(nifEstancoCoTxt1.getText()),
                 (double) precioCoSpn.getValue(), (int) cantidadCoSpn.getValue(), fechaCoTxt.getText());
-
-        conn.insertPro(newCompra.toString());
+        try {
+            conn.insertPro(newCompra.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_jButton9MouseClicked
 
     private void agregarEstancoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEstancoBtnMouseClicked
-        Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxt.getText()), 
+        Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxt.getText()),
                 Integer.parseInt(numFiscalEsTxt.getText()), nombreEsTxt.getText(), localEsTxt.getText());
-
-        conn.insertPro(newEstanco.toString());
+        try {
+            conn.insertPro(newEstanco.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarEstancoBtnMouseClicked
 
     private void agregarFabricanteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarFabricanteBtnMouseClicked
-        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxt.getText()), 
+        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxt.getText()),
                 nombreFabricanteFTxt.getText(), paisFTxt.getText());
-
-        conn.insertPro(newFabricante.toString());
+        try {
+            conn.insertPro(newFabricante.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarFabricanteBtnMouseClicked
 
     private void agregarVentaBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarVentaBtnMouseClicked
         Venta newVenta = new Venta(Integer.parseInt(numVentaVTxt.getText()), Integer.parseInt(numExpendioVTxt.getText()),
-                 Integer.parseInt(idCigarrilloVTxt.getText()), (double)precioVentaVSpn.getValue(), (int)cantidadVSpn.getValue(), fechaVTxt.getText());
-        
-        conn.insertPro(newVenta.toString());
+                Integer.parseInt(idCigarrilloVTxt.getText()), (double) precioVentaVSpn.getValue(), (int) cantidadVSpn.getValue(), fechaVTxt.getText());
+        try {
+            conn.insertPro(newVenta.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarVentaBtnMouseClicked
 
     private void agregarManufactureraBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnMouseClicked
         Manufactura newManufactura = new Manufactura(Integer.parseInt(idFabricanteManTxt.getText()), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
-        
-        conn.insertPro(newManufactura.toString());
+        try {
+            conn.insertPro(newManufactura.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarManufactureraBtnMouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
@@ -2296,24 +2326,24 @@ public class MainForm extends javax.swing.JFrame {
 
     private void jButton36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton36MouseClicked
         String entidad = "";
-        
-        if(almacenRd.isSelected()){
+
+        if (almacenRd.isSelected()) {
             entidad = "Almacen";
-        } else if (cigarrillosRd.isSelected()){
+        } else if (cigarrillosRd.isSelected()) {
             entidad = "Cigarrillo";
-        } else if (comprasRd.isSelected()){
+        } else if (comprasRd.isSelected()) {
             entidad = "Compras";
-        } else if (estancosRd.isSelected()){
+        } else if (estancosRd.isSelected()) {
             entidad = "Estanco";
-        }  else if (fabricanteRd.isSelected()){
+        } else if (fabricanteRd.isSelected()) {
             entidad = "Fabricante";
-        } else if (ventasRd.isSelected()){
+        } else if (ventasRd.isSelected()) {
             entidad = "Venta";
-        } else if (manufactureraRd.isSelected()){
+        } else if (manufactureraRd.isSelected()) {
             entidad = "Manufacturera";
         }
-        
-        conn.deletePro(entidad,delId.getText());
+
+        conn.deletePro(entidad, delId.getText());
     }//GEN-LAST:event_jButton36MouseClicked
 
     private void jButton32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton32MouseClicked
@@ -2322,18 +2352,22 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton32MouseClicked
 
     private void agregarAlmacenBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarAlmacenBtn1MouseClicked
-        Almacen newAlmacen = new Almacen(Integer.parseInt(idAlmacenATxtMod.getText()),
-                Integer.parseInt(idCigarrilloATxtMod.getText()), (int) exitenciaASpnMod.getValue(),
-                Integer.parseInt(nifEstancoATxtMod.getText()));
-        
-        conn.update(newAlmacen.toString());
+        Almacen newAlmacen = new Almacen(Integer.parseInt(idAlmacenATxt.getText()),
+                Integer.parseInt(idCigarrilloATxt.getText()), (int) exitenciaASpn.getValue(),
+                Integer.parseInt(nifEstancoATxt1.getText()));
+        try {
+            conn.update(newAlmacen.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarAlmacenBtn1MouseClicked
 
     private void jButton34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton34MouseClicked
-        Cigarrillo newCigarrillo = new Cigarrillo(Integer.parseInt(idCigarrilloCTxtMod.getText()), 
-            marcaCTxtMod.getText(), ContaminanteCCmbMod.getSelectedIndex(), FiltroCChkMod.isSelected(), 
-            MentoladoCChkMod.isSelected(), Hoja1CRdoMod.isSelected());
-        
+        Cigarrillo newCigarrillo = new Cigarrillo(Integer.parseInt(idCigarrilloCTxtMod.getText()),
+                marcaCTxtMod.getText(), ContaminanteCCmbMod.getSelectedIndex(), FiltroCChkMod.isSelected(),
+                MentoladoCChkMod.isSelected(), Hoja1CRdoMod.isSelected());
+
         conn.update(newCigarrillo.toString());
     }//GEN-LAST:event_jButton34MouseClicked
 
@@ -2341,52 +2375,72 @@ public class MainForm extends javax.swing.JFrame {
         Compra newCompra = new Compra(Integer.parseInt(numCompraCoTxtMod.getText()),
                 Integer.parseInt(idCigarrilloCoTxtMod.getText()), Integer.parseInt(nifEstancoCoTxtMod.getText()),
                 (double) precioCoSpnMod.getValue(), (int) cantidadCoSpnMod.getValue(), fechaCoTxtMod.getText());
-
-        conn.update(newCompra.toString());
+        try {
+            conn.update(newCompra.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_jButton10MouseClicked
 
     private void agregarEstancoBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEstancoBtnModMouseClicked
-        Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxtMod.getText()), 
-                Integer.parseInt(numFiscalEsTxtMod.getText()), nombreEsTxtMod.getText(), localEsTxtMod.getText());
-
-        conn.update(newEstanco.toString());
+        Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxt.getText()),
+                Integer.parseInt(numFiscalEsTxt.getText()), nombreEsTxt.getText(), localEsTxt.getText());
+        try {
+            conn.updatePro(newEstanco.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarEstancoBtnModMouseClicked
 
     private void agregarFabricanteBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarFabricanteBtnModMouseClicked
-        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxtMod.getText()), 
-                nombreFabricanteFTxtMod.getText(), paisFTxtMod.getText());
-
-        conn.update(newFabricante.toString());
+        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxt.getText()),
+                nombreFabricanteFTxt.getText(), paisFTxt.getText());
+        try {
+            conn.updatePro(newFabricante.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarFabricanteBtnModMouseClicked
 
     private void agregarVentaBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarVentaBtn1MouseClicked
-        Venta newVenta = new Venta(Integer.parseInt(numVentaVTxtMod.getText()), Integer.parseInt(numExpendioVTxtMod.getText()),
-                 Integer.parseInt(idCigarrilloVTxtMod.getText()), (double)precioVentaVSpnMod.getValue(), (int)cantidadVSpnMod.getValue(), fechaVTxtMod.getText());
-        
-        conn.update(newVenta.toString());
+        Venta newVenta = new Venta(Integer.parseInt(numVentaVTxt.getText()), Integer.parseInt(numExpendioVTxt.getText()),
+                Integer.parseInt(idCigarrilloVTxt.getText()), (double) precioVentaVSpn.getValue(), (int) cantidadVSpn.getValue(), fechaVTxt.getText());
+        try {
+            conn.updatePro(newVenta.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarVentaBtn1MouseClicked
 
     private void agregarManufactureraBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnModMouseClicked
         Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxtMod.getText()), Integer.parseInt(idFabricanteManTxtMod.getText()), (int) cartonManSpnMod.getValue(), (int) embalajeManSpnMod.getValue());
-        
-        conn.update(newManufactura.toString());
+        try {
+            conn.updatePro(newManufactura.toString());
+            JOptionPane.showMessageDialog(this, "Success!");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_agregarManufactureraBtnModMouseClicked
 
     private void btnBuscarProc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc1MouseClicked
-        try {                                            
+        try {
             Statement st = null;
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT man.MARCA, fab.PAIS " +
-                        "FROM MANUFACTURA man " +
-                        "INNER JOIN FABRICANTE fab " +
-                        "ON fab.IDFABRICANTE=man.IDFABRICANTE " +
-                        "WHERE (fab.PAIS != 'Espa?a') " +
-                        "Group by man.MARCA;");
-                
+                rs = st.executeQuery("SELECT man.MARCA, fab.PAIS "
+                        + "FROM MANUFACTURA man "
+                        + "INNER JOIN FABRICANTE fab "
+                        + "ON fab.IDFABRICANTE=man.IDFABRICANTE "
+                        + "WHERE (fab.PAIS != 'Espa?a') "
+                        + "Group by man.MARCA;");
+
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-                
+
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getInt("id_producto"), rs.getInt("id_producto")});
                 }
@@ -2399,24 +2453,24 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarProc1MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
-        try {                                            
+        try {
             Statement st = null;
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT SUM(com.CANTIDAD) " +
-                            "FROM COMPRA com " +
-                            "INNER JOIN Cigarrillo cig " +
-                            "ON cig.IDCIGARRILLO=com.IDCIGARRILLO " +
-                            "WHERE (FECHAC >= to_date('1.1.' || 1996, 'DD.MM.YYYY') " +
-                            "and com.NUMFISCAL='11111' and cig.MARCA='Camel');");
-                
+                rs = st.executeQuery("SELECT SUM(com.CANTIDAD) "
+                        + "FROM COMPRA com "
+                        + "INNER JOIN Cigarrillo cig "
+                        + "ON cig.IDCIGARRILLO=com.IDCIGARRILLO "
+                        + "WHERE (FECHAC >= to_date('1.1.' || 1996, 'DD.MM.YYYY') "
+                        + "and com.NUMFISCAL='11111' and cig.MARCA='Camel');");
+
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-                
+
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getNString(1)});
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2426,7 +2480,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void btnBuscarProc3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc3MouseClicked
-        try {                                            
+        try {
             Statement st = null;
             st = conn.getConnect().createStatement();
             ResultSet rs;
@@ -2435,14 +2489,13 @@ public class MainForm extends javax.swing.JFrame {
                         + "Cigarrillo cig ON cig.IDCIGARRILLO=ven.IDCIGARRILLO INNER JOIN "
                         + "Manufactura man ON cig.MARCA=man.MARCA INNER JOIN ESTANCO est ON est.NUMFISCAL = "
                         + "ven.NUMFISCAL WHERE (cig.MARCA = 'Ducados' AND est.PROVINCIA = 'Madrid');");
-                
-                
+
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-                
+
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getNString(1)});
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2452,30 +2505,29 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarProc3MouseClicked
 
     private void btnBuscarProc4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc4MouseClicked
-        try {                                            
+        try {
             Statement st = null;
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT cig.MARCA, MAX(ven.CANTIDAD) " +
-                                        "FROM CIGARRILLO cig " +
-                                        "INNER JOIN MANUFACTURA man " +
-                                        "ON cig.MARCA = man.MARCA " +
-                                        "INNER JOIN FABRICANTE fab " +
-                                        "ON fab.IDFABRICANTE = man.IDFABRICANTE " +
-                                        "INNER JOIN VENTA ven " +
-                                        "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO " +
-                                        "WHERE (fab.PAIS = 'USA') " +
-                                        "GROUP BY cig.MARCA, ven.CANTIDAD " +
-                                        "ORDER BY ven.CANTIDAD DESC;");
-                
-                
+                rs = st.executeQuery("SELECT cig.MARCA, MAX(ven.CANTIDAD) "
+                        + "FROM CIGARRILLO cig "
+                        + "INNER JOIN MANUFACTURA man "
+                        + "ON cig.MARCA = man.MARCA "
+                        + "INNER JOIN FABRICANTE fab "
+                        + "ON fab.IDFABRICANTE = man.IDFABRICANTE "
+                        + "INNER JOIN VENTA ven "
+                        + "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO "
+                        + "WHERE (fab.PAIS = 'USA') "
+                        + "GROUP BY cig.MARCA, ven.CANTIDAD "
+                        + "ORDER BY ven.CANTIDAD DESC;");
+
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-                
+
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getNString(1)});
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2485,20 +2537,19 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarProc4MouseClicked
 
     private void btnBuscarProc5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc5MouseClicked
-        try {                                            
+        try {
             Statement st = null;
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
                 rs = st.executeQuery("SELECT SUM(ven.PRECIOVENTA) FROM Cigarrillo cig INNER JOIN Venta ven ON cig.IDCIGARRILLO = ven.IDCIGARRILLO WHERE (ven.FECHAV = '1996-22-08' AND cig.Marca = 'Winston');");
-                
-                
+
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-                
+
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getNString(1)});
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2508,19 +2559,19 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarProc5MouseClicked
 
     private void btnBuscaProc2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscaProc2MouseClicked
-        try {                                            
+        try {
             Statement st = null;
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
                 rs = st.executeQuery("SELECT est.numFiscal, est.nombre FROM Estanco est INNER JOIN Almacen alm ON alm.numFiscal=est.numFiscal INNER JOIN CIGARRILLO cig ON alm.idCigarrillo=cig.idCigarrillo WHERE (cig.Marca != 'Winston' AND cig.mentolado = 0 AND cig.Marca = 'Celtas' AND cig.filtro = 0);");
-                
+
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-                
+
                 while (rs.next()) {
                     modelo.addRow(new Object[]{rs.getNString(1)});
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2566,7 +2617,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     Conexion conn = new Conexion();
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ContaminanteCCmb;
     private javax.swing.JComboBox<String> ContaminanteCCmbMod;
