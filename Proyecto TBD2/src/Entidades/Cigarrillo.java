@@ -71,6 +71,6 @@ public class Cigarrillo {
 
     @Override
     public String toString() {
-        return "Cigarrillo/idCigarrillo,marca,contaminante,filtro,mentolado,hoja/" + idCigarrillo + "/" + marca + "/" + contaminante + "/" + filtro + "/" + mentolado + "/" + hoja;
+        return "Cigarrillo/contaminante,filtro,hoja,marca,mentolado/" + contaminante + "/" + ((filtro)?1:0) + "/" + ((hoja)?1:0) + "/" + marca + "/" + ((mentolado)?1:0);
     }
 }

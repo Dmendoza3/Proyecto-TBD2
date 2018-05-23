@@ -12,14 +12,12 @@ package Entidades;
 public class Manufactura {
     private int idManufactura;
     private int idFabricante;
-    private String marca;
     private int carton;
     private int embalaje;
 
-    public Manufactura(int idManufactura, int idFabricante, String marca, int carton, int embalaje) {
+    public Manufactura(int idManufactura, int idFabricante, int carton, int embalaje) {
         this.idManufactura = idManufactura;
         this.idFabricante = idFabricante;
-        this.marca = marca;
         this.carton = carton;
         this.embalaje = embalaje;
     }
@@ -40,14 +38,6 @@ public class Manufactura {
         this.idFabricante = idFabricante;
     }
 
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
     public int getCarton() {
         return carton;
     }
@@ -66,7 +56,7 @@ public class Manufactura {
 
     @Override
     public String toString() {
-        return "Manufactura/idManufactura,idFabricante,marca,carton,embalaje/" 
-                + idManufactura + "/" + idFabricante + "/" + marca + "/" + carton + "/" + embalaje;
+        return "Manufactura/idManufactura,idFabricante,carton,embalaje/" 
+                + carton + "/" + embalaje + "/" + idManufactura + "/" + idFabricante;
     }
 }

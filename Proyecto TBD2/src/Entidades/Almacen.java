@@ -51,7 +51,7 @@ public class Almacen {
     
     @Override
     public String toString() {
-        return "Almacen/idAlmacen,idCigarrillo,existencia/numExp" +
-                idAlmacen + "/" + idCigarrillo + "/" + existencia + "/" + numExp;
+        return "Almacen/existencia,idCigarrillo,numExp" +
+                existencia + "/" + idCigarrillo + "/" + numExp;
     }
 }

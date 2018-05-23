@@ -8,7 +8,10 @@ package proyecto.tbd2;
 import Conexion.Conexion;
 import Entidades.*;
 import java.awt.Color;
+import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Locale;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,6 +24,132 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+       
+        //Edit frames
+        Color frameBg = new Color(255, 0, 0);
+        addPanel.setBackground(frameBg);
+        jPanel1.setBackground(frameBg);
+        jPanel12.setBackground(frameBg);
+        jPanel13.setBackground(frameBg);
+        jPanel2.setBackground(frameBg);
+        jPanel3.setBackground(frameBg);
+        jPanel4.setBackground(frameBg);
+        jPanel5.setBackground(frameBg);
+        jPanel6.setBackground(frameBg);
+        jPanel7.setBackground(frameBg);
+        jPanel8.setBackground(frameBg);
+        jPanel9.setBackground(frameBg);
+        
+        
+        //JLabels
+        Color foreLabel = new Color(255,255,0);
+        jLabel1.setForeground(foreLabel);
+        jLabel10.setForeground(foreLabel);
+        jLabel100.setForeground(foreLabel);
+        jLabel101.setForeground(foreLabel);
+        jLabel102.setForeground(foreLabel);
+        jLabel103.setForeground(foreLabel);
+        jLabel104.setForeground(foreLabel);
+        jLabel105.setForeground(foreLabel);
+        jLabel106.setForeground(foreLabel);
+        jLabel107.setForeground(foreLabel);
+        jLabel108.setForeground(foreLabel);
+        jLabel109.setForeground(foreLabel);
+        jLabel11.setForeground(foreLabel);
+        jLabel110.setForeground(foreLabel);
+        jLabel111.setForeground(foreLabel);
+        jLabel112.setForeground(foreLabel);
+        jLabel113.setForeground(foreLabel);
+        jLabel114.setForeground(foreLabel);
+        jLabel115.setForeground(foreLabel);
+        jLabel116.setForeground(foreLabel);
+        jLabel117.setForeground(foreLabel);
+        jLabel118.setForeground(foreLabel);
+        jLabel119.setForeground(foreLabel);
+        jLabel12.setForeground(foreLabel);
+        jLabel120.setForeground(foreLabel);
+        jLabel121.setForeground(foreLabel);
+        jLabel122.setForeground(foreLabel);
+        jLabel123.setForeground(foreLabel);
+        jLabel124.setForeground(foreLabel);
+        jLabel125.setForeground(foreLabel);
+        jLabel126.setForeground(foreLabel);
+        jLabel127.setForeground(foreLabel);
+        jLabel128.setForeground(foreLabel);
+        jLabel129.setForeground(foreLabel);
+        jLabel13.setForeground(foreLabel);
+        jLabel131.setForeground(foreLabel);
+        jLabel132.setForeground(foreLabel);
+        jLabel133.setForeground(foreLabel);
+        jLabel134.setForeground(foreLabel);
+        jLabel14.setForeground(foreLabel);
+        jLabel15.setForeground(foreLabel);
+        jLabel16.setForeground(foreLabel);
+        jLabel17.setForeground(foreLabel);
+        jLabel18.setForeground(foreLabel);
+        jLabel19.setForeground(foreLabel);
+        jLabel2.setForeground(foreLabel);
+        jLabel20.setForeground(foreLabel);
+        jLabel21.setForeground(foreLabel);
+        jLabel22.setForeground(foreLabel);
+        jLabel23.setForeground(foreLabel);
+        jLabel24.setForeground(foreLabel);
+        jLabel25.setForeground(foreLabel);
+        jLabel26.setForeground(foreLabel);
+        jLabel27.setForeground(foreLabel);
+        jLabel29.setForeground(foreLabel);
+        jLabel3.setForeground(foreLabel);
+        jLabel30.setForeground(foreLabel);
+        jLabel31.setForeground(foreLabel);
+        jLabel32.setForeground(foreLabel);
+        jLabel33.setForeground(foreLabel);
+        jLabel34.setForeground(foreLabel);
+        jLabel35.setForeground(foreLabel);
+        jLabel36.setForeground(foreLabel);
+        jLabel37.setForeground(foreLabel);
+        jLabel38.setForeground(foreLabel);
+        jLabel39.setForeground(foreLabel);
+        jLabel4.setForeground(foreLabel);
+        jLabel40.setForeground(foreLabel);
+        jLabel41.setForeground(foreLabel);
+        jLabel42.setForeground(foreLabel);
+        jLabel5.setForeground(foreLabel);
+        jLabel6.setForeground(foreLabel);
+        jLabel7.setForeground(foreLabel);
+        jLabel8.setForeground(foreLabel);
+        jLabel85.setForeground(foreLabel);
+        jLabel86.setForeground(foreLabel);
+        jLabel87.setForeground(foreLabel);
+        jLabel88.setForeground(foreLabel);
+        jLabel89.setForeground(foreLabel);
+        jLabel9.setForeground(foreLabel);
+        jLabel90.setForeground(foreLabel);
+        jLabel91.setForeground(foreLabel);
+        jLabel92.setForeground(foreLabel);
+        jLabel93.setForeground(foreLabel);
+        jLabel94.setForeground(foreLabel);
+        jLabel95.setForeground(foreLabel);
+        jLabel96.setForeground(foreLabel);
+        jLabel97.setForeground(foreLabel);
+        jLabel98.setForeground(foreLabel);
+        jLabel99.setForeground(foreLabel);
+        
+        //JFrame
+        Color bgFrame = new Color(255, 0, 0);
+        createAlmacen.setBackground(bgFrame);
+        createCigarrillo.setBackground(bgFrame);
+        createCompra.setBackground(bgFrame);
+        createEstancos.setBackground(bgFrame);
+        createFabricante.setBackground(bgFrame);
+        createManufacturera.setBackground(bgFrame);
+        createVenta.setBackground(bgFrame);
+        updateAlmacen.setBackground(bgFrame);
+        updateCigarrillo.setBackground(bgFrame);
+        updateCompras.setBackground(bgFrame);
+        updateEstancos.setBackground(bgFrame);
+        updateFabricante.setBackground(bgFrame);
+        updateManufacturera.setBackground(bgFrame);
+        updateVentas.setBackground(bgFrame);
     }
 
     /**
@@ -113,12 +242,10 @@ public class MainForm extends javax.swing.JFrame {
         cantidadVSpn = new javax.swing.JSpinner();
         createManufacturera = new javax.swing.JFrame();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         agregarManufactureraBtn = new javax.swing.JButton();
         idManufacturaManTxt1 = new javax.swing.JTextField();
-        marcaManTxt1 = new javax.swing.JTextField();
         cartonManSpn1 = new javax.swing.JSpinner();
         jLabel31 = new javax.swing.JLabel();
         embalajeManSpn2 = new javax.swing.JSpinner();
@@ -205,12 +332,10 @@ public class MainForm extends javax.swing.JFrame {
         cantidadVSpnMod = new javax.swing.JSpinner();
         updateManufacturera = new javax.swing.JFrame();
         jLabel129 = new javax.swing.JLabel();
-        jLabel130 = new javax.swing.JLabel();
         jLabel131 = new javax.swing.JLabel();
         jLabel132 = new javax.swing.JLabel();
         agregarManufactureraBtnMod = new javax.swing.JButton();
         idManufacturaManTxtMod = new javax.swing.JTextField();
-        marcaManTxtMod = new javax.swing.JTextField();
         cartonManSpnMod = new javax.swing.JSpinner();
         jLabel133 = new javax.swing.JLabel();
         embalajeManSpnMod = new javax.swing.JSpinner();
@@ -258,6 +383,10 @@ public class MainForm extends javax.swing.JFrame {
         btnBuscarProc5 = new javax.swing.JButton();
         jLabel101 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        btnBuscaProc2 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -270,10 +399,6 @@ public class MainForm extends javax.swing.JFrame {
         jButton33 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        btnBuscaProc2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         fabricanteRd = new javax.swing.JRadioButton();
@@ -834,8 +959,6 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel27.setText("id Manufactura");
 
-        jLabel28.setText("Marca");
-
         jLabel29.setText("Carton");
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -873,14 +996,12 @@ public class MainForm extends javax.swing.JFrame {
                                     .addComponent(embalajeManSpn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, createManufactureraLayout.createSequentialGroup()
                                     .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel28)
                                         .addComponent(jLabel27)
                                         .addComponent(jLabel29))
                                     .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(createManufactureraLayout.createSequentialGroup()
                                             .addGap(79, 79, 79)
                                             .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(marcaManTxt1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(idManufacturaManTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(idFabricanteManTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createManufactureraLayout.createSequentialGroup()
@@ -888,7 +1009,7 @@ public class MainForm extends javax.swing.JFrame {
                                             .addComponent(cartonManSpn1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(createManufactureraLayout.createSequentialGroup()
-                        .addGap(156, 156, 156)
+                        .addGap(157, 157, 157)
                         .addComponent(agregarManufactureraBtn)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
@@ -907,19 +1028,15 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(idFabricanteManTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(marcaManTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(cartonManSpn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel31)
                     .addComponent(embalajeManSpn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(agregarManufactureraBtn)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         updateAlmacen.setTitle("Agregar Almacen");
@@ -1470,8 +1587,6 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel129.setText("id Manufactura");
 
-        jLabel130.setText("Marca");
-
         jLabel131.setText("Carton");
 
         jLabel132.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -1509,14 +1624,12 @@ public class MainForm extends javax.swing.JFrame {
                                     .addComponent(embalajeManSpnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateManufactureraLayout.createSequentialGroup()
                                     .addGroup(updateManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel130)
                                         .addComponent(jLabel129)
                                         .addComponent(jLabel131))
                                     .addGroup(updateManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(updateManufactureraLayout.createSequentialGroup()
                                             .addGap(79, 79, 79)
                                             .addGroup(updateManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(marcaManTxtMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(idManufacturaManTxtMod, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(idFabricanteManTxtMod, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateManufactureraLayout.createSequentialGroup()
@@ -1543,17 +1656,13 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(idFabricanteManTxtMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(updateManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel130)
-                    .addComponent(marcaManTxtMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(updateManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel131)
                     .addComponent(cartonManSpnMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(updateManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel133)
                     .addComponent(embalajeManSpnMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(agregarManufactureraBtnMod)
                 .addContainerGap())
         );
@@ -1946,6 +2055,39 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab5", jPanel8);
 
+        jLabel26.setText("Importe de la compra");
+
+        jTextField7.setEditable(false);
+
+        btnBuscaProc2.setText("Buscar");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(btnBuscaProc2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(141, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscaProc2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(136, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab8", jPanel13);
+
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2059,39 +2201,6 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab 10", jPanel9);
 
-        jLabel26.setText("Importe de la compra");
-
-        jTextField7.setEditable(false);
-
-        btnBuscaProc2.setText("Buscar");
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(btnBuscaProc2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscaProc2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("tab8", jPanel13);
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Procedimientos Almacenados");
@@ -2120,6 +2229,7 @@ public class MainForm extends javax.swing.JFrame {
         tabPanel.addTab("Buscar", jPanel4);
 
         tablaEliminar.add(fabricanteRd);
+        fabricanteRd.setSelected(true);
         fabricanteRd.setText("Fabricante");
 
         tablaEliminar.add(cigarrillosRd);
@@ -2313,7 +2423,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarVentaBtnMouseClicked
 
     private void agregarManufactureraBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnMouseClicked
-        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxt1.getText()), Integer.parseInt(idFabricanteManTxt.getText()), marcaManTxt1.getText(), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
+        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxt1.getText()), Integer.parseInt(idFabricanteManTxt.getText()), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
         
         conn.insertPro(newManufactura.toString());
     }//GEN-LAST:event_agregarManufactureraBtnMouseClicked
@@ -2396,7 +2506,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarVentaBtn1MouseClicked
 
     private void agregarManufactureraBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnModMouseClicked
-        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxt1.getText()), Integer.parseInt(idFabricanteManTxt.getText()), marcaManTxt1.getText(), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
+        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxt1.getText()), Integer.parseInt(idFabricanteManTxt.getText()), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
         
         conn.updatePro(newManufactura.toString());
     }//GEN-LAST:event_agregarManufactureraBtnModMouseClicked
@@ -2412,7 +2522,7 @@ public class MainForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -2568,7 +2678,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel130;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
@@ -2588,7 +2697,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -2657,8 +2765,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton manufactureraRd;
     private javax.swing.JTextField marcaCTxt;
     private javax.swing.JTextField marcaCTxtMod;
-    private javax.swing.JTextField marcaManTxt1;
-    private javax.swing.JTextField marcaManTxtMod;
     private javax.swing.JTextField nifEstancoATxt1;
     private javax.swing.JTextField nifEstancoATxtMod;
     private javax.swing.JTextField nifEstancoCoTxt1;

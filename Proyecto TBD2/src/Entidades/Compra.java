@@ -71,6 +71,6 @@ public class Compra {
 
     @Override
     public String toString() {
-        return "Compra/numCompra,idAlmacen,precioCompra,cantidad,fecha/" + numCompra + "/" + idAlmacen + "/" + numFiscal + "/" + precioCompra + "/" + cantidad + "/" + fecha;
+        return "Compra/numCompra,idAlmacen,precioCompra,cantidad,fecha/" + fecha + "/" + precioCompra + "/" + cantidad + "/" + numFiscal + "/" + idAlmacen + "/" + numCompra;
     }
 }

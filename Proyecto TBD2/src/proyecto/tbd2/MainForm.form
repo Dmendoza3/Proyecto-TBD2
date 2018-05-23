@@ -934,7 +934,6 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -942,7 +941,6 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="marcaManTxt1" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                                                   <Component id="idManufacturaManTxt1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                                   <Component id="idFabricanteManTxt" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                               </Group>
@@ -958,7 +956,7 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                           <Component id="agregarManufactureraBtn" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -983,11 +981,6 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="marcaManTxt1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cartonManSpn1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -996,9 +989,9 @@
                       <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
                       <Component id="embalajeManSpn2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="agregarManufactureraBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1007,11 +1000,6 @@
         <Component class="javax.swing.JLabel" name="jLabel27">
           <Properties>
             <Property name="text" type="java.lang.String" value="id Manufactura"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel28">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Marca"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel29">
@@ -1036,8 +1024,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="idManufacturaManTxt1">
-        </Component>
-        <Component class="javax.swing.JTextField" name="marcaManTxt1">
         </Component>
         <Component class="javax.swing.JSpinner" name="cartonManSpn1">
           <Properties>
@@ -1999,7 +1985,6 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel130" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel129" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel131" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -2007,7 +1992,6 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="marcaManTxtMod" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                                                   <Component id="idManufacturaManTxtMod" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                                   <Component id="idFabricanteManTxtMod" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                               </Group>
@@ -2048,11 +2032,6 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel130" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="marcaManTxtMod" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel131" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cartonManSpnMod" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -2061,7 +2040,7 @@
                       <Component id="jLabel133" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="embalajeManSpnMod" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="agregarManufactureraBtnMod" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -2072,11 +2051,6 @@
         <Component class="javax.swing.JLabel" name="jLabel129">
           <Properties>
             <Property name="text" type="java.lang.String" value="id Manufactura"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel130">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Marca"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel131">
@@ -2101,8 +2075,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="idManufacturaManTxtMod">
-        </Component>
-        <Component class="javax.swing.JTextField" name="marcaManTxtMod">
         </Component>
         <Component class="javax.swing.JSpinner" name="cartonManSpnMod">
           <Properties>
@@ -2797,6 +2769,63 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Container class="javax.swing.JPanel" name="jPanel13">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="tab8">
+                        <Property name="tabTitle" type="java.lang.String" value="tab8"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="btnBuscaProc2" min="-2" pref="89" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel26" max="32767" attributes="0"/>
+                                  <Component id="jTextField7" min="-2" pref="105" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="141" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="jLabel26" min="-2" pref="27" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="btnBuscaProc2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="136" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jLabel26">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Importe de la compra"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField7">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnBuscaProc2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Buscar"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
                 <Container class="javax.swing.JPanel" name="jPanel12">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -2962,63 +2991,6 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel13">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="tab8">
-                        <Property name="tabTitle" type="java.lang.String" value="tab8"/>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="btnBuscaProc2" min="-2" pref="89" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel26" max="32767" attributes="0"/>
-                                  <Component id="jTextField7" min="-2" pref="105" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="141" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                              <Component id="jLabel26" min="-2" pref="27" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="btnBuscaProc2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="136" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel26">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Importe de la compra"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField7">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnBuscaProc2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Buscar"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel4">
@@ -3097,6 +3069,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="tablaEliminar"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Fabricante"/>
               </Properties>
             </Component>
