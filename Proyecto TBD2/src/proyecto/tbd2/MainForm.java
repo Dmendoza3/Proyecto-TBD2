@@ -2394,18 +2394,18 @@ public class MainForm extends javax.swing.JFrame {
         } else if (cigarrillosRd.isSelected()){
             entidad = "Cigarrillo";
         } else if (comprasRd.isSelected()){
-            entidad = "Compras";
+            entidad = "Compra";
         } else if (estancosRd.isSelected()){
-            entidad = "Estancos";
+            entidad = "Estanco";
         }  else if (fabricanteRd.isSelected()){
             entidad = "Fabricante";
         } else if (ventasRd.isSelected()){
-            entidad = "Ventas";
+            entidad = "Venta";
         } else if (manufactureraRd.isSelected()){
             entidad = "Manufacturera";
         }
         
-        conn.deletePro(entidad,delId.getText());
+        conn.deletePro(entidad,Integer.parseInt(delId.getText()));
     }//GEN-LAST:event_jButton36MouseClicked
 
     private void jButton32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton32MouseClicked
@@ -2414,9 +2414,9 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton32MouseClicked
 
     private void agregarAlmacenBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarAlmacenBtn1MouseClicked
-        Almacen newAlmacen = new Almacen(Integer.parseInt(idAlmacenATxt.getText()),
-                Integer.parseInt(idCigarrilloATxt.getText()), (int) exitenciaASpn.getValue(),
-                Integer.parseInt(nifEstancoATxt1.getText()));
+        Almacen newAlmacen = new Almacen(Integer.parseInt(idAlmacenATxtMod.getText()),
+                Integer.parseInt(idCigarrilloATxtMod.getText()), (int) exitenciaASpnMod.getValue(),
+                Integer.parseInt(nifEstancoATxtMod.getText()));
         
         conn.update(newAlmacen.toString());
     }//GEN-LAST:event_agregarAlmacenBtn1MouseClicked
@@ -2438,22 +2438,22 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10MouseClicked
 
     private void agregarEstancoBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEstancoBtnModMouseClicked
-        Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxt.getText()), 
-                Integer.parseInt(numFiscalEsTxt.getText()), nombreEsTxt.getText(), localEsTxt.getText());
+        Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxtMod.getText()), 
+                Integer.parseInt(numFiscalEsTxtMod.getText()), nombreEsTxtMod.getText(), localEsTxtMod.getText());
 
         conn.updatePro(newEstanco.toString());
     }//GEN-LAST:event_agregarEstancoBtnModMouseClicked
 
     private void agregarFabricanteBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarFabricanteBtnModMouseClicked
-        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxt.getText()), 
-                nombreFabricanteFTxt.getText(), paisFTxt.getText());
+        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxtMod.getText()), 
+                nombreFabricanteFTxtMod.getText(), paisFTxtMod.getText());
 
         conn.updatePro(newFabricante.toString());
     }//GEN-LAST:event_agregarFabricanteBtnModMouseClicked
 
     private void agregarVentaBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarVentaBtn1MouseClicked
-        Venta newVenta = new Venta(Integer.parseInt(numVentaVTxt.getText()), Integer.parseInt(numExpendioVTxt.getText()),
-                 Integer.parseInt(idCigarrilloVTxt.getText()), (double)precioVentaVSpn.getValue(), (int)cantidadVSpn.getValue(), fechaVTxt.getText());
+        Venta newVenta = new Venta(Integer.parseInt(numVentaVTxtMod.getText()), Integer.parseInt(numExpendioVTxtMod.getText()),
+                 Integer.parseInt(idCigarrilloVTxtMod.getText()), (double)precioVentaVSpnMod.getValue(), (int)cantidadVSpnMod.getValue(), fechaVTxtMod.getText());
         
         conn.updatePro(newVenta.toString());
     }//GEN-LAST:event_agregarVentaBtn1MouseClicked
