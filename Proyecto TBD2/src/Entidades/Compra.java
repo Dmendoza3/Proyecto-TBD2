@@ -81,7 +81,7 @@ public class Compra {
     @Override
     public String toString() {
         if(numCompra != -1)
-            return "Compra/fecha,precioCompra,cantidad,numFiscal,idAlmacen/" + numCompra + "/" +
+            return "Compra/numCompra,fecha,precioCompra,cantidad,numFiscal,idAlmacen/" + numCompra + "/" +
                     fecha + "/" + precioCompra + "/" + cantidad + "/" + numFiscal + "/" + idCigarrillo;
         
         return "Compra/fecha,precioCompra,cantidad,numFiscal,idAlmacen/" + 

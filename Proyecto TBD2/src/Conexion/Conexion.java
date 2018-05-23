@@ -38,6 +38,11 @@ public class  Conexion {
         
         System.out.println(con.connect());
     }
+
+    public Connection getConnect() {
+        return connect;
+    }
+    
     
     public void insert(String entidad){
         this.connect();
@@ -78,25 +83,28 @@ public class  Conexion {
     
     /**
      * Metodo para actualizar los datos de una tupla
-     * @param entity: donde contendra los datos que se actualizaran
+     * @param entidad: donde contendra los datos que se actualizaran
      */
     public void update(String entidad){
         //this.connect();
         String[] meta = entidad.split("/");
         String[] atri = meta[1].split(",");
         String key = "";
-        for (int i = 0; i < atri.length; i++) {
+        for (int i = 1; i < atri.length; i++) {
             key += atri[i] + "=?,";
         }
         key = key.substring(0, key.length() - 1);
         
         System.out.println("key " + key);
         try {
-            PreparedStatement st = connect.prepareStatement("UPDATE" + meta[0] +
-                    "set " + key);
-            for (int i = 0; i < meta.length - 2; i++) {
-                st.setString(i + 1, meta[i + 2]);
+            PreparedStatement st = connect.prepareStatement("UPDATE " + meta[0] +
+                    "set " + key + " where " + atri[0] + "=?");
+            
+            for (int i = 0; i < meta.length - 3; i++) {
+                st.setString(i + 1, meta[i + 3]);
             }
+            
+            st.setString(meta.length - 3, meta[2]);
             st.execute();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -129,6 +137,10 @@ public class  Conexion {
         this.connect();
         try {
             CallableStatement cstmt = connect.prepareCall("{call DELETE" + entidad.toUpperCase() + "(" + id + ")}");
+            
+            if(entidad.equals("Venta"))
+                cstmt = connect.prepareCall("{call procVentas_Menores (" + 5 + ", " + id + ")}");
+            
             cstmt.execute();
         } catch (Exception ex) {
         }

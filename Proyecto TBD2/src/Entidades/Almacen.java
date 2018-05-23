@@ -59,7 +59,7 @@ public class Almacen {
     @Override
     public String toString() {
         if(idAlmacen != -1)
-            return "Almacen/existencia,idCigarrillo,numExp/" + idAlmacen + "/" +
+            return "Almacen/idAlmacen,existencia,idCigarrillo,numExp/" + idAlmacen + "/" +
                     existencia + "/" + idCigarrillo + "/" + numExp;
         
         return "Almacen/existencia,idCigarrillo,numExp/" +

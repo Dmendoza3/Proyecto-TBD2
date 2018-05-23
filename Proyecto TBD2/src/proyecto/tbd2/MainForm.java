@@ -9,9 +9,16 @@ import Conexion.Conexion;
 import Entidades.*;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,8 +32,9 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
        
+        /*
         //Edit frames
-        Color frameBg = new Color(255, 0, 0);
+        //Color frameBg = new Color(255, 0, 0);
         addPanel.setBackground(frameBg);
         jPanel1.setBackground(frameBg);
         jPanel12.setBackground(frameBg);
@@ -42,11 +50,10 @@ public class MainForm extends javax.swing.JFrame {
         
         
         //JLabels
-        Color foreLabel = new Color(255,255,0);
+        //Color foreLabel = new Color(255,255,0);
         jLabel1.setForeground(foreLabel);
         jLabel10.setForeground(foreLabel);
         jLabel100.setForeground(foreLabel);
-        jLabel101.setForeground(foreLabel);
         jLabel102.setForeground(foreLabel);
         jLabel103.setForeground(foreLabel);
         jLabel104.setForeground(foreLabel);
@@ -66,7 +73,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel117.setForeground(foreLabel);
         jLabel118.setForeground(foreLabel);
         jLabel119.setForeground(foreLabel);
-        jLabel12.setForeground(foreLabel);
         jLabel120.setForeground(foreLabel);
         jLabel121.setForeground(foreLabel);
         jLabel122.setForeground(foreLabel);
@@ -77,7 +83,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel127.setForeground(foreLabel);
         jLabel128.setForeground(foreLabel);
         jLabel129.setForeground(foreLabel);
-        jLabel13.setForeground(foreLabel);
         jLabel131.setForeground(foreLabel);
         jLabel132.setForeground(foreLabel);
         jLabel133.setForeground(foreLabel);
@@ -111,8 +116,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel40.setForeground(foreLabel);
         jLabel41.setForeground(foreLabel);
         jLabel42.setForeground(foreLabel);
-        jLabel5.setForeground(foreLabel);
-        jLabel6.setForeground(foreLabel);
         jLabel7.setForeground(foreLabel);
         jLabel8.setForeground(foreLabel);
         jLabel86.setForeground(foreLabel);
@@ -125,7 +128,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel92.setForeground(foreLabel);
         jLabel93.setForeground(foreLabel);
         jLabel94.setForeground(foreLabel);
-        jLabel95.setForeground(foreLabel);
         jLabel97.setForeground(foreLabel);
         jLabel98.setForeground(foreLabel);
         jLabel99.setForeground(foreLabel);
@@ -146,6 +148,7 @@ public class MainForm extends javax.swing.JFrame {
         updateFabricante.setBackground(bgFrame);
         updateManufacturera.setBackground(bgFrame);
         updateVentas.setBackground(bgFrame);
+        */
     }
 
     /**
@@ -353,40 +356,27 @@ public class MainForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnBuscarProc1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabla2 = new javax.swing.JTable();
+        jButton8 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         btnBuscarProc3 = new javax.swing.JButton();
-        jLabel95 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnBuscarProc4 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         btnBuscarProc5 = new javax.swing.JButton();
-        jLabel101 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         btnBuscaProc2 = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        btnBuscarProc9 = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton33 = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         fabricanteRd = new javax.swing.JRadioButton();
@@ -1809,24 +1799,21 @@ public class MainForm extends javax.swing.JFrame {
         tabPanel.addTab("Modificar", jPanel3);
 
         btnBuscarProc1.setText("Buscar");
+        btnBuscarProc1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarProc1MouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Marcas", "Pais"
+                "Marca", "Pais"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        ));
+        jScrollPane1.setViewportView(tabla1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1835,9 +1822,9 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(btnBuscarProc1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1849,83 +1836,93 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanel1);
 
-        jLabel6.setText("NIF Estanco");
+        tabla2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jLabel12.setText("Marca");
+            },
+            new String [] {
+                "Sum Cantidad"
+            }
+        ));
+        jScrollPane5.setViewportView(tabla2);
+
+        jButton8.setText("Buscar");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jButton8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jButton8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab2", jPanel2);
 
         btnBuscarProc3.setText("Buscar");
+        btnBuscarProc3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarProc3MouseClicked(evt);
+            }
+        });
 
-        jLabel95.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel95.setText("Ventas");
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jTextField10.setEditable(false);
+            },
+            new String [] {
+                "Sum Venta"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(116, 116, 116)
+                .addGap(25, 25, 25)
                 .addComponent(btnBuscarProc3)
-                .addGap(147, 147, 147)
-                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(255, 255, 255))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
+                        .addGap(102, 102, 102)
                         .addComponent(btnBuscarProc3))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", jPanel6);
@@ -1935,7 +1932,7 @@ public class MainForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Total Ventas", "Marcas"
+                "Marcas", "Marcas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1949,70 +1946,96 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         btnBuscarProc4.setText("Buscar");
+        btnBuscarProc4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarProc4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(97, 97, 97)
+                .addGap(54, 54, 54)
                 .addComponent(btnBuscarProc4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(84, 84, 84)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(btnBuscarProc4)))
                 .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuscarProc4)
-                .addGap(68, 68, 68))
         );
 
         jTabbedPane1.addTab("tab4", jPanel7);
 
         btnBuscarProc5.setText("Buscar");
+        btnBuscarProc5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarProc5MouseClicked(evt);
+            }
+        });
 
-        jLabel101.setText("Ingresos");
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jTextField16.setEditable(false);
+            },
+            new String [] {
+                "Sum Venta"
+            }
+        ));
+        jScrollPane7.setViewportView(jTable5);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(btnBuscarProc5)
-                .addGap(112, 112, 112)
-                .addComponent(jLabel101)
-                .addGap(34, 34, 34)
-                .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel101, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnBuscarProc5))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGap(112, 112, 112)
+                .addComponent(btnBuscarProc5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab5", jPanel8);
 
-        jLabel26.setText("Importe de la compra");
-
-        jTextField7.setEditable(false);
-
         btnBuscaProc2.setText("Buscar");
+        btnBuscaProc2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscaProc2MouseClicked(evt);
+            }
+        });
+
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Num Fiscal", "Title 2"
+            }
+        ));
+        jScrollPane8.setViewportView(jTable6);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -2020,139 +2043,24 @@ public class MainForm extends javax.swing.JFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(btnBuscaProc2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addComponent(btnBuscaProc2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscaProc2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addGap(107, 107, 107)
+                .addComponent(btnBuscaProc2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("tab8", jPanel13);
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "NIF_Estanco", "Nombre_Estanco"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(jTable3);
-
-        btnBuscarProc9.setText("Buscar");
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(btnBuscarProc9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuscarProc9)
-                .addGap(121, 121, 121))
-        );
-
-        jTabbedPane1.addTab("tab9", jPanel12);
-
-        jLabel5.setText("Cantidad");
-
-        jLabel13.setText("nif Estanco");
-
-        jButton33.setText("Buscar");
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Marca"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(jTable4);
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jButton33)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
-                .addComponent(jButton33)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
-
-        jTabbedPane1.addTab("tab 10", jPanel9);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2441,28 +2349,185 @@ public class MainForm extends javax.swing.JFrame {
         Estanco newEstanco = new Estanco(Integer.parseInt(numExpendioEsTxtMod.getText()), 
                 Integer.parseInt(numFiscalEsTxtMod.getText()), nombreEsTxtMod.getText(), localEsTxtMod.getText());
 
-        conn.updatePro(newEstanco.toString());
+        conn.update(newEstanco.toString());
     }//GEN-LAST:event_agregarEstancoBtnModMouseClicked
 
     private void agregarFabricanteBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarFabricanteBtnModMouseClicked
         Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxtMod.getText()), 
                 nombreFabricanteFTxtMod.getText(), paisFTxtMod.getText());
 
-        conn.updatePro(newFabricante.toString());
+        conn.update(newFabricante.toString());
     }//GEN-LAST:event_agregarFabricanteBtnModMouseClicked
 
     private void agregarVentaBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarVentaBtn1MouseClicked
         Venta newVenta = new Venta(Integer.parseInt(numVentaVTxtMod.getText()), Integer.parseInt(numExpendioVTxtMod.getText()),
                  Integer.parseInt(idCigarrilloVTxtMod.getText()), (double)precioVentaVSpnMod.getValue(), (int)cantidadVSpnMod.getValue(), fechaVTxtMod.getText());
         
-        conn.updatePro(newVenta.toString());
+        conn.update(newVenta.toString());
     }//GEN-LAST:event_agregarVentaBtn1MouseClicked
 
     private void agregarManufactureraBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnModMouseClicked
         Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxtMod.getText()), Integer.parseInt(idFabricanteManTxtMod.getText()), (int) cartonManSpnMod.getValue(), (int) embalajeManSpnMod.getValue());
         
-        conn.updatePro(newManufactura.toString());
+        conn.update(newManufactura.toString());
     }//GEN-LAST:event_agregarManufactureraBtnModMouseClicked
+
+    private void btnBuscarProc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc1MouseClicked
+        try {                                            
+            Statement st = null;
+            st = conn.getConnect().createStatement();
+            ResultSet rs;
+            try {
+                rs = st.executeQuery("SELECT man.MARCA, fab.PAIS " +
+                        "FROM MANUFACTURA man " +
+                        "INNER JOIN FABRICANTE fab " +
+                        "ON fab.IDFABRICANTE=man.IDFABRICANTE " +
+                        "WHERE (fab.PAIS != 'Espa?a') " +
+                        "Group by man.MARCA;");
+                
+                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+                
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{rs.getInt("id_producto"), rs.getInt("id_producto")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarProc1MouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        try {                                            
+            Statement st = null;
+            st = conn.getConnect().createStatement();
+            ResultSet rs;
+            try {
+                rs = st.executeQuery("SELECT SUM(com.CANTIDAD) " +
+                            "FROM COMPRA com " +
+                            "INNER JOIN Cigarrillo cig " +
+                            "ON cig.IDCIGARRILLO=com.IDCIGARRILLO " +
+                            "WHERE (FECHAC >= to_date('1.1.' || 1996, 'DD.MM.YYYY') " +
+                            "and com.NUMFISCAL='11111' and cig.MARCA='Camel');");
+                
+                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+                
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{rs.getNString(1)});
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void btnBuscarProc3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc3MouseClicked
+        try {                                            
+            Statement st = null;
+            st = conn.getConnect().createStatement();
+            ResultSet rs;
+            try {
+                rs = st.executeQuery("SELECT SUM(ven.PRECIOVENTA) FROM VENTA ven INNER JOIN "
+                        + "Cigarrillo cig ON cig.IDCIGARRILLO=ven.IDCIGARRILLO INNER JOIN "
+                        + "Manufactura man ON cig.MARCA=man.MARCA INNER JOIN ESTANCO est ON est.NUMFISCAL = "
+                        + "ven.NUMFISCAL WHERE (cig.MARCA = 'Ducados' AND est.PROVINCIA = 'Madrid');");
+                
+                
+                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+                
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{rs.getNString(1)});
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarProc3MouseClicked
+
+    private void btnBuscarProc4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc4MouseClicked
+        try {                                            
+            Statement st = null;
+            st = conn.getConnect().createStatement();
+            ResultSet rs;
+            try {
+                rs = st.executeQuery("SELECT cig.MARCA, MAX(ven.CANTIDAD) " +
+                                        "FROM CIGARRILLO cig " +
+                                        "INNER JOIN MANUFACTURA man " +
+                                        "ON cig.MARCA = man.MARCA " +
+                                        "INNER JOIN FABRICANTE fab " +
+                                        "ON fab.IDFABRICANTE = man.IDFABRICANTE " +
+                                        "INNER JOIN VENTA ven " +
+                                        "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO " +
+                                        "WHERE (fab.PAIS = 'USA') " +
+                                        "GROUP BY cig.MARCA, ven.CANTIDAD " +
+                                        "ORDER BY ven.CANTIDAD DESC;");
+                
+                
+                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+                
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{rs.getNString(1)});
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarProc4MouseClicked
+
+    private void btnBuscarProc5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc5MouseClicked
+        try {                                            
+            Statement st = null;
+            st = conn.getConnect().createStatement();
+            ResultSet rs;
+            try {
+                rs = st.executeQuery("SELECT SUM(ven.PRECIOVENTA) FROM Cigarrillo cig INNER JOIN Venta ven ON cig.IDCIGARRILLO = ven.IDCIGARRILLO WHERE (ven.FECHAV = '1996-22-08' AND cig.Marca = 'Winston');");
+                
+                
+                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+                
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{rs.getNString(1)});
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarProc5MouseClicked
+
+    private void btnBuscaProc2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscaProc2MouseClicked
+        try {                                            
+            Statement st = null;
+            st = conn.getConnect().createStatement();
+            ResultSet rs;
+            try {
+                rs = st.executeQuery("SELECT est.numFiscal, est.nombre FROM Estanco est INNER JOIN Almacen alm ON alm.numFiscal=est.numFiscal INNER JOIN CIGARRILLO cig ON alm.idCigarrillo=cig.idCigarrillo WHERE (cig.Marca != 'Winston' AND cig.mentolado = 0 AND cig.Marca = 'Celtas' AND cig.filtro = 0);");
+                
+                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
+                
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{rs.getNString(1)});
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscaProc2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2531,7 +2596,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarProc3;
     private javax.swing.JButton btnBuscarProc4;
     private javax.swing.JButton btnBuscarProc5;
-    private javax.swing.JButton btnBuscarProc9;
     private javax.swing.JSpinner cantidadCoSpn;
     private javax.swing.JSpinner cantidadCoSpnMod;
     private javax.swing.JSpinner cantidadVSpn;
@@ -2585,18 +2649,17 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel104;
@@ -2616,7 +2679,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel118;
     private javax.swing.JLabel jLabel119;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel120;
     private javax.swing.JLabel jLabel121;
     private javax.swing.JLabel jLabel122;
@@ -2627,7 +2689,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel129;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
@@ -2644,7 +2705,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -2661,8 +2721,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel86;
@@ -2675,12 +2733,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
-    private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -2689,23 +2745,17 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable6;
     private javax.swing.JTextField localEsTxt;
     private javax.swing.JTextField localEsTxtMod;
     private javax.swing.JRadioButton manufactureraRd;
@@ -2735,6 +2785,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JSpinner precioVentaVSpn;
     private javax.swing.JSpinner precioVentaVSpnMod;
     private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JTable tabla1;
+    private javax.swing.JTable tabla2;
     private javax.swing.ButtonGroup tablaEliminar;
     private javax.swing.JFrame updateAlmacen;
     private javax.swing.JFrame updateCigarrillo;

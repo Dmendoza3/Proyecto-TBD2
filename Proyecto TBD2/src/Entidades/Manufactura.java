@@ -64,7 +64,7 @@ public class Manufactura {
     @Override
     public String toString() {
         if(idManufactura != -1)
-            return "Manufactura/idFabricante,carton,embalaje/"  + idManufactura + "/" + 
+            return "Manufactura/idManufactura,idFabricante,carton,embalaje/"  + idManufactura + "/" + 
                 + carton + "/" + embalaje + "/" + idFabricante;
         
             

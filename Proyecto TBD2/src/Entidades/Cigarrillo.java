@@ -81,7 +81,7 @@ public class Cigarrillo {
     @Override
     public String toString() {
         if(idCigarrillo != -1)
-            return "Cigarrillo/contaminante,filtro,hoja,marca,mentolado/" + idCigarrillo + "/" +
+            return "Cigarrillo/idCigarrillo,contaminante,filtro,hoja,marca,mentolado/" + idCigarrillo + "/" +
                 contaminante + "/" + ((filtro)?1:0) + "/" + ((hoja)?1:0) + "/" + marca + "/" + ((mentolado)?1:0);
         
         return "Cigarrillo/contaminante,filtro,hoja,marca,mentolado/" + 
