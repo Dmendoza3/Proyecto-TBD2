@@ -51,6 +51,6 @@ public class Estanco {
     
     @Override
     public String toString() {
-        return "Estanco/numExp,numFiscal,nombre,local/" + numFiscal + "/" + numExp + "/" + nombre + "/" + local;
+        return "Estanco/numFiscal,numExp,nombre,local/" + numFiscal + "/" + numExp + "/" + nombre + "/" + local;
     }
 }

@@ -10,6 +10,13 @@ public class Almacen {
     private int existencia;
     private int numExp;
 
+    public Almacen(int idCigarrillo, int existencia, int numExp) {
+        this.idAlmacen = -1;
+        this.idCigarrillo = idCigarrillo;
+        this.existencia = existencia;
+        this.numExp = numExp;
+    }
+    
     public Almacen(int idAlmacen, int idCigarrillo, int existencia, int numExp) {
         this.idAlmacen = idAlmacen;
         this.idCigarrillo = idCigarrillo;
@@ -51,7 +58,11 @@ public class Almacen {
     
     @Override
     public String toString() {
-        return "Almacen/existencia,idCigarrillo,numExp" +
-                existencia + "/" + idCigarrillo + "/" + numExp;
+        if(idAlmacen != -1)
+            return "Almacen/existencia,idCigarrillo,numExp/" + idAlmacen + "/" +
+                    existencia + "/" + idCigarrillo + "/" + numExp;
+        
+        return "Almacen/existencia,idCigarrillo,numExp/" +
+                    existencia + "/" + idCigarrillo + "/" + numExp;
     }
 }

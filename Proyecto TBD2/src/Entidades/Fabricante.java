@@ -9,6 +9,12 @@ public class Fabricante {
     private String nombreF;
     private String pais;
 
+    public Fabricante(String nombreF, String pais) {
+        this.idFabricante = -1;
+        this.nombreF = nombreF;
+        this.pais = pais;
+    }
+    
     public Fabricante(int idFabricante, String nombreF, String pais) {
         this.idFabricante = idFabricante;
         this.nombreF = nombreF;
@@ -41,6 +47,11 @@ public class Fabricante {
 
     @Override
     public String toString() {
-        return "Fabricante/idFabricante,nombreF,pais/" + idFabricante + "/" + nombreF + "/" + pais;
+        if(idFabricante != -1)
+            return "Fabricante/nombreF,pais/" + idFabricante + "/"
+                + nombreF + "/" + pais;
+            
+        return "Fabricante/nombreF,pais/" 
+                + nombreF + "/" + pais;
     }
 }

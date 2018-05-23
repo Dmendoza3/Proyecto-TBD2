@@ -15,6 +15,13 @@ public class Manufactura {
     private int carton;
     private int embalaje;
 
+    public Manufactura(int idFabricante, int carton, int embalaje) {
+        this.idManufactura = -1;
+        this.idFabricante = idFabricante;
+        this.carton = carton;
+        this.embalaje = embalaje;
+    }
+    
     public Manufactura(int idManufactura, int idFabricante, int carton, int embalaje) {
         this.idManufactura = idManufactura;
         this.idFabricante = idFabricante;
@@ -56,7 +63,12 @@ public class Manufactura {
 
     @Override
     public String toString() {
-        return "Manufactura/idManufactura,idFabricante,carton,embalaje/" 
-                + carton + "/" + embalaje + "/" + idManufactura + "/" + idFabricante;
+        if(idManufactura != -1)
+            return "Manufactura/idFabricante,carton,embalaje/"  + idManufactura + "/" + 
+                + carton + "/" + embalaje + "/" + idFabricante;
+        
+            
+        return "Manufactura/carton,embalaje,idFabricante/" 
+                + carton + "/" + embalaje + "/" + idFabricante;
     }
 }

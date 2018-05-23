@@ -12,6 +12,15 @@ public class Venta {
     private int cantidad;
     private String fecha;
 
+    public Venta(int numFiscal, int idCigarrillo, double precioVenta, int cantidad, String fecha) {
+        this.numVenta = -1;
+        this.numFiscal = numFiscal;
+        this.idCigarrillo = idCigarrillo;
+        this.precioVenta = precioVenta;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+    }
+    
     public Venta(int numVenta, int numFiscal, int idCigarrillo, double precioVenta, int cantidad, String fecha) {
         this.numVenta = numVenta;
         this.numFiscal = numFiscal;
@@ -71,9 +80,11 @@ public class Venta {
     
     @Override
     public String toString() {
-        
-        
+        if(numVenta != -1)
+            return "Ventas/numVenta,numFiscal,idCigarrillo,precioVenta,cantidad,fecha/" + numVenta + "/"
+                + numFiscal + "/" + idCigarrillo + "/" + precioVenta + "/" + cantidad + "/" + fecha;
+            
         return "Ventas/numVenta,numFiscal,idCigarrillo,precioVenta,cantidad,fecha/" + 
-                numVenta + "/" + numFiscal + "/" + idCigarrillo + "/" + precioVenta + "/" + cantidad + "/" + fecha;
+                numFiscal + "/" + idCigarrillo + "/" + precioVenta + "/" + cantidad + "/" + fecha;
     }
 }

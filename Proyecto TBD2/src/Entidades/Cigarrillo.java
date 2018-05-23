@@ -12,6 +12,15 @@ public class Cigarrillo {
     private boolean mentolado;
     private boolean hoja;
 
+    public Cigarrillo(String marca, int contaminante, boolean filtro, boolean mentolado, boolean hoja) {
+        this.idCigarrillo = -1;
+        this.marca = marca;
+        this.contaminante = contaminante;
+        this.filtro = filtro;
+        this.mentolado = mentolado;
+        this.hoja = hoja;
+    }
+    
     public Cigarrillo(int idCigarrillo, String marca, int contaminante, boolean filtro, boolean mentolado, boolean hoja) {
         this.idCigarrillo = idCigarrillo;
         this.marca = marca;
@@ -71,6 +80,11 @@ public class Cigarrillo {
 
     @Override
     public String toString() {
-        return "Cigarrillo/contaminante,filtro,hoja,marca,mentolado/" + contaminante + "/" + ((filtro)?1:0) + "/" + ((hoja)?1:0) + "/" + marca + "/" + ((mentolado)?1:0);
+        if(idCigarrillo != -1)
+            return "Cigarrillo/contaminante,filtro,hoja,marca,mentolado/" + idCigarrillo + "/" +
+                contaminante + "/" + ((filtro)?1:0) + "/" + ((hoja)?1:0) + "/" + marca + "/" + ((mentolado)?1:0);
+        
+        return "Cigarrillo/contaminante,filtro,hoja,marca,mentolado/" + 
+                contaminante + "/" + ((filtro)?1:0) + "/" + ((hoja)?1:0) + "/" + marca + "/" + ((mentolado)?1:0);
     }
 }

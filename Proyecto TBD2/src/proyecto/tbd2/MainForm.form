@@ -158,38 +158,28 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel90" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel87" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel89" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel90" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel87" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel89" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="marcaCTxt" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                                              <Component id="idCigarrilloCTxt" min="-2" pref="109" max="-2" attributes="0"/>
-                                              <Component id="ContaminanteCCmb" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                                              <Component id="FiltroCChk" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                                              <Component id="MentoladoCChk" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                          <Component id="Hoja1CRdo" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="Hoja2CRDo" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="marcaCTxt" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                                      <Component id="ContaminanteCCmb" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                                      <Component id="FiltroCChk" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                                      <Component id="MentoladoCChk" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                                  <Component id="idFabricanteCTxt1" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="Hoja1CRdo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="Hoja2CRDo" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -207,12 +197,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel85" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="idCigarrilloCTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel86" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="marcaCTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -240,12 +225,7 @@
                           <Component id="Hoja2CRDo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel96" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="idFabricanteCTxt1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace pref="6" max="32767" attributes="0"/>
                   <Component id="jButton31" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
@@ -253,11 +233,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel85">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Id del cigarrillo"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel86">
           <Properties>
             <Property name="text" type="java.lang.String" value="Marca"/>
@@ -282,8 +257,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Hoja"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="idCigarrilloCTxt">
         </Component>
         <Component class="javax.swing.JTextField" name="marcaCTxt">
         </Component>
@@ -344,13 +317,6 @@
             <Property name="text" type="java.lang.String" value="jRadioButton2"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel96">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="idFabricante"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="idFabricanteCTxt1">
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JFrame" name="createCompra">
@@ -375,16 +341,15 @@
                           <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="numCompraCoTxt" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
                                       <Component id="fechaCoTxt" min="-2" pref="118" max="-2" attributes="0"/>
                                       <Component id="nifEstancoCoTxt1" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
                                   </Group>
@@ -413,12 +378,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="31" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="numCompraCoTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="idAlmacenCoTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -451,16 +411,11 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel15">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Numero de compra"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="fechaCoTxt">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Id de Almacen"/>
+            <Property name="text" type="java.lang.String" value="Id de cigarrillo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
@@ -493,8 +448,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="numCompraCoTxt">
         </Component>
         <Component class="javax.swing.JTextField" name="idAlmacenCoTxt">
         </Component>
@@ -922,41 +875,36 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel30" alignment="1" min="-2" pref="259" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="embalajeManSpn2" min="-2" pref="80" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="idManufacturaManTxt1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="idFabricanteManTxt" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cartonManSpn1" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="embalajeManSpn2" min="-2" pref="80" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                                          <Component id="idFabricanteManTxt" min="-2" pref="100" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cartonManSpn1" min="-2" pref="80" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                              <Component id="jLabel30" min="-2" pref="259" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                           <Component id="agregarManufactureraBtn" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -969,12 +917,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="idManufacturaManTxt1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="idFabricanteManTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -989,19 +932,14 @@
                       <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
                       <Component id="embalajeManSpn2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Component id="agregarManufactureraBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel27">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="id Manufactura"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel29">
           <Properties>
             <Property name="text" type="java.lang.String" value="Carton"/>
@@ -1022,8 +960,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarManufactureraBtnMouseClicked"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="idManufacturaManTxt1">
         </Component>
         <Component class="javax.swing.JSpinner" name="cartonManSpn1">
           <Properties>
@@ -1445,7 +1381,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="precioCoSpnMod" alignment="1" min="-2" pref="77" max="-2" attributes="0"/>
                                       <Component id="cantidadCoSpnMod" alignment="1" min="-2" pref="77" max="-2" attributes="0"/>
-                                      <Component id="idAlmacenCoTxtMod" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="idCigarrilloCoTxtMod" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1472,7 +1408,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel107" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="idAlmacenCoTxtMod" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="idCigarrilloCoTxtMod" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1511,7 +1447,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel107">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Id de Almacen"/>
+            <Property name="text" type="java.lang.String" value="Id de Cigarrillo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel108">
@@ -1547,7 +1483,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="numCompraCoTxtMod">
         </Component>
-        <Component class="javax.swing.JTextField" name="idAlmacenCoTxtMod">
+        <Component class="javax.swing.JTextField" name="idCigarrilloCoTxtMod">
         </Component>
         <Component class="javax.swing.JSpinner" name="precioCoSpnMod">
           <Properties>

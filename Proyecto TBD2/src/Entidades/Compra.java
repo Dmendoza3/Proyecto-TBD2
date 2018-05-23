@@ -6,15 +6,24 @@ package Entidades;
  */
 public class Compra {
     private int numCompra;
-    private int idAlmacen;
+    private int idCigarrillo;
     private int numFiscal;
     private double precioCompra;
     private int cantidad;
     private String fecha;
 
-    public Compra(int numCompra, int idAlmacen, int numFiscal, double precioCompra, int cantidad, String fecha) {
+    public Compra(int idCigarrillo, int numFiscal, double precioCompra, int cantidad, String fecha) {
+        this.numCompra = -1;
+        this.idCigarrillo = idCigarrillo;
+        this.numFiscal = numFiscal;
+        this.precioCompra = precioCompra;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+    }
+    
+    public Compra(int numCompra, int idCigarrillo, int numFiscal, double precioCompra, int cantidad, String fecha) {
         this.numCompra = numCompra;
-        this.idAlmacen = idAlmacen;
+        this.idCigarrillo = idCigarrillo;
         this.numFiscal = numFiscal;
         this.precioCompra = precioCompra;
         this.cantidad = cantidad;
@@ -29,12 +38,12 @@ public class Compra {
         this.numCompra = numCompra;
     }
 
-    public int getIdAlmacen() {
-        return idAlmacen;
+    public int getIdCigarrillo() {
+        return idCigarrillo;
     }
 
-    public void setIdAlmacen(int idAlmacen) {
-        this.idAlmacen = idAlmacen;
+    public void setIdCigarrillo(int idCigarrillo) {
+        this.idCigarrillo = idCigarrillo;
     }
 
     public int getNumFiscal() {
@@ -71,6 +80,11 @@ public class Compra {
 
     @Override
     public String toString() {
-        return "Compra/numCompra,idAlmacen,precioCompra,cantidad,fecha/" + fecha + "/" + precioCompra + "/" + cantidad + "/" + numFiscal + "/" + idAlmacen + "/" + numCompra;
+        if(numCompra != -1)
+            return "Compra/fecha,precioCompra,cantidad,numFiscal,idAlmacen/" + numCompra + "/" +
+                    fecha + "/" + precioCompra + "/" + cantidad + "/" + numFiscal + "/" + idCigarrillo;
+        
+        return "Compra/fecha,precioCompra,cantidad,numFiscal,idAlmacen/" + 
+                    fecha + "/" + precioCompra + "/" + cantidad + "/" + numFiscal + "/" + idCigarrillo;
     }
 }

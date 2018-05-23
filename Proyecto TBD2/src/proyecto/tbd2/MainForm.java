@@ -83,7 +83,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel133.setForeground(foreLabel);
         jLabel134.setForeground(foreLabel);
         jLabel14.setForeground(foreLabel);
-        jLabel15.setForeground(foreLabel);
         jLabel16.setForeground(foreLabel);
         jLabel17.setForeground(foreLabel);
         jLabel18.setForeground(foreLabel);
@@ -96,7 +95,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel24.setForeground(foreLabel);
         jLabel25.setForeground(foreLabel);
         jLabel26.setForeground(foreLabel);
-        jLabel27.setForeground(foreLabel);
         jLabel29.setForeground(foreLabel);
         jLabel3.setForeground(foreLabel);
         jLabel30.setForeground(foreLabel);
@@ -117,7 +115,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel6.setForeground(foreLabel);
         jLabel7.setForeground(foreLabel);
         jLabel8.setForeground(foreLabel);
-        jLabel85.setForeground(foreLabel);
         jLabel86.setForeground(foreLabel);
         jLabel87.setForeground(foreLabel);
         jLabel88.setForeground(foreLabel);
@@ -129,7 +126,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel93.setForeground(foreLabel);
         jLabel94.setForeground(foreLabel);
         jLabel95.setForeground(foreLabel);
-        jLabel96.setForeground(foreLabel);
         jLabel97.setForeground(foreLabel);
         jLabel98.setForeground(foreLabel);
         jLabel99.setForeground(foreLabel);
@@ -173,13 +169,11 @@ public class MainForm extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         nifEstancoATxt1 = new javax.swing.JTextField();
         createCigarrillo = new javax.swing.JFrame();
-        jLabel85 = new javax.swing.JLabel();
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
         jLabel88 = new javax.swing.JLabel();
         jLabel89 = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
-        idCigarrilloCTxt = new javax.swing.JTextField();
         marcaCTxt = new javax.swing.JTextField();
         jLabel91 = new javax.swing.JLabel();
         jButton31 = new javax.swing.JButton();
@@ -188,10 +182,7 @@ public class MainForm extends javax.swing.JFrame {
         MentoladoCChk = new javax.swing.JCheckBox();
         Hoja1CRdo = new javax.swing.JRadioButton();
         Hoja2CRDo = new javax.swing.JRadioButton();
-        jLabel96 = new javax.swing.JLabel();
-        idFabricanteCTxt1 = new javax.swing.JTextField();
         createCompra = new javax.swing.JFrame();
-        jLabel15 = new javax.swing.JLabel();
         fechaCoTxt = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -199,7 +190,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
-        numCompraCoTxt = new javax.swing.JTextField();
         idAlmacenCoTxt = new javax.swing.JTextField();
         precioCoSpn = new javax.swing.JSpinner();
         cantidadCoSpn = new javax.swing.JSpinner();
@@ -241,11 +231,9 @@ public class MainForm extends javax.swing.JFrame {
         fechaVTxt = new javax.swing.JTextField();
         cantidadVSpn = new javax.swing.JSpinner();
         createManufacturera = new javax.swing.JFrame();
-        jLabel27 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         agregarManufactureraBtn = new javax.swing.JButton();
-        idManufacturaManTxt1 = new javax.swing.JTextField();
         cartonManSpn1 = new javax.swing.JSpinner();
         jLabel31 = new javax.swing.JLabel();
         embalajeManSpn2 = new javax.swing.JSpinner();
@@ -290,7 +278,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jLabel111 = new javax.swing.JLabel();
         numCompraCoTxtMod = new javax.swing.JTextField();
-        idAlmacenCoTxtMod = new javax.swing.JTextField();
+        idCigarrilloCoTxtMod = new javax.swing.JTextField();
         precioCoSpnMod = new javax.swing.JSpinner();
         cantidadCoSpnMod = new javax.swing.JSpinner();
         jLabel112 = new javax.swing.JLabel();
@@ -497,8 +485,6 @@ public class MainForm extends javax.swing.JFrame {
 
         createCigarrillo.setTitle("Agregar Fabricantes");
 
-        jLabel85.setText("Id del cigarrillo");
-
         jLabel86.setText("Marca");
 
         jLabel87.setText("Contaminante");
@@ -531,8 +517,6 @@ public class MainForm extends javax.swing.JFrame {
         Hoja.add(Hoja2CRDo);
         Hoja2CRDo.setText("jRadioButton2");
 
-        jLabel96.setText("idFabricante");
-
         javax.swing.GroupLayout createCigarrilloLayout = new javax.swing.GroupLayout(createCigarrillo.getContentPane());
         createCigarrillo.getContentPane().setLayout(createCigarrilloLayout);
         createCigarrilloLayout.setHorizontalGroup(
@@ -546,32 +530,25 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(createCigarrilloLayout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel90)
+                            .addComponent(jLabel86)
+                            .addComponent(jLabel87)
+                            .addComponent(jLabel88)
+                            .addComponent(jLabel89))
+                        .addGap(2, 2, 2)
+                        .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(createCigarrilloLayout.createSequentialGroup()
-                                .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel90)
-                                    .addComponent(jLabel86)
-                                    .addComponent(jLabel85)
-                                    .addComponent(jLabel87)
-                                    .addComponent(jLabel88)
-                                    .addComponent(jLabel89))
-                                .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(createCigarrilloLayout.createSequentialGroup()
-                                        .addGap(70, 70, 70)
-                                        .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(marcaCTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(idCigarrilloCTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(ContaminanteCCmb, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(FiltroCChk, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(MentoladoCChk, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(createCigarrilloLayout.createSequentialGroup()
-                                        .addGap(44, 44, 44)
-                                        .addComponent(Hoja1CRdo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Hoja2CRDo))))
-                            .addGroup(createCigarrilloLayout.createSequentialGroup()
-                                .addComponent(jLabel96)
                                 .addGap(70, 70, 70)
-                                .addComponent(idFabricanteCTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(marcaCTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ContaminanteCCmb, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FiltroCChk, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MentoladoCChk, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(createCigarrilloLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(Hoja1CRdo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Hoja2CRDo))))
                     .addGroup(createCigarrilloLayout.createSequentialGroup()
                         .addGap(156, 156, 156)
                         .addComponent(jButton31)))
@@ -582,11 +559,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createCigarrilloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel91)
-                .addGap(28, 28, 28)
-                .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel85)
-                    .addComponent(idCigarrilloCTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(59, 59, 59)
                 .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel86)
                     .addComponent(marcaCTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -608,20 +581,14 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Hoja1CRdo)
                         .addComponent(Hoja2CRDo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(createCigarrilloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel96)
-                    .addComponent(idFabricanteCTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addComponent(jButton31)
                 .addGap(21, 21, 21))
         );
 
         createCompra.setTitle("Agregar Compras");
 
-        jLabel15.setText("Numero de compra");
-
-        jLabel16.setText("Id de Almacen");
+        jLabel16.setText("Id de cigarrillo");
 
         jLabel17.setText("Precio de Compra");
 
@@ -661,15 +628,14 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(83, 83, 83)
                         .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel15)
                             .addComponent(jLabel17)
                             .addComponent(jLabel19)
                             .addComponent(jLabel20))
+                        .addGap(6, 6, 6)
                         .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(createCompraLayout.createSequentialGroup()
                                 .addGap(61, 61, 61)
                                 .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numCompraCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(fechaCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nifEstancoCoTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createCompraLayout.createSequentialGroup()
@@ -688,11 +654,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createCompraLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(numCompraCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(idAlmacenCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -957,8 +919,6 @@ public class MainForm extends javax.swing.JFrame {
 
         createManufacturera.setTitle("Agregar Almacen");
 
-        jLabel27.setText("id Manufactura");
-
         jLabel29.setText("Carton");
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -985,31 +945,28 @@ public class MainForm extends javax.swing.JFrame {
             createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(createManufactureraLayout.createSequentialGroup()
                 .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, createManufactureraLayout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(embalajeManSpn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, createManufactureraLayout.createSequentialGroup()
+                                .addComponent(jLabel29)
+                                .addGap(39, 39, 39)
+                                .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(createManufactureraLayout.createSequentialGroup()
+                                        .addGap(79, 79, 79)
+                                        .addComponent(idFabricanteManTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createManufactureraLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cartonManSpn1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(createManufactureraLayout.createSequentialGroup()
+                            .addGap(72, 72, 72)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(createManufactureraLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, createManufactureraLayout.createSequentialGroup()
-                                    .addComponent(jLabel31)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(embalajeManSpn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, createManufactureraLayout.createSequentialGroup()
-                                    .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel27)
-                                        .addComponent(jLabel29))
-                                    .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(createManufactureraLayout.createSequentialGroup()
-                                            .addGap(79, 79, 79)
-                                            .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(idManufacturaManTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(idFabricanteManTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createManufactureraLayout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cartonManSpn1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.LEADING))))
-                    .addGroup(createManufactureraLayout.createSequentialGroup()
-                        .addGap(157, 157, 157)
+                        .addGap(164, 164, 164)
                         .addComponent(agregarManufactureraBtn)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
@@ -1018,11 +975,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createManufactureraLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel30)
-                .addGap(30, 30, 30)
-                .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(idManufacturaManTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGap(18, 18, 18)
                 .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel35)
                     .addComponent(idFabricanteManTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1034,9 +987,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(createManufactureraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel31)
                     .addComponent(embalajeManSpn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(agregarManufactureraBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         updateAlmacen.setTitle("Agregar Almacen");
@@ -1249,7 +1202,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel106.setText("Numero de compra");
 
-        jLabel107.setText("Id de Almacen");
+        jLabel107.setText("Id de Cigarrillo");
 
         jLabel108.setText("Precio de Compra");
 
@@ -1305,7 +1258,7 @@ public class MainForm extends javax.swing.JFrame {
                                 .addGroup(updateComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(precioCoSpnMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cantidadCoSpnMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(idAlmacenCoTxtMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(idCigarrilloCoTxtMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(updateComprasLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jLabel112)))
@@ -1323,7 +1276,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(updateComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel107)
-                    .addComponent(idAlmacenCoTxtMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idCigarrilloCoTxtMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(updateComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel108)
@@ -2386,7 +2339,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarAlmacenBtnMouseClicked
 
     private void jButton31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton31MouseClicked
-        Cigarrillo newCigarrillo = new Cigarrillo(Integer.parseInt(idCigarrilloCTxt.getText()), 
+        Cigarrillo newCigarrillo = new Cigarrillo( 
             marcaCTxt.getText(), ContaminanteCCmb.getSelectedIndex(), FiltroCChk.isSelected(), 
             MentoladoCChk.isSelected(), Hoja1CRdo.isSelected());
         
@@ -2394,7 +2347,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton31MouseClicked
 
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
-        Compra newCompra = new Compra(Integer.parseInt(numCompraCoTxt.getText()),
+        Compra newCompra = new Compra(
                 Integer.parseInt(idAlmacenCoTxt.getText()), Integer.parseInt(nifEstancoCoTxt1.getText()),
                 (double) precioCoSpn.getValue(), (int) cantidadCoSpn.getValue(), fechaCoTxt.getText());
 
@@ -2423,7 +2376,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarVentaBtnMouseClicked
 
     private void agregarManufactureraBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnMouseClicked
-        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxt1.getText()), Integer.parseInt(idFabricanteManTxt.getText()), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
+        Manufactura newManufactura = new Manufactura(Integer.parseInt(idFabricanteManTxt.getText()), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
         
         conn.insertPro(newManufactura.toString());
     }//GEN-LAST:event_agregarManufactureraBtnMouseClicked
@@ -2465,23 +2418,23 @@ public class MainForm extends javax.swing.JFrame {
                 Integer.parseInt(idCigarrilloATxt.getText()), (int) exitenciaASpn.getValue(),
                 Integer.parseInt(nifEstancoATxt1.getText()));
         
-        conn.updatePro(newAlmacen.toString());
+        conn.update(newAlmacen.toString());
     }//GEN-LAST:event_agregarAlmacenBtn1MouseClicked
 
     private void jButton34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton34MouseClicked
-        Cigarrillo newCigarrillo = new Cigarrillo(Integer.parseInt(idCigarrilloCTxt.getText()), 
-            marcaCTxt.getText(), ContaminanteCCmb.getSelectedIndex(), FiltroCChk.isSelected(), 
-            MentoladoCChk.isSelected(), Hoja1CRdo.isSelected());
+        Cigarrillo newCigarrillo = new Cigarrillo(Integer.parseInt(idCigarrilloCTxtMod.getText()), 
+            marcaCTxtMod.getText(), ContaminanteCCmbMod.getSelectedIndex(), FiltroCChkMod.isSelected(), 
+            MentoladoCChkMod.isSelected(), Hoja1CRdoMod.isSelected());
         
-        conn.updatePro(newCigarrillo.toString());
+        conn.update(newCigarrillo.toString());
     }//GEN-LAST:event_jButton34MouseClicked
 
     private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
-        Compra newCompra = new Compra(Integer.parseInt(numCompraCoTxt.getText()),
-                Integer.parseInt(idAlmacenCoTxt.getText()), Integer.parseInt(nifEstancoCoTxt1.getText()),
-                (double) precioCoSpn.getValue(), (int) cantidadCoSpn.getValue(), fechaCoTxt.getText());
+        Compra newCompra = new Compra(Integer.parseInt(numCompraCoTxtMod.getText()),
+                Integer.parseInt(idCigarrilloCoTxtMod.getText()), Integer.parseInt(nifEstancoCoTxtMod.getText()),
+                (double) precioCoSpnMod.getValue(), (int) cantidadCoSpnMod.getValue(), fechaCoTxtMod.getText());
 
-        conn.updatePro(newCompra.toString());
+        conn.update(newCompra.toString());
     }//GEN-LAST:event_jButton10MouseClicked
 
     private void agregarEstancoBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarEstancoBtnModMouseClicked
@@ -2506,7 +2459,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarVentaBtn1MouseClicked
 
     private void agregarManufactureraBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarManufactureraBtnModMouseClicked
-        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxt1.getText()), Integer.parseInt(idFabricanteManTxt.getText()), (int) cartonManSpn1.getValue(), (int) embalajeManSpn2.getValue());
+        Manufactura newManufactura = new Manufactura(Integer.parseInt(idManufacturaManTxtMod.getText()), Integer.parseInt(idFabricanteManTxtMod.getText()), (int) cartonManSpnMod.getValue(), (int) embalajeManSpnMod.getValue());
         
         conn.updatePro(newManufactura.toString());
     }//GEN-LAST:event_agregarManufactureraBtnModMouseClicked
@@ -2608,20 +2561,17 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField idAlmacenATxt;
     private javax.swing.JTextField idAlmacenATxtMod;
     private javax.swing.JTextField idAlmacenCoTxt;
-    private javax.swing.JTextField idAlmacenCoTxtMod;
     private javax.swing.JTextField idCigarrilloATxt;
     private javax.swing.JTextField idCigarrilloATxtMod;
-    private javax.swing.JTextField idCigarrilloCTxt;
     private javax.swing.JTextField idCigarrilloCTxtMod;
+    private javax.swing.JTextField idCigarrilloCoTxtMod;
     private javax.swing.JTextField idCigarrilloVTxt;
     private javax.swing.JTextField idCigarrilloVTxtMod;
-    private javax.swing.JTextField idFabricanteCTxt1;
     private javax.swing.JTextField idFabricanteCTxtMod;
     private javax.swing.JTextField idFabricanteFTxt;
     private javax.swing.JTextField idFabricanteFTxtMod;
     private javax.swing.JTextField idFabricanteManTxt;
     private javax.swing.JTextField idFabricanteManTxtMod;
-    private javax.swing.JTextField idManufacturaManTxt1;
     private javax.swing.JTextField idManufacturaManTxtMod;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -2683,7 +2633,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel133;
     private javax.swing.JLabel jLabel134;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2696,7 +2645,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -2717,7 +2665,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
@@ -2729,7 +2676,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
@@ -2773,7 +2719,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField nombreEsTxtMod;
     private javax.swing.JTextField nombreFabricanteFTxt;
     private javax.swing.JTextField nombreFabricanteFTxtMod;
-    private javax.swing.JTextField numCompraCoTxt;
     private javax.swing.JTextField numCompraCoTxtMod;
     private javax.swing.JTextField numExpendioEsTxt;
     private javax.swing.JTextField numExpendioEsTxtMod;
