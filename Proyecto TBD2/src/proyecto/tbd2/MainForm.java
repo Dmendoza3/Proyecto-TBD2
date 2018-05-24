@@ -195,7 +195,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
-        idAlmacenCoTxt = new javax.swing.JTextField();
+        idCigarrilloCoTxt = new javax.swing.JTextField();
         precioCoSpn = new javax.swing.JSpinner();
         cantidadCoSpn = new javax.swing.JSpinner();
         jLabel21 = new javax.swing.JLabel();
@@ -212,10 +212,8 @@ public class MainForm extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         localEsTxt = new javax.swing.JTextField();
         createFabricante = new javax.swing.JFrame();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        idFabricanteFTxt = new javax.swing.JTextField();
         nombreFabricanteFTxt = new javax.swing.JTextField();
         paisFTxt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -630,12 +628,9 @@ public class MainForm extends javax.swing.JFrame {
                                 .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(fechaCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nifEstancoCoTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createCompraLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(precioCoSpn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cantidadCoSpn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(idAlmacenCoTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(precioCoSpn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cantidadCoSpn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idCigarrilloCoTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(createCompraLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jLabel21)))
@@ -649,7 +644,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(idAlmacenCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idCigarrilloCoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(createCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -750,8 +745,6 @@ public class MainForm extends javax.swing.JFrame {
 
         createFabricante.setTitle("Agregar Fabricantes");
 
-        jLabel1.setText("Id Fabricante");
-
         jLabel2.setText("Nombre Fabricante");
 
         jLabel3.setText("Pais");
@@ -771,37 +764,31 @@ public class MainForm extends javax.swing.JFrame {
         createFabricanteLayout.setHorizontalGroup(
             createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(createFabricanteLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createFabricanteLayout.createSequentialGroup()
-                        .addComponent(agregarFabricanteBtn)
-                        .addGap(163, 163, 163))
+                        .addComponent(jLabel7)
+                        .addGap(87, 87, 87))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createFabricanteLayout.createSequentialGroup()
                         .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel3))
                         .addGap(54, 54, 54)
                         .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(paisFTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nombreFabricanteFTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                .addComponent(idFabricanteFTxt)))
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createFabricanteLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(87, 87, 87))))
+                            .addComponent(nombreFabricanteFTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63))))
+            .addGroup(createFabricanteLayout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(agregarFabricanteBtn)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         createFabricanteLayout.setVerticalGroup(
             createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createFabricanteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(idFabricanteFTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nombreFabricanteFTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -809,9 +796,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(createFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(paisFTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(agregarFabricanteBtn)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         createVenta.setTitle("Agregar Ventas");
@@ -2241,9 +2228,10 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton18MouseClicked
 
     private void agregarAlmacenBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarAlmacenBtnMouseClicked
-        Almacen newAlmacen = new Almacen(Integer.parseInt(idAlmacenATxt.getText()),
-                Integer.parseInt(idCigarrilloATxt.getText()), (int) exitenciaASpn.getValue(),
+        Almacen newAlmacen = new Almacen(Integer.parseInt(idCigarrilloATxt.getText()), 
+                (int) exitenciaASpn.getValue(),
                 Integer.parseInt(nifEstancoATxt1.getText()));
+        
         try {
             conn.insertPro(newAlmacen.toString());
             JOptionPane.showMessageDialog(this, "Success!");
@@ -2266,7 +2254,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
         Compra newCompra = new Compra(
-                Integer.parseInt(idAlmacenCoTxt.getText()), Integer.parseInt(nifEstancoCoTxt1.getText()),
+                Integer.parseInt(idCigarrilloCoTxt.getText()), Integer.parseInt(nifEstancoCoTxt1.getText()),
                 (double) precioCoSpn.getValue(), (int) cantidadCoSpn.getValue(), fechaCoTxt.getText());
         try {
             conn.insertPro(newCompra.toString());
@@ -2288,8 +2276,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarEstancoBtnMouseClicked
 
     private void agregarFabricanteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarFabricanteBtnMouseClicked
-        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxt.getText()),
-                nombreFabricanteFTxt.getText(), paisFTxt.getText());
+        Fabricante newFabricante = new Fabricante(nombreFabricanteFTxt.getText(), paisFTxt.getText());
         try {
             conn.insertPro(newFabricante.toString());
             JOptionPane.showMessageDialog(this, "Success!");
@@ -2299,7 +2286,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarFabricanteBtnMouseClicked
 
     private void agregarVentaBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarVentaBtnMouseClicked
-        Venta newVenta = new Venta(Integer.parseInt(numVentaVTxt.getText()), Integer.parseInt(numExpendioVTxt.getText()),
+        Venta newVenta = new Venta(Integer.parseInt(numExpendioVTxt.getText()),
                 Integer.parseInt(idCigarrilloVTxt.getText()), (double) precioVentaVSpn.getValue(), (int) cantidadVSpn.getValue(), fechaVTxt.getText());
         try {
             conn.insertPro(newVenta.toString());
@@ -2395,8 +2382,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarEstancoBtnModMouseClicked
 
     private void agregarFabricanteBtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarFabricanteBtnModMouseClicked
-        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxt.getText()),
-                nombreFabricanteFTxt.getText(), paisFTxt.getText());
+        Fabricante newFabricante = new Fabricante(Integer.parseInt(idFabricanteFTxtMod.getText()),
+                nombreFabricanteFTxtMod.getText(), paisFTxtMod.getText());
         try {
             conn.updatePro(newFabricante.toString());
             JOptionPane.showMessageDialog(this, "Success!");
@@ -2428,8 +2415,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnBuscarProc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc1MouseClicked
         try {
-            Statement st = null;
-            st = conn.getConnect().createStatement();
+            Statement st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
                 rs = st.executeQuery("SELECT man.MARCA, fab.PAIS "
@@ -2675,15 +2661,14 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField fechaVTxtMod;
     private javax.swing.JTextField idAlmacenATxt;
     private javax.swing.JTextField idAlmacenATxtMod;
-    private javax.swing.JTextField idAlmacenCoTxt;
     private javax.swing.JTextField idCigarrilloATxt;
     private javax.swing.JTextField idCigarrilloATxtMod;
     private javax.swing.JTextField idCigarrilloCTxtMod;
+    private javax.swing.JTextField idCigarrilloCoTxt;
     private javax.swing.JTextField idCigarrilloCoTxtMod;
     private javax.swing.JTextField idCigarrilloVTxt;
     private javax.swing.JTextField idCigarrilloVTxtMod;
     private javax.swing.JTextField idFabricanteCTxtMod;
-    private javax.swing.JTextField idFabricanteFTxt;
     private javax.swing.JTextField idFabricanteFTxtMod;
     private javax.swing.JTextField idFabricanteManTxt;
     private javax.swing.JTextField idFabricanteManTxtMod;
@@ -2708,7 +2693,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel102;

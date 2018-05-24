@@ -61,6 +61,7 @@ public class  Conexion {
             }
             st.execute();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
         this.close();
     }
@@ -70,13 +71,14 @@ public class  Conexion {
         String[] meta = entidad.split("/");
         String key = "";
         for (int i = 2; i < meta.length; i++) {
-            key += meta[i] + ",";
+            key += "'" + meta[i] + "',";
         }
         key = key.substring(0, key.length() - 1);
         try {
             CallableStatement cstmt = connect.prepareCall("{call INSERT" + meta[0].toUpperCase() + "(" + key + ")}");
             cstmt.execute();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
         this.close();
     }
@@ -107,7 +109,7 @@ public class  Conexion {
             st.setString(meta.length - 3, meta[2]);
             st.execute();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
         this.close();
     }
@@ -124,6 +126,7 @@ public class  Conexion {
             CallableStatement cstmt = connect.prepareCall("{call UPDATE" + meta[0].toUpperCase() + "(" + key + ")}");
             cstmt.execute();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
         this.close();
     }
@@ -136,13 +139,14 @@ public class  Conexion {
     public void deletePro(String entidad, String id){
         this.connect();
         try {
-            CallableStatement cstmt = connect.prepareCall("{call DELETE" + entidad.toUpperCase() + "(" + id + ")}");
+            CallableStatement cstmt = connect.prepareCall("{call DELETE" + entidad.toUpperCase() + "('" + id + "')}");
             
-            if(entidad.equals("Venta"))
+            /*if(entidad.equals("Venta"))
                 cstmt = connect.prepareCall("{call procVentas_Menores (" + 5 + ", " + id + ")}");
-            
+            */
             cstmt.execute();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
         this.close();
     }
@@ -155,7 +159,7 @@ public class  Conexion {
     protected boolean connect(){
         try {
             String user, pass;
-            connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir123");
+            connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir1234");
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
