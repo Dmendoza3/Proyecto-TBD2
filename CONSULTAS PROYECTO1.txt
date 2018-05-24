@@ -1,0 +1,85 @@
+//PRIMERA CONSULTA
+SELECT M.MARCA, F.PAIS
+FROM MANUFACTURA M INNER JOIN FABRICANTE F ON M.IDFABRICANTE=F.IDFABRICANTE
+WHERE F.PAIS='USA';
+
+//SEGUNDA CONSULTA
+SELECT SUM(PRECIOCOMPRA*CANTIDAD) AS "Importe de las Compras" FROM (COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) 
+    INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE 
+cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996);
+
+//Tercera CONSULTA
+SELECT SUM(PRECIOVENTA*CANTIDAD) AS "Ventas en Madrid de Ducados"
+    FROM  ((CIGARRILLO cig INNER JOIN ALMACEN al ON cig.IDCIGARRILLO=al.IDCIGARRILLO) INNER JOIN ESTANCO e ON e.NUMFISCAL = al.NUMFISCAL) 
+    INNER JOIN VENTA v ON e.NUMFISCAL = v.NUMFISCAL
+    WHERE cig.MARCA = 'Ducados' AND e.PROVINCIA = 'Madrid';
+
+// Cuarta CONSULTA
+SELECT DISTINCT cig.MARCA, CANTIDAD
+    FROM CIGARRILLO cig
+    INNER JOIN MANUFACTURA man
+    ON cig.MARCA = man.MARCA
+    INNER JOIN FABRICANTE fab
+    ON fab.IDFABRICANTE = man.IDFABRICANTE
+    INNER JOIN VENTA ven
+    ON cig.IDCIGARRILLO = ven.IDCIGARRILLO
+    WHERE (fab.PAIS = 'USA') AND ven.CANTIDAD = (SELECT MAX(v1.CANTIDAD) FROM VENTA v1);
+
+//Quinta CONSULTA
+SELECT SUM(PRECIOVENTA*CANTIDAD) AS "Ingresos"
+FROM CIGARRILLO c INNER JOIN VENTA v ON c.IDCIGARRILLO = v.IDCIGARRILLO
+WHERE v.FECHAV = '22-08-1995' AND c.MARCA = 'Winston';
+
+//SEXTA CONSULTA
+ALTER TABLE Cigarillo
+ADD COLUMN MED_CALIDAD NUMBER;
+
+SELECT * FROM CIGARRILLO;
+
+//SEPTIMA CONSULTA
+ALTER TABLE Almacen MODIFY existencia NUMBER(5,0)
+
+//OCTAVA CONSULTA
+CREATE OR REPLACE EDITIONABLE TRIGGER "LANA"."CHECK_NUMFISCAL" 
+AFTER INSERT OR UPDATE
+ON ESTANCO
+DECLARE
+  idNew VARCHAR(50);
+  lengthException EXCEPTION;
+BEGIN
+  SELECT ESTANCO.NUMFISCAL INTO idNew FROM ESTANCO;
+  IF LENGTH(idNew) < 12 THEN
+  RAISE lengthException;
+  END IF;
+  EXCEPTION
+  WHEN lengthException THEN
+  dbms_output.put_line('NUMFISCAL is INVALID. It must be 12 digits long!'); 
+END;
+
+//NOVENA CONSULTA
+create or replace PROCEDURE        "PROCVENTAS_MENORES" 
+
+/*Procedimiento para obtener las marcas de cigarrillos para los cuales se hayan vendido menos de una determinada
+cantidad (primer parametro de procedimiento), eliminando todas estas marcas en el almacén de un determinado estanco,
+cuyo NIF constituye el segundo parámetro del procedimiento.*/
+
+ (amountp IN NUMBER, numestp IN NUMBER) AS --amountp es la cantidad mínima que ocupa y numestp es el numfiscal del estanco
+    marcaIdp CIGARRILLO.MARCA%TYPE;
+    CURSOR ventas_menores IS
+        SELECT cig.MARCA
+        FROM CIGARRILLO cig
+        INNER JOIN VENTA ven
+        ON cig.IDCIGARRILLO = ven.IDCIGARRILLO
+        WHERE (ven.NUMVENTA < amountp) AND (ven.NUMFISCAL = numestp);
+
+        a_comment VARCHAR2(200) :='deleted: ';
+ BEGIN
+    OPEN ventas_menores;
+    LOOP
+        FETCH ventas_menores INTO marcaIdp;
+        EXIT WHEN ventas_menores%NOTFOUND;
+        DELETE FROM ALMACEN
+        WHERE marcaIdp = IDALMACEN;
+        DBMS_OUTPUT.PUT_LINE(a_comment || amountp);
+    END LOOP;
+ END procVentas_Menores;
