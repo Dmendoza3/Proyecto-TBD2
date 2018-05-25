@@ -1828,7 +1828,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Consulta 1", jPanel1);
 
         tabla2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1871,7 +1871,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Consulta 2", jPanel2);
 
         btnBuscarProc3.setText("Buscar");
         btnBuscarProc3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1914,7 +1914,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel6);
+        jTabbedPane1.addTab("Consulta 3", jPanel6);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1965,7 +1965,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab4", jPanel7);
+        jTabbedPane1.addTab("Consulta 4", jPanel7);
 
         btnBuscarProc5.setText("Buscar");
         btnBuscarProc5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2007,7 +2007,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab5", jPanel8);
+        jTabbedPane1.addTab("Consulta 5", jPanel8);
 
         btnBuscaProc2.setText("Buscar");
         btnBuscaProc2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2415,24 +2415,21 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnBuscarProc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc1MouseClicked
         try {
+            conn.connect();
             Statement st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT man.MARCA, fab.PAIS "
-                        + "FROM MANUFACTURA man "
-                        + "INNER JOIN FABRICANTE fab "
-                        + "ON fab.IDFABRICANTE=man.IDFABRICANTE "
-                        + "WHERE (fab.PAIS != 'Espa?a') "
-                        + "Group by man.MARCA;");
+                rs = st.executeQuery("SELECT M.MARCA, F.PAIS FROM MANUFACTURA M INNER JOIN FABRICANTE F ON M.IDFABRICANTE=F.IDFABRICANTE WHERE F.PAIS='USA';");
 
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
                 while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getInt("id_producto"), rs.getInt("id_producto")});
+                    modelo.addRow(new Object[]{rs.getInt("MARCA"), rs.getInt("PAIS")});
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2444,12 +2441,10 @@ public class MainForm extends javax.swing.JFrame {
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT SUM(com.CANTIDAD) "
-                        + "FROM COMPRA com "
-                        + "INNER JOIN Cigarrillo cig "
-                        + "ON cig.IDCIGARRILLO=com.IDCIGARRILLO "
-                        + "WHERE (FECHAC >= to_date('1.1.' || 1996, 'DD.MM.YYYY') "
-                        + "and com.NUMFISCAL='11111' and cig.MARCA='Camel');");
+                rs = st.executeQuery("SELECT SUM(PRECIOCOMPRA*CANTIDAD) AS \"Importe de las Compras\" FROM "
+                        + "(COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) "
+                        + "INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE " +
+                        "cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996);");
 
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
@@ -2471,10 +2466,10 @@ public class MainForm extends javax.swing.JFrame {
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT SUM(ven.PRECIOVENTA) FROM VENTA ven INNER JOIN "
-                        + "Cigarrillo cig ON cig.IDCIGARRILLO=ven.IDCIGARRILLO INNER JOIN "
-                        + "Manufactura man ON cig.MARCA=man.MARCA INNER JOIN ESTANCO est ON est.NUMFISCAL = "
-                        + "ven.NUMFISCAL WHERE (cig.MARCA = 'Ducados' AND est.PROVINCIA = 'Madrid');");
+                rs = st.executeQuery("SELECT SUM(PRECIOVENTA*CANTIDAD) AS \"Ventas en Madrid de Ducados\" " +
+                    "FROM  ((CIGARRILLO cig INNER JOIN ALMACEN al ON cig.IDCIGARRILLO=al.IDCIGARRILLO) INNER JOIN ESTANCO e ON e.NUMFISCAL = al.NUMFISCAL) " +
+                    "INNER JOIN VENTA v ON e.NUMFISCAL = v.NUMFISCAL " +
+                    "WHERE cig.MARCA = 'Ducados' AND e.PROVINCIA = 'Madrid';");
 
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
@@ -2496,17 +2491,15 @@ public class MainForm extends javax.swing.JFrame {
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT cig.MARCA, MAX(ven.CANTIDAD) "
-                        + "FROM CIGARRILLO cig "
-                        + "INNER JOIN MANUFACTURA man "
-                        + "ON cig.MARCA = man.MARCA "
-                        + "INNER JOIN FABRICANTE fab "
-                        + "ON fab.IDFABRICANTE = man.IDFABRICANTE "
-                        + "INNER JOIN VENTA ven "
-                        + "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO "
-                        + "WHERE (fab.PAIS = 'USA') "
-                        + "GROUP BY cig.MARCA, ven.CANTIDAD "
-                        + "ORDER BY ven.CANTIDAD DESC;");
+                rs = st.executeQuery("SELECT DISTINCT cig.MARCA, CANTIDAD " +
+                                    "FROM CIGARRILLO cig " +
+                                    "INNER JOIN MANUFACTURA man " +
+                                    "ON cig.MARCA = man.MARCA " +
+                                    "INNER JOIN FABRICANTE fab " +
+                                    "ON fab.IDFABRICANTE = man.IDFABRICANTE " +
+                                    "INNER JOIN VENTA ven " +
+                                    "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO " +
+                                    "WHERE (fab.PAIS = 'USA') AND ven.CANTIDAD = (SELECT MAX(v1.CANTIDAD) FROM VENTA v1);");
 
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
@@ -2528,7 +2521,9 @@ public class MainForm extends javax.swing.JFrame {
             st = conn.getConnect().createStatement();
             ResultSet rs;
             try {
-                rs = st.executeQuery("SELECT SUM(ven.PRECIOVENTA) FROM Cigarrillo cig INNER JOIN Venta ven ON cig.IDCIGARRILLO = ven.IDCIGARRILLO WHERE (ven.FECHAV = '1996-22-08' AND cig.Marca = 'Winston');");
+                rs = st.executeQuery("SELECT SUM(PRECIOVENTA*CANTIDAD) AS \"Ingresos\" " +
+                    "FROM CIGARRILLO c INNER JOIN VENTA v ON c.IDCIGARRILLO = v.IDCIGARRILLO " +
+                    "WHERE v.FECHAV = '22-08-1995' AND c.MARCA = 'Winston';");
 
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
@@ -2555,7 +2550,7 @@ public class MainForm extends javax.swing.JFrame {
                 DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
                 while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getNString(1)});
+                    //modelo.addRow(new []{rs.getNString(1)});
                 }
 
             } catch (SQLException ex) {
