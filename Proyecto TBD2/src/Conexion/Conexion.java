@@ -155,9 +155,149 @@ public class  Conexion {
             try {
                 String query = "SELECT LANA.MANUFACTURA.MARCA, LANA.FABRICANTE.PAIS FROM LANA.MANUFACTURA INNER JOIN LANA.FABRICANTE ON LANA.MANUFACTURA.IDFABRICANTE=LANA.FABRICANTE.IDFABRICANTE WHERE LANA.FABRICANTE.PAIS='USA'";
                 rs = st.executeQuery(query);
-                while(rs.next()){
+                /*while(rs.next()){
                     System.out.println(rs.getString("MARCA"));
-                }
+                }*/
+                return rs;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.close();
+        return null;
+    }
+    
+    public ResultSet consulta2(){
+        try {
+            this.connect();
+            Statement st = connect.createStatement();
+            ResultSet rs;
+            try {
+                String query = "SELECT SUM(PRECIOCOMPRA*CANTIDAD) " + 
+                        "AS \"Importe de las Compras\" FROM (COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) \n" +
+                        "    INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE \n" +
+                        "cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996)";
+                rs = st.executeQuery(query);
+                /*while(rs.next()){
+                    System.out.println(rs.getString("MARCA"));
+                }*/
+                return rs;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.close();
+        return null;
+    }
+    
+    public ResultSet consulta3(){
+        try {
+            this.connect();
+            Statement st = connect.createStatement();
+            ResultSet rs;
+            try {
+                String query = "SELECT SUM(ven.PRECIOVENTA*ven.CANTIDAD) AS \"Venta en Madrid de Ducados\" " +
+                                "FROM VENTA ven " +
+                                "INNER JOIN Cigarrillo cig " +
+                                "ON cig.IDCIGARRILLO=ven.IDCIGARRILLO " +
+                                "INNER JOIN Manufactura man ON " +
+                                "cig.MARCA=man.MARCA " +
+                                "INNER JOIN ESTANCO est " +
+                                "ON est.NUMFISCAL = ven.NUMFISCAL " +
+                                "WHERE (cig.MARCA = 'Ducados' AND est.PROVINCIA = 'Madrid')";
+                rs = st.executeQuery(query);
+                /*while(rs.next()){
+                    System.out.println(rs.getString("MARCA"));
+                }*/
+                return rs;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.close();
+        return null;
+    }
+    
+    public ResultSet consulta4(){
+        try {
+            this.connect();
+            Statement st = connect.createStatement();
+            ResultSet rs;
+            try {
+                String query = "SELECT * FROM (SELECT SUM(ven.CANTIDAD), cig.MARCA " +
+                                "FROM VENTA ven " +
+                                "INNER JOIN CIGARRILlO cig " +
+                                "ON ven.IDCIGARRILLO = cig.IDCIGARRILLO " +
+                                "INNER JOIN MANUFACTURA man " +
+                                "ON cig.MARCA = man.MARCA " +
+                                "INNER JOIN FABRICANTE fab " +
+                                "ON man.IDFABRICANTE = fab.IDFABRICANTE " +
+                                "WHERE(fab.PAIS = 'USA') " +
+                                "GROUP BY cig.MARCA " +
+                                "ORDER BY SUM(ven.CANTIDAD) desc) WHERE ROWNUM = 1";
+                rs = st.executeQuery(query);
+                /*while(rs.next()){
+                    System.out.println(rs.getString("MARCA"));
+                }*/
+                return rs;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.close();
+        return null;
+    }
+    
+    public ResultSet consulta5(){
+        try {
+            this.connect();
+            Statement st = connect.createStatement();
+            ResultSet rs;
+            try {
+                String query = "SELECT SUM(ven.PRECIOVENTA*ven.CANTIDAD) AS \"Ingresos\" " +
+                                "FROM CIGARRILLO cig " +
+                                "INNER JOIN VENTA ven " +
+                                "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO " +
+                                "WHERE ven.FECHAV = to_date('22.8.' || 1995, 'DD.MM.YYYY') AND cig.MARCA = 'Winston' " +
+                                "GROUP BY ven.FECHAV";
+                rs = st.executeQuery(query);
+                /*while(rs.next()){
+                    System.out.println(rs.getString("MARCA"));
+                }*/
+                return rs;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.close();
+        return null;
+    }
+    
+    public ResultSet consulta6(){
+        try {
+            this.connect();
+            Statement st = connect.createStatement();
+            ResultSet rs;
+            try {
+                String query = "ALTER TABLE CIGARRILLO " +
+                            "ADD COLUMN \"MED_CALIDAD\" NUMBER";
+                st.executeQuery(query);
+                
+                query = "SELECT * FROM CIGARRILLO";
+                rs = st.executeQuery(query);
+                /*while(rs.next()){
+                    System.out.println(rs.getString("MARCA"));
+                }*/
                 return rs;
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -177,7 +317,7 @@ public class  Conexion {
     public boolean connect(){
         try {
             String user, pass;
-            connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir123");
+            connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir1234");
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());

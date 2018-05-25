@@ -365,19 +365,19 @@ public class MainForm extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         btnBuscarProc3 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla3 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabla4 = new javax.swing.JTable();
         btnBuscarProc4 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         btnBuscarProc5 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jPanel13 = new javax.swing.JPanel();
-        btnBuscaProc2 = new javax.swing.JButton();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tabla5 = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        btnBuscarProc6 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabla6 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         fabricanteRd = new javax.swing.JRadioButton();
@@ -1812,9 +1812,9 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(btnBuscarProc1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1836,7 +1836,7 @@ public class MainForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sum Cantidad"
+                "Importe de las Compras"
             }
         ));
         jScrollPane5.setViewportView(tabla2);
@@ -1855,21 +1855,20 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton8)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
+                .addComponent(jButton8)
+                .addContainerGap(177, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Consulta 2", jPanel2);
@@ -1881,15 +1880,15 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Sum Venta"
+                "Venta en Madrid de Ducados"
             }
         ));
-        jScrollPane6.setViewportView(jTable1);
+        jScrollPane6.setViewportView(tabla3);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1917,12 +1916,12 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Consulta 3", jPanel6);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabla4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Marcas", "Marcas"
+                "Ventas", "Marcas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1933,7 +1932,7 @@ public class MainForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabla4);
 
         btnBuscarProc4.setText("Buscar");
         btnBuscarProc4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1949,21 +1948,20 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(btnBuscarProc4)
-                .addGap(84, 84, 84)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(btnBuscarProc4)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(84, 84, 84)
+                .addComponent(btnBuscarProc4)
+                .addContainerGap(172, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Consulta 4", jPanel7);
@@ -1975,15 +1973,15 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tabla5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Sum Venta"
+                "Ingresos"
             }
         ));
-        jScrollPane7.setViewportView(jTable5);
+        jScrollPane7.setViewportView(tabla5);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -2000,57 +1998,57 @@ public class MainForm extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
+                .addGap(93, 93, 93)
                 .addComponent(btnBuscarProc5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consulta 5", jPanel8);
 
-        btnBuscaProc2.setText("Buscar");
-        btnBuscaProc2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBuscarProc6.setText("Buscar");
+        btnBuscarProc6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBuscaProc2MouseClicked(evt);
+                btnBuscarProc6MouseClicked(evt);
             }
         });
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tabla6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Num Fiscal", "Title 2"
+                "Id cigarrillo", "Contaminante", "Filtro", "Hoja", "Mentolado", "Marca", "Med calidad"
             }
         ));
-        jScrollPane8.setViewportView(jTable6);
+        jScrollPane3.setViewportView(tabla6);
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(btnBuscaProc2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
                 .addContainerGap())
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(btnBuscaProc2)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(199, 199, 199)
+                .addComponent(btnBuscarProc6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBuscarProc6)
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab8", jPanel13);
+        jTabbedPane1.addTab("Consulta 6", jPanel9);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2420,7 +2418,7 @@ public class MainForm extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
             while (rs.next()) {
-                modelo.addRow(new Object[]{rs.getInt("MARCA"), rs.getInt("PAIS")});
+                modelo.addRow(new Object[]{rs.getString("MARCA"), rs.getString("PAIS")});
             }
             JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
@@ -2431,129 +2429,80 @@ public class MainForm extends javax.swing.JFrame {
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         try {
-            Statement st = null;
-            st = conn.getConnect().createStatement();
-            ResultSet rs;
-            try {
-                rs = st.executeQuery("SELECT SUM(PRECIOCOMPRA*CANTIDAD) AS \"Importe de las Compras\" FROM "
-                        + "(COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) "
-                        + "INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE " +
-                        "cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996);");
+            ResultSet rs = conn.consulta2();
+            DefaultTableModel modelo = (DefaultTableModel) tabla2.getModel();
 
-                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-
-                while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getNString(1)});
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getString("Importe de las Compras")});
             }
+            JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+        conn.close();
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void btnBuscarProc3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc3MouseClicked
         try {
-            Statement st = null;
-            st = conn.getConnect().createStatement();
-            ResultSet rs;
-            try {
-                rs = st.executeQuery("SELECT SUM(PRECIOVENTA*CANTIDAD) AS \"Ventas en Madrid de Ducados\" " +
-                    "FROM  ((CIGARRILLO cig INNER JOIN ALMACEN al ON cig.IDCIGARRILLO=al.IDCIGARRILLO) INNER JOIN ESTANCO e ON e.NUMFISCAL = al.NUMFISCAL) " +
-                    "INNER JOIN VENTA v ON e.NUMFISCAL = v.NUMFISCAL " +
-                    "WHERE cig.MARCA = 'Ducados' AND e.PROVINCIA = 'Madrid';");
+            ResultSet rs = conn.consulta3();
+            DefaultTableModel modelo = (DefaultTableModel) tabla3.getModel();
 
-                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-
-                while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getNString(1)});
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getString("Venta en Madrid de Ducados")});
             }
+            JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+        conn.close();
     }//GEN-LAST:event_btnBuscarProc3MouseClicked
 
     private void btnBuscarProc4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc4MouseClicked
         try {
-            Statement st = null;
-            st = conn.getConnect().createStatement();
-            ResultSet rs;
-            try {
-                rs = st.executeQuery("SELECT DISTINCT cig.MARCA, CANTIDAD " +
-                                    "FROM CIGARRILLO cig " +
-                                    "INNER JOIN MANUFACTURA man " +
-                                    "ON cig.MARCA = man.MARCA " +
-                                    "INNER JOIN FABRICANTE fab " +
-                                    "ON fab.IDFABRICANTE = man.IDFABRICANTE " +
-                                    "INNER JOIN VENTA ven " +
-                                    "ON cig.IDCIGARRILLO = ven.IDCIGARRILLO " +
-                                    "WHERE (fab.PAIS = 'USA') AND ven.CANTIDAD = (SELECT MAX(v1.CANTIDAD) FROM VENTA v1);");
+            ResultSet rs = conn.consulta4();
+            DefaultTableModel modelo = (DefaultTableModel) tabla4.getModel();
 
-                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-
-                while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getNString(1)});
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getNString(1), rs.getNString(2)});
             }
+            JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+        conn.close();
     }//GEN-LAST:event_btnBuscarProc4MouseClicked
 
     private void btnBuscarProc5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc5MouseClicked
         try {
-            Statement st = null;
-            st = conn.getConnect().createStatement();
-            ResultSet rs;
-            try {
-                rs = st.executeQuery("SELECT SUM(PRECIOVENTA*CANTIDAD) AS \"Ingresos\" " +
-                    "FROM CIGARRILLO c INNER JOIN VENTA v ON c.IDCIGARRILLO = v.IDCIGARRILLO " +
-                    "WHERE v.FECHAV = '22-08-1995' AND c.MARCA = 'Winston';");
+            ResultSet rs = conn.consulta5();
+            DefaultTableModel modelo = (DefaultTableModel) tabla5.getModel();
 
-                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-
-                while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getNString(1)});
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getString("Ingresos")});
             }
+            JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+        conn.close();
     }//GEN-LAST:event_btnBuscarProc5MouseClicked
 
-    private void btnBuscaProc2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscaProc2MouseClicked
+    private void btnBuscarProc6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc6MouseClicked
         try {
-            Statement st = null;
-            st = conn.getConnect().createStatement();
-            ResultSet rs;
-            try {
-                rs = st.executeQuery("SELECT est.numFiscal, est.nombre FROM Estanco est INNER JOIN Almacen alm ON alm.numFiscal=est.numFiscal INNER JOIN CIGARRILLO cig ON alm.idCigarrillo=cig.idCigarrillo WHERE (cig.Marca != 'Winston' AND cig.mentolado = 0 AND cig.Marca = 'Celtas' AND cig.filtro = 0);");
+            ResultSet rs = conn.consulta6();
+            DefaultTableModel modelo = (DefaultTableModel) tabla5.getModel();
 
-                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-
-                while (rs.next()) {
-                    //modelo.addRow(new []{rs.getNString(1)});
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getNString(1), rs.getNString(2), 
+                                    rs.getNString(3), rs.getNString(4), rs.getNString(5),
+                                    rs.getNString(6),rs.getNString(7)});
             }
+            JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-    }//GEN-LAST:event_btnBuscaProc2MouseClicked
+        conn.close();
+    }//GEN-LAST:event_btnBuscarProc6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2617,11 +2566,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton agregarVentaBtn;
     private javax.swing.JButton agregarVentaBtn1;
     private javax.swing.JRadioButton almacenRd;
-    private javax.swing.JButton btnBuscaProc2;
     private javax.swing.JButton btnBuscarProc1;
     private javax.swing.JButton btnBuscarProc3;
     private javax.swing.JButton btnBuscarProc4;
     private javax.swing.JButton btnBuscarProc5;
+    private javax.swing.JButton btnBuscarProc6;
     private javax.swing.JSpinner cantidadCoSpn;
     private javax.swing.JSpinner cantidadCoSpnMod;
     private javax.swing.JSpinner cantidadVSpn;
@@ -2761,7 +2710,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2769,17 +2717,14 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTextField localEsTxt;
     private javax.swing.JTextField localEsTxtMod;
     private javax.swing.JRadioButton manufactureraRd;
@@ -2811,6 +2756,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JTable tabla1;
     private javax.swing.JTable tabla2;
+    private javax.swing.JTable tabla3;
+    private javax.swing.JTable tabla4;
+    private javax.swing.JTable tabla5;
+    private javax.swing.JTable tabla6;
     private javax.swing.ButtonGroup tablaEliminar;
     private javax.swing.JFrame updateAlmacen;
     private javax.swing.JFrame updateCigarrillo;
