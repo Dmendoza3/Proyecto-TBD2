@@ -4,7 +4,9 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 /**
@@ -16,11 +18,6 @@ import java.util.Arrays;
  * Clase Padre para los modelos de las entidades fuertes y debiles
 */
 public class  Conexion {
-    
-    /**
-     * direccion donde esta la base de datos del sistema de facturacion
-     */
-    private final String url = "./database/SistemaFacturacion.db";
     
     /**
      * Atributo para conectarte a la base de  datos
@@ -42,7 +39,6 @@ public class  Conexion {
     public Connection getConnect() {
         return connect;
     }
-    
     
     public void insert(String entidad){
         this.connect();
@@ -151,12 +147,32 @@ public class  Conexion {
         this.close();
     }
     
+    public ResultSet consulta1(){
+        try {
+            this.connect();
+            Statement st = connect.createStatement();
+            ResultSet rs;
+            try {
+                String query = "SELECT LANA.MANUFACTURA.MARCA, LANA.FABRICANTE.PAIS FROM LANA.MANUFACTURA INNER JOIN LANA.FABRICANTE ON LANA.MANUFACTURA.IDFABRICANTE=LANA.FABRICANTE.IDFABRICANTE WHERE LANA.FABRICANTE.PAIS='USA';;";
+                rs = st.executeQuery(query);
+                
+                return rs;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.close();
+        return null;
+    }
+    
     /**
      * Metodo que realiza la conexion a la base de datos.
      * Es obligatorio declararlo para realizar una consulata.
      * @return retorna un booleano para saber si se realizo la conecccion
     */
-    protected boolean connect(){
+    public boolean connect(){
         try {
             String user, pass;
             connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir123");
@@ -171,7 +187,7 @@ public class  Conexion {
      * Metodo para cerrar la conexion a la base de datos.
      * Es obligatiorio declararlo al finalizar la consulta
     */
-    protected void close (){
+    public void close (){
         try {
             connect.close();
         } catch (SQLException e) {
