@@ -153,7 +153,11 @@ public class  Conexion {
             Statement st = connect.createStatement();
             ResultSet rs;
             try {
-                String query = "SELECT LANA.MANUFACTURA.MARCA, LANA.FABRICANTE.PAIS FROM LANA.MANUFACTURA INNER JOIN LANA.FABRICANTE ON LANA.MANUFACTURA.IDFABRICANTE=LANA.FABRICANTE.IDFABRICANTE WHERE LANA.FABRICANTE.PAIS='USA'";
+                String query = "SELECT M.MARCA, F.PAIS " +
+                            "FROM MANUFACTURA M " +
+                            "INNER JOIN FABRICANTE F " +
+                            "ON M.IDFABRICANTE=F.IDFABRICANTE " +
+                            "WHERE F.PAIS='USA'";
                 rs = st.executeQuery(query);
 
                 return rs;
@@ -173,10 +177,10 @@ public class  Conexion {
             Statement st = connect.createStatement();
             ResultSet rs;
             try {
-                String query = "SELECT SUM(PRECIOCOMPRA*CANTIDAD) " + 
-                        "AS \"Importe de las Compras\" FROM (COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) \n" +
-                        "    INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE \n" +
-                        "cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996)";
+                String query = "SELECT SUM(PRECIOCOMPRA*CANTIDAD) AS \"Importe de las Compras\" " +
+                            "FROM (COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) " +
+                            "INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE " +
+                            "cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996)";
                 rs = st.executeQuery(query);
                 /*while(rs.next()){
                     System.out.println(rs.getString("MARCA"));
@@ -281,17 +285,21 @@ public class  Conexion {
         return null;
     }
     
-    public ResultSet consulta6(){
+    public ResultSet consulta9(){
         try {
             this.connect();
             Statement st = connect.createStatement();
             ResultSet rs;
             try {
-                String query = "ALTER TABLE CIGARRILLO " +
-                            "ADD COLUMN \"MED_CALIDAD\" NUMBER";
-                st.executeQuery(query);
+                String query = "SELECT * FROM (SELECT est.numFiscal, est.nombre " +
+                                "FROM Estanco est " +
+                                "INNER JOIN Almacen alm " +
+                                "ON alm.numFiscal=est.numFiscal " +
+                                "INNER JOIN CIGARRILLO cig " +
+                                "ON alm.idCigarrillo=cig.idCigarrillo " +
+                                "WHERE (cig.Marca != 'Winston' AND cig.mentolado = 0 AND cig.Marca = 'Celtas' AND cig.filtro = 0)) " +
+                                "WHERE ROWNUM = 1"; 
                 
-                query = "SELECT * FROM CIGARRILLO";
                 rs = st.executeQuery(query);
                 /*while(rs.next()){
                     System.out.println(rs.getString("MARCA"));

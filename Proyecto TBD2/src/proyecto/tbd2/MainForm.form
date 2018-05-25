@@ -2357,9 +2357,9 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                               <Component id="btnBuscarProc1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="133" max="32767" attributes="0"/>
+                              <EmptySpace pref="136" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="220" max="-2" attributes="0"/>
-                              <EmptySpace pref="17" max="32767" attributes="0"/>
+                              <EmptySpace pref="14" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2705,8 +2705,8 @@
                 <Container class="javax.swing.JPanel" name="jPanel9">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Consulta 6">
-                        <Property name="tabTitle" type="java.lang.String" value="Consulta 6"/>
+                      <JTabbedPaneConstraints tabName="Consulta 9">
+                        <Property name="tabTitle" type="java.lang.String" value="Consulta 9"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -2714,57 +2714,52 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="btnBuscarProc6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnBuscarProc9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" pref="395" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" pref="258" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnBuscarProc6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="223" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                              <Component id="btnBuscarProc9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="btnBuscarProc6">
+                    <Component class="javax.swing.JButton" name="btnBuscarProc9">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Buscar"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarProc6MouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarProc9MouseClicked"/>
                       </Events>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="tabla6">
+                        <Component class="javax.swing.JTable" name="tabla9">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="7" rowCount="0">
-                                <Column editable="true" title="Id cigarrillo" type="java.lang.Object"/>
-                                <Column editable="true" title="Contaminante" type="java.lang.Object"/>
-                                <Column editable="true" title="Filtro" type="java.lang.Object"/>
-                                <Column editable="true" title="Hoja" type="java.lang.Object"/>
-                                <Column editable="true" title="Mentolado" type="java.lang.Object"/>
-                                <Column editable="true" title="Marca" type="java.lang.Object"/>
-                                <Column editable="true" title="Med calidad" type="java.lang.Object"/>
+                              <Table columnCount="2" rowCount="0">
+                                <Column editable="true" title="Num Fiscal" type="java.lang.Object"/>
+                                <Column editable="true" title="Nombre" type="java.lang.Object"/>
                               </Table>
                             </Property>
                           </Properties>
