@@ -77,10 +77,11 @@ ALTER TABLE CIGARRILLO
 
 /*9th*/
 
-SELECT est.numFiscal, est.nombre
+SELECT * FROM (SELECT est.numFiscal, est.nombre
 FROM Estanco est
 INNER JOIN Almacen alm
 ON alm.numFiscal=est.numFiscal
 INNER JOIN CIGARRILLO cig
 ON alm.idCigarrillo=cig.idCigarrillo
-WHERE (cig.Marca != 'Winston' AND cig.mentolado = 0 AND cig.Marca = 'Celtas' AND cig.filtro = 0);
+WHERE (cig.Marca != 'Winston' AND cig.mentolado = 0 AND cig.Marca = 'Celtas' AND cig.filtro = 0))
+WHERE ROWNUM = 1;
