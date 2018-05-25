@@ -10,6 +10,7 @@ import Entidades.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.HeadlessException;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -2415,24 +2416,17 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnBuscarProc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProc1MouseClicked
         try {
-            conn.connect();
-            Statement st = conn.getConnect().createStatement();
-            ResultSet rs;
-            try {
-                rs = st.executeQuery("SELECT M.MARCA, F.PAIS FROM MANUFACTURA M INNER JOIN FABRICANTE F ON M.IDFABRICANTE=F.IDFABRICANTE WHERE F.PAIS='USA';");
+            ResultSet rs = conn.consulta1();
+            DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
 
-                DefaultTableModel modelo = (DefaultTableModel) tabla1.getModel();
-
-                while (rs.next()) {
-                    modelo.addRow(new Object[]{rs.getInt("MARCA"), rs.getInt("PAIS")});
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{rs.getInt("MARCA"), rs.getInt("PAIS")});
             }
-            conn.close();
+            JOptionPane.showMessageDialog(null, "Sucess!");
         } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+        conn.close();
     }//GEN-LAST:event_btnBuscarProc1MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
