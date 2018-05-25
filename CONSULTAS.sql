@@ -8,47 +8,58 @@ FROM MANUFACTURA man
 INNER JOIN FABRICANTE fab
 ON fab.IDFABRICANTE=man.IDFABRICANTE
 WHERE (fab.PAIS != 'Espa?a')
-Group by man.MARCA;
-
+Group by man.MARCA,
+        fab.PAIS;
 /*SEGUNDA CONSULTA
 	Obtener el valor de todas las compras realizadas por el estanco '11111' de la marca 'Camel'
 	desde el año 1996 hasta la fecha.
 */
 
-SELECT SUM(com.CANTIDAD)
-FROM COMPRA com
-INNER JOIN Cigarrillo cig
-ON cig.IDCIGARRILLO=com.IDCIGARRILLO
-WHERE (FECHAC >= to_date('1.1.' || 1996, 'DD.MM.YYYY')
-  		and com.NUMFISCAL='11111' and cig.MARCA='Camel');
+SELECT SUM(PRECIOCOMPRA*CANTIDAD) AS "Importe de las Compras"
+FROM (COMPRA c INNER JOIN CIGARRILLO cig ON c.IDCIGARRILLO=cig.IDCIGARRILLO) 
+    INNER JOIN ESTANCO e ON c.NUMFISCAL = e.NUMFISCAL WHERE 
+cig.Marca = 'Camel' AND e.NUMFISCAL = '11111' AND (EXTRACT(YEAR FROM c.FECHAC) >= 1996);
+
 
 /*3RA CONSULTA
 	Obtener el valor de todas las ventas de la marca 'Ducados' que han realizado los estancos de la
 	provincia de Madrid.
 
 */
-SELECT SUM(ven.PRECIOVENTA) FROM VENTA ven INNER JOIN Cigarrillo cig ON cig.IDCIGARRILLO=ven.IDCIGARRILLO INNER JOIN Manufactura man ON cig.MARCA=man.MARCA INNER JOIN ESTANCO est ON est.NUMFISCAL = ven.NUMFISCAL WHERE (cig.MARCA = 'Ducados' AND est.PROVINCIA = 'Madrid');
+SELECT SUM(ven.PRECIOVENTA*ven.CANTIDAD) AS "Venta en Madrid de Ducados"
+FROM VENTA ven
+INNER JOIN Cigarrillo cig
+ON cig.IDCIGARRILLO=ven.IDCIGARRILLO
+INNER JOIN Manufactura man ON
+cig.MARCA=man.MARCA
+INNER JOIN ESTANCO est
+ON est.NUMFISCAL = ven.NUMFISCAL
+WHERE (cig.MARCA = 'Ducados' AND est.PROVINCIA = 'Madrid');
 
 /*4TA CONSULTA
 	Obtener la marca de cigarrillos estadounidense que vende más
 	cigarrillos
 */
-SELECT cig.MARCA, MAX(ven.CANTIDAD)
-FROM CIGARRILLO cig
+SELECT * FROM (SELECT SUM(ven.CANTIDAD), cig.MARCA
+FROM VENTA ven
+INNER JOIN CIGARRILlO cig
+ON ven.IDCIGARRILLO = cig.IDCIGARRILLO
 INNER JOIN MANUFACTURA man
 ON cig.MARCA = man.MARCA
 INNER JOIN FABRICANTE fab
-ON fab.IDFABRICANTE = man.IDFABRICANTE
-INNER JOIN VENTA ven
-ON cig.IDCIGARRILLO = ven.IDCIGARRILLO
-WHERE (fab.PAIS = 'USA')
-GROUP BY cig.MARCA, ven.CANTIDAD
-ORDER BY ven.CANTIDAD DESC;
-
+ON man.IDFABRICANTE = fab.IDFABRICANTE
+WHERE(fab.PAIS = 'USA')
+GROUP BY cig.MARCA
+ORDER BY SUM(ven.CANTIDAD) desc) WHERE ROWNUM = 1;
 /*5th
 	Obtener los ingresos por ventas de la marca ‘winston’ el 22 de agosto de 1995
 */
-SELECT SUM(ven.PRECIOVENTA) FROM Cigarrillo cig INNER JOIN Venta ven ON cig.IDCIGARRILLO = ven.IDCIGARRILLO WHERE (ven.FECHAV = '1996-22-08' AND cig.Marca = 'Winston');
+SELECT SUM(ven.PRECIOVENTA*ven.CANTIDAD) AS "Ingresos"
+FROM CIGARRILLO cig
+INNER JOIN VENTA ven
+ON cig.IDCIGARRILLO = ven.IDCIGARRILLO
+WHERE ven.FECHAV = to_date('22.8.' || 1995, 'DD.MM.YYYY') AND cig.MARCA = 'Winston'
+GROUP BY ven.FECHAV;
 
 /*6th
 	
