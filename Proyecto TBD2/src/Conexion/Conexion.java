@@ -156,7 +156,7 @@ public class  Conexion {
      * Es obligatorio declararlo para realizar una consulata.
      * @return retorna un booleano para saber si se realizo la conecccion
     */
-    protected boolean connect(){
+    public boolean connect(){
         try {
             String user, pass;
             connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "LANA", "Samir1234");
@@ -171,7 +171,7 @@ public class  Conexion {
      * Metodo para cerrar la conexion a la base de datos.
      * Es obligatiorio declararlo al finalizar la consulta
     */
-    protected void close (){
+    public void close (){
         try {
             connect.close();
         } catch (SQLException e) {
