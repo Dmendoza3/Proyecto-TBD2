@@ -153,9 +153,11 @@ public class  Conexion {
             Statement st = connect.createStatement();
             ResultSet rs;
             try {
-                String query = "SELECT LANA.MANUFACTURA.MARCA, LANA.FABRICANTE.PAIS FROM LANA.MANUFACTURA INNER JOIN LANA.FABRICANTE ON LANA.MANUFACTURA.IDFABRICANTE=LANA.FABRICANTE.IDFABRICANTE WHERE LANA.FABRICANTE.PAIS='USA';;";
+                String query = "SELECT LANA.MANUFACTURA.MARCA, LANA.FABRICANTE.PAIS FROM LANA.MANUFACTURA INNER JOIN LANA.FABRICANTE ON LANA.MANUFACTURA.IDFABRICANTE=LANA.FABRICANTE.IDFABRICANTE WHERE LANA.FABRICANTE.PAIS='USA'";
                 rs = st.executeQuery(query);
-                
+                while(rs.next()){
+                    System.out.println(rs.getString("MARCA"));
+                }
                 return rs;
             } catch (SQLException ex) {
                 ex.printStackTrace();
