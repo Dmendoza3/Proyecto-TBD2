@@ -823,23 +823,6 @@ set define off;
 
 /
 --------------------------------------------------------
---  DDL for Procedure INCISO2
---------------------------------------------------------
-set define off;
-
-  CREATE OR REPLACE EDITIONABLE PROCEDURE "LANA"."INCISO2" AS
-    num NUMBER;
-BEGIN
-    SELECT SUM(ven.PRECIOVENTA)
-    INTO NUM
-    FROM Cigarrillo cig
-    INNER JOIN Venta ven
-    ON cig.IDCIGARRILLO = ven.IDCIGARRILLO
-    WHERE ven.FECHAV = '1996-22-08' AND cig.Marca = 'Winston';
-END INCISO2;
-
-/
---------------------------------------------------------
 --  DDL for Procedure INSERTALMACEN
 --------------------------------------------------------
 set define off;
@@ -969,22 +952,25 @@ cantidad (primer parametro de procedimiento), eliminando todas estas marcas en e
 cuyo NIF constituye el segundo parámetro del procedimiento.*/
 
  (amountp IN NUMBER, numestp IN VARCHAR2) AS --amountp es la cantidad mínima que ocupa y numestp es el numfiscal del estanco
+    cigarrilloIdp CIGARRILLO.IDCIGARRILLO%TYPE;
     marcaIdp CIGARRILLO.MARCA%TYPE;
     CURSOR ventas_menores IS
         SELECT cig.MARCA
         FROM CIGARRILLO cig
         INNER JOIN VENTA ven
         ON cig.IDCIGARRILLO = ven.IDCIGARRILLO
-        WHERE (ven.NUMVENTA < amountp) AND (ven.NUMFISCAL = numestp);
+        INNER JOIN ALMACEN alm
+        ON alm.IDCIGARRILLO = cig.IDCIGARRILLO
+        WHERE (ven.NUMVENTA < amountp) AND (ven.NUMFISCAL = numestp)
+        GROUP BY cig.MARCA;
 
         a_comment VARCHAR2(200) :='deleted: ';
  BEGIN
-    OPEN ventas_menores; 
-    LOOP
-        FETCH ventas_menores INTO marcaIdp;
-        EXIT WHEN ventas_menores%NOTFOUND;
+    OPEN ventas_menores;
+    FETCH ventas_menores INTO marcaIdp;
+        WHILE ventas_menores%FOUND LOOP
         DELETE FROM ALMACEN
-        WHERE marcaIdp = IDALMACEN;
+        WHERE cigarrilloIdp = IDCIGARRILLO;
         DBMS_OUTPUT.PUT_LINE(a_comment || amountp);
     END LOOP;
  END procVentas_Menores;
@@ -1059,23 +1045,3 @@ cuyo NIF constituye el segundo parámetro del procedimiento.*/
   TABLESPACE "USERS"  ENABLE;
   ALTER TABLE "LANA"."FABRICANTE" MODIFY ("IDFABRICANTE" NOT NULL ENABLE);
   ALTER TABLE "LANA"."FABRICANTE" MODIFY ("NOMBRE_FABRICANTE" NOT NULL ENABLE);
---------------------------------------------------------
---  Ref Constraints for Table ALMACEN
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."ALMACEN" ADD CONSTRAINT "FK_CIGALM" FOREIGN KEY ("IDCIGARRILLO")
-	  REFERENCES "LANA"."CIGARRILLO" ("IDCIGARRILLO") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table COMPRA
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."COMPRA" ADD CONSTRAINT "FK_NUMFISCAL" FOREIGN KEY ("NUMFISCAL")
-	  REFERENCES "LANA"."ESTANCO" ("NUMFISCAL") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table MANUFACTURA
---------------------------------------------------------
-
-  ALTER TABLE "LANA"."MANUFACTURA" ADD CONSTRAINT "FK_IDFABRICANTEMANUFACTURA" FOREIGN KEY ("IDFABRICANTE")
-	  REFERENCES "LANA"."FABRICANTE" ("IDFABRICANTE") ENABLE;
-  ALTER TABLE "LANA"."MANUFACTURA" ADD CONSTRAINT "FK_MANUCIGARRO" FOREIGN KEY ("MARCA")
-	  REFERENCES "LANA"."MANUFACTURA" ("MARCA") ENABLE;
